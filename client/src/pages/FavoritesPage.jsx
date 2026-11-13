@@ -66,7 +66,7 @@ export default function FavoritesPage() {
           <div className="space-y-1">
             <h3 className="font-bold text-sm text-white">No teams favorited yet</h3>
             <p className="text-xs text-slate-400 max-w-xs mx-auto">
-              Explore the 30 teams directory and bookmark your favorite teams to track them here!
+              Explore the teams directory and bookmark your favorite teams to track them here!
             </p>
           </div>
           <Link

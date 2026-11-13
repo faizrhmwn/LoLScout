@@ -55,7 +55,7 @@ export default function HomePage() {
             to="/teams"
             className="px-3 py-1.5 rounded bg-[#101722] hover:bg-[#162232] text-slate-300 border border-[#1b2533] text-xs font-mono font-semibold transition"
           >
-            All 30 Teams
+            All {teams.length > 0 ? teams.length : 50} Teams
           </Link>
         </div>
       </div>
@@ -67,7 +67,7 @@ export default function HomePage() {
           <div className="bg-[#0e151e] border border-[#1b2533] rounded-sm overflow-hidden">
             <div className="bg-[#0b1017] px-3 py-2 border-b border-[#1b2533] flex items-center justify-between text-xs font-mono font-bold">
               <span className="text-slate-300 uppercase tracking-wider">Recent Series & Finals Scoreboards</span>
-              <Link to="/matches" className="text-[#00bcd4] hover:underline text-[11px]">View All 54 Matches →</Link>
+              <Link to="/matches" className="text-[#00bcd4] hover:underline text-[11px]">View All {matches.length} Matches →</Link>
             </div>
 
             <div className="divide-y divide-[#17212f]">

@@ -53,29 +53,57 @@ const TOURNAMENTS = [
 ];
 
 const ALIASES = {
-  // LCK
+  // LCK (10)
   'T1': 'T1', 'Gen.G': 'GEN', 'Gen.G Esports': 'GEN', 'Hanwha Life Esports': 'HLE',
   'Dplus Kia': 'DK', 'Dplus KIA': 'DK', 'KT Rolster': 'KT', 'BNK FEARX': 'FOX',
-  'BNK FearX': 'FOX', 'FearX': 'FOX', 'Nongshim RedForce': 'NS', 'Kiwoom DRX': 'DRX',
-  'DRX': 'DRX', 'HANJIN BRION': 'BRO', 'Hanjin Brion': 'BRO', 'OKSavingsBank BRION': 'BRO',
+  'BNK FearX': 'FOX', 'FearX': 'FOX', 'Nongshim RedForce': 'NS', 'Nongshim': 'NS',
+  'Kiwoom DRX': 'DRX', 'DRX': 'DRX', 'HANJIN BRION': 'BRO', 'Hanjin Brion': 'BRO',
+  'OKSavingsBank BRION': 'BRO', 'Brion': 'BRO', 'OK BRION': 'BRO',
   'DN SOOPers': 'DNS', 'DN Freecs': 'DNS', 'Kwangdong Freecs': 'DNS',
-  // LPL
+
+  // LPL (14)
   "Anyone's Legend": 'AL', 'Bilibili Gaming': 'BLG', 'Top Esports': 'TES',
   'JD Gaming': 'JDG', 'Invictus Gaming': 'IG', 'Team WE': 'WE',
-  // LEC
+  'Weibo Gaming': 'WBG', 'WBG': 'WBG', 'Weibo Gaming TapTap': 'WBG',
+  'LNG Esports': 'LNG', 'LNG': 'LNG',
+  'Ninjas in Pyjamas.CN': 'NIP', 'Ninjas in Pyjamas': 'NIP', 'NIP': 'NIP',
+  'EDward Gaming': 'EDG', 'EDG': 'EDG', 'Edward Gaming': 'EDG',
+  'Oh My God': 'OMG', 'OMG': 'OMG',
+  'ThunderTalk Gaming': 'TT', 'TT': 'TT', 'TT Gaming': 'TT',
+  'LGD Gaming': 'LGD', 'LGD': 'LGD',
+  'Ultra Prime': 'UP', 'UP': 'UP',
+
+  // LEC (10)
   'G2 Esports': 'G2', 'Fnatic': 'FNC', 'Karmine Corp': 'KC', 'Movistar KOI': 'MKOI',
   'Team Vitality': 'VIT', 'Natus Vincere': 'NAVI',
-  // LCS
+  'Team Heretics': 'TH', 'Heretics': 'TH', 'TH': 'TH',
+  'SK Gaming': 'SK', 'SK': 'SK',
+  'GIANTX': 'GX', 'GiantX': 'GX', 'GX': 'GX',
+  'Team BDS': 'BDS', 'BDS': 'BDS', 'Shifters': 'BDS',
+  'Los Ratones': 'KC', 'Karmine Corp Blue': 'KC',
+
+  // LCS (8)
   'Team Liquid': 'TL', 'Team Liquid Alienware': 'TL', 'Cloud9': 'C9',
   'Cloud9 KIA': 'C9', 'FlyQuest': 'FLY', 'Shopify Rebellion': 'SR',
   'Sentinels': 'SEN', 'LYON': 'LYON', 'LYON (2024 American Team)': 'LYON',
-  // CBLOL
+  'Dignitas': 'DIG', 'DIG': 'DIG',
+  '100 Thieves': '100T', '100T': '100T', 'Disguised': '100T',
+
+  // CBLOL (8)
   'LOUD': 'LLL', 'FURIA': 'FUR', 'RED Canids': 'RED', 'RED Canids Kalunga': 'RED',
-  'LOS': 'LOS', 'Los Grandes': 'LOS', 'Keyd Stars': 'VKS', 'Vivo Keyd Stars': 'VKS',
-  'paiN Gaming': 'PNG',
+  'LOS': 'LOS', 'Los Grandes': 'LOS', 'LØS': 'LOS',
+  'Keyd Stars': 'VKS', 'Vivo Keyd Stars': 'VKS', 'paiN Gaming': 'PNG',
+  'Fluxo': 'FX', 'Fluxo W7M': 'FX', 'FX': 'FX',
+  'INTZ': 'ITZ', 'ITZ': 'ITZ', 'Leviatan': 'ITZ',
+
+  // International
+  'Team Secret Whales': 'TSW', 'TSW': 'TSW',
+  'CTBC Flying Oyster': 'CFO', 'CFO': 'CFO',
+  'Deep Cross Gaming': 'DCG', 'DCG': 'DCG',
 };
 
 const ROSTERS = {
+  // LCK
   GEN: [{ign:'Kiin',role:'Top'},{ign:'Canyon',role:'Jungle'},{ign:'Chovy',role:'Mid'},{ign:'Ruler',role:'ADC'},{ign:'Duro',role:'Support'}],
   HLE: [{ign:'Zeus',role:'Top'},{ign:'Kanavi',role:'Jungle'},{ign:'Zeka',role:'Mid'},{ign:'Gumayusi',role:'ADC'},{ign:'Delight',role:'Support'}],
   T1:  [{ign:'Doran',role:'Top'},{ign:'Oner',role:'Jungle'},{ign:'Faker',role:'Mid'},{ign:'Peyz',role:'ADC'},{ign:'Keria',role:'Support'}],
@@ -86,30 +114,54 @@ const ROSTERS = {
   DRX: [{ign:'DuDu',role:'Top'},{ign:'Pyosik',role:'Jungle'},{ign:'Ucal',role:'Mid'},{ign:'deokdam',role:'ADC'},{ign:'Peter',role:'Support'}],
   BRO: [{ign:'Casting',role:'Top'},{ign:'GIDEON',role:'Jungle'},{ign:'Roamer',role:'Mid'},{ign:'Teddy',role:'ADC'},{ign:'Namgung',role:'Support'}],
   DNS: [{ign:'Rich',role:'Top'},{ign:'Sharvel',role:'Jungle'},{ign:'Clozer2',role:'Mid'},{ign:'Jiwoo2',role:'ADC'},{ign:'Life',role:'Support'}],
-  AL:  [{ign:'Breathe',role:'Top'},{ign:'Tarzan',role:'Jungle'},{ign:'Shanks',role:'Mid'},{ign:'Hope',role:'ADC'},{ign:'Kael',role:'Support'}],
-  TES: [{ign:'369',role:'Top'},{ign:'Jiejie',role:'Jungle'},{ign:'Rookie',role:'Mid'},{ign:'Jackeylove',role:'ADC'},{ign:'Mark',role:'Support'}],
-  IG:  [{ign:'Flandre',role:'Top'},{ign:'Leyan',role:'Jungle'},{ign:'Cryin',role:'Mid'},{ign:'GALA',role:'ADC'},{ign:'Meiko',role:'Support'}],
-  WE:  [{ign:'Cube',role:'Top'},{ign:'Heng',role:'Jungle'},{ign:'Shanks2',role:'Mid'},{ign:'Elk',role:'ADC'},{ign:'Iwandy',role:'Support'}],
-  JDG: [{ign:'Ale',role:'Top'},{ign:'Kanavi2',role:'Jungle'},{ign:'Knight',role:'Mid'},{ign:'Ruler2',role:'ADC'},{ign:'Missing',role:'Support'}],
-  BLG: [{ign:'Bin',role:'Top'},{ign:'Wei',role:'Jungle'},{ign:'Knight2',role:'Mid'},{ign:'Elk2',role:'ADC'},{ign:'ON',role:'Support'}],
-  KC:   [{ign:'Photon',role:'Top'},{ign:'Closer',role:'Jungle'},{ign:'Nuc',role:'Mid'},{ign:'Caliste',role:'ADC'},{ign:'Hylissang',role:'Support'}],
+  // LPL
+  AL:   [{ign:'Breathe',role:'Top'},{ign:'Tarzan',role:'Jungle'},{ign:'Shanks',role:'Mid'},{ign:'Hope',role:'ADC'},{ign:'Kael',role:'Support'}],
+  TES:  [{ign:'369',role:'Top'},{ign:'Jiejie',role:'Jungle'},{ign:'Rookie',role:'Mid'},{ign:'JackeyLove',role:'ADC'},{ign:'Mark',role:'Support'}],
+  IG:   [{ign:'Flandre',role:'Top'},{ign:'Leyan',role:'Jungle'},{ign:'Cryin',role:'Mid'},{ign:'GALA',role:'ADC'},{ign:'Meiko',role:'Support'}],
+  WE:   [{ign:'Cube',role:'Top'},{ign:'Heng',role:'Jungle'},{ign:'FoFo',role:'Mid'},{ign:'LP',role:'ADC'},{ign:'Iwandy',role:'Support'}],
+  JDG:  [{ign:'Ale',role:'Top'},{ign:'Kanavi',role:'Jungle'},{ign:'Knight',role:'Mid'},{ign:'Ruler',role:'ADC'},{ign:'Missing',role:'Support'}],
+  BLG:  [{ign:'Bin',role:'Top'},{ign:'Wei',role:'Jungle'},{ign:'Knight',role:'Mid'},{ign:'Elk',role:'ADC'},{ign:'ON',role:'Support'}],
+  WBG:  [{ign:'Breathe',role:'Top'},{ign:'Tarzan',role:'Jungle'},{ign:'Xiaohu',role:'Mid'},{ign:'Light',role:'ADC'},{ign:'Crisp',role:'Support'}],
+  LNG:  [{ign:'Zika',role:'Top'},{ign:'Weiwei',role:'Jungle'},{ign:'Scout',role:'Mid'},{ign:'GALA',role:'ADC'},{ign:'Hang',role:'Support'}],
+  NIP:  [{ign:'Shanji',role:'Top'},{ign:'Aki',role:'Jungle'},{ign:'Rookie',role:'Mid'},{ign:'Photic',role:'ADC'},{ign:'Zhuo',role:'Support'}],
+  EDG:  [{ign:'Ale',role:'Top'},{ign:'Jiejie',role:'Jungle'},{ign:'Fisher',role:'Mid'},{ign:'Leave',role:'ADC'},{ign:'Meiko',role:'Support'}],
+  OMG:  [{ign:'Hery',role:'Top'},{ign:'Xiaohao',role:'Jungle'},{ign:'Angel',role:'Mid'},{ign:'Able',role:'ADC'},{ign:'ppgod',role:'Support'}],
+  TT:   [{ign:'HOYA',role:'Top'},{ign:'Beichuan',role:'Jungle'},{ign:'ucal',role:'Mid'},{ign:'1x',role:'ADC'},{ign:'Feather',role:'Support'}],
+  LGD:  [{ign:'Burdol',role:'Top'},{ign:'Meteor',role:'Jungle'},{ign:'haichao',role:'Mid'},{ign:'Shaoye',role:'ADC'},{ign:'Jinjiao',role:'Support'}],
+  UP:   [{ign:'Decade',role:'Top'},{ign:'H4cker',role:'Jungle'},{ign:'Yuekai',role:'Mid'},{ign:'Doggo',role:'ADC'},{ign:'Baolan',role:'Support'}],
+  // LEC
+  KC:   [{ign:'Photon',role:'Top'},{ign:'Closer',role:'Jungle'},{ign:'Nuc',role:'Mid'},{ign:'Caliste',role:'ADC'},{ign:'Targamas',role:'Support'}],
   G2:   [{ign:'BrokenBlade',role:'Top'},{ign:'Yike',role:'Jungle'},{ign:'Caps',role:'Mid'},{ign:'Hans Sama',role:'ADC'},{ign:'Mikyx',role:'Support'}],
-  MKOI: [{ign:'Szygenda',role:'Top'},{ign:'Elyoya',role:'Jungle'},{ign:'Larssen',role:'Mid'},{ign:'Comp',role:'ADC'},{ign:'Trymbi',role:'Support'}],
-  FNC:  [{ign:'Oscarinin',role:'Top'},{ign:'Razork',role:'Jungle'},{ign:'Humanoid',role:'Mid'},{ign:'Rekkles',role:'ADC'},{ign:'Jun',role:'Support'}],
-  VIT:  [{ign:'Myrwi',role:'Top'},{ign:'Daglas',role:'Jungle'},{ign:'Vetheo',role:'Mid'},{ign:'Neon',role:'ADC'},{ign:'Labrov',role:'Support'}],
+  MKOI: [{ign:'Szygenda',role:'Top'},{ign:'Elyoya',role:'Jungle'},{ign:'Larssen',role:'Mid'},{ign:'Supa',role:'ADC'},{ign:'Alvaro',role:'Support'}],
+  FNC:  [{ign:'Oscarinin',role:'Top'},{ign:'Razork',role:'Jungle'},{ign:'Humanoid',role:'Mid'},{ign:'Noah',role:'ADC'},{ign:'Jun',role:'Support'}],
+  VIT:  [{ign:'Photon',role:'Top'},{ign:'Lyncas',role:'Jungle'},{ign:'Vetheo',role:'Mid'},{ign:'Carzzy',role:'ADC'},{ign:'Hylissang',role:'Support'}],
   NAVI: [{ign:'Odoamne',role:'Top'},{ign:'Jankos',role:'Jungle'},{ign:'Nemesis',role:'Mid'},{ign:'Upset',role:'ADC'},{ign:'Vulcan',role:'Support'}],
-  TL:   [{ign:'Bwipo',role:'Top'},{ign:'Spica',role:'Jungle'},{ign:'APA',role:'Mid'},{ign:'Berserker',role:'ADC'},{ign:'CoreJJ',role:'Support'}],
+  TH:   [{ign:'Wunder',role:'Top'},{ign:'Jankos',role:'Jungle'},{ign:'Zwyroo',role:'Mid'},{ign:'Flakked',role:'ADC'},{ign:'Trymbi',role:'Support'}],
+  SK:   [{ign:'Irrelevant',role:'Top'},{ign:'ISMA',role:'Jungle'},{ign:'Nisqy',role:'Mid'},{ign:'Rahel',role:'ADC'},{ign:'Luon',role:'Support'}],
+  GX:   [{ign:'Thsli',role:'Top'},{ign:'Peach',role:'Jungle'},{ign:'Jackies',role:'Mid'},{ign:'Patrik',role:'ADC'},{ign:'Ignar',role:'Support'}],
+  BDS:  [{ign:'Adam',role:'Top'},{ign:'Sheo',role:'Jungle'},{ign:'nuc',role:'Mid'},{ign:'Ice',role:'ADC'},{ign:'Labrov',role:'Support'}],
+  // LCS
+  TL:   [{ign:'Impact',role:'Top'},{ign:'UmTi',role:'Jungle'},{ign:'APA',role:'Mid'},{ign:'Yeon',role:'ADC'},{ign:'CoreJJ',role:'Support'}],
   LYON: [{ign:'Licorice',role:'Top'},{ign:'Inspired',role:'Jungle'},{ign:'Palafox',role:'Mid'},{ign:'FBI',role:'ADC'},{ign:'Saint',role:'Support'}],
-  C9:   [{ign:'Fudge',role:'Top'},{ign:'Blaber',role:'Jungle'},{ign:'Jensen',role:'Mid'},{ign:'Zven',role:'ADC'},{ign:'Vulcan2',role:'Support'}],
-  SEN:  [{ign:'Dhokla',role:'Top'},{ign:'Meteos',role:'Jungle'},{ign:'Hai',role:'Mid'},{ign:'Bang',role:'ADC'},{ign:'Zeyzal',role:'Support'}],
-  SR:   [{ign:'Solo',role:'Top'},{ign:'Contractz',role:'Jungle'},{ign:'PowerOfEvil',role:'Mid'},{ign:'Tactical',role:'ADC'},{ign:'Ignar',role:'Support'}],
-  FLY:  [{ign:'Impact',role:'Top'},{ign:'Josedeodo',role:'Jungle'},{ign:'toucouille',role:'Mid'},{ign:'Prince',role:'ADC'},{ign:'LaneSky',role:'Support'}],
-  LLL: [{ign:'Bull',role:'Top'},{ign:'Ranger',role:'Jungle'},{ign:'tinowns',role:'Mid'},{ign:'Robo',role:'ADC'},{ign:'RedBert',role:'Support'}],
-  VKS: [{ign:'Envy',role:'Top'},{ign:'Aegis',role:'Jungle'},{ign:'Avenger',role:'Mid'},{ign:'Route',role:'ADC'},{ign:'Jojo',role:'Support'}],
-  RED: [{ign:'Guigo',role:'Top'},{ign:'Aegis2',role:'Jungle'},{ign:'Tutsz',role:'Mid'},{ign:'Netuno',role:'ADC'},{ign:'RedBert2',role:'Support'}],
-  LOS: [{ign:'Paz',role:'Top'},{ign:'Jz',role:'Jungle'},{ign:'Atilla',role:'Mid'},{ign:'Titan',role:'ADC'},{ign:'Rhino',role:'Support'}],
-  FUR: [{ign:'Tatu',role:'Top'},{ign:'Grevthar',role:'Jungle'},{ign:'Auaz',role:'Mid'},{ign:'Ayu',role:'ADC'},{ign:'Damage',role:'Support'}],
-  PNG: [{ign:'dyNquedo',role:'Top'},{ign:'Cariok',role:'Jungle'},{ign:'brTT',role:'Mid'},{ign:'Luci',role:'ADC'},{ign:'Layth',role:'Support'}],
+  C9:   [{ign:'Thanatos',role:'Top'},{ign:'Blaber',role:'Jungle'},{ign:'Jojopyun',role:'Mid'},{ign:'Berserker',role:'ADC'},{ign:'Vulcan',role:'Support'}],
+  SEN:  [{ign:'Dhokla',role:'Top'},{ign:'Contractz',role:'Jungle'},{ign:'Palafox',role:'Mid'},{ign:'Lugwit',role:'ADC'},{ign:'Poome',role:'Support'}],
+  SR:   [{ign:'Bwipo',role:'Top'},{ign:'Bugmlx',role:'Jungle'},{ign:'Insanity',role:'Mid'},{ign:'Bvoy',role:'ADC'},{ign:'Zeyzal',role:'Support'}],
+  FLY:  [{ign:'Bwipo',role:'Top'},{ign:'Inspired',role:'Jungle'},{ign:'Jensen',role:'Mid'},{ign:'Massu',role:'ADC'},{ign:'Busio',role:'Support'}],
+  '100T':[{ign:'Sniper',role:'Top'},{ign:'River',role:'Jungle'},{ign:'Quid',role:'Mid'},{ign:'Meech',role:'ADC'},{ign:'Eyla',role:'Support'}],
+  DIG:  [{ign:'Rich',role:'Top'},{ign:'Spica',role:'Jungle'},{ign:'Dove',role:'Mid'},{ign:'Tomo',role:'ADC'},{ign:'Isles',role:'Support'}],
+  // CBLOL
+  LLL: [{ign:'Robo',role:'Top'},{ign:'Croc',role:'Jungle'},{ign:'tinowns',role:'Mid'},{ign:'Route',role:'ADC'},{ign:'RedBert',role:'Support'}],
+  VKS: [{ign:'Guigo',role:'Top'},{ign:'Disamis',role:'Jungle'},{ign:'Leleko',role:'Mid'},{ign:'SMILEY',role:'ADC'},{ign:'ProDelta',role:'Support'}],
+  RED: [{ign:'fNb',role:'Top'},{ign:'Aegis',role:'Jungle'},{ign:'Grevthar',role:'Mid'},{ign:'Brance',role:'ADC'},{ign:'Jojo',role:'Support'}],
+  LOS: [{ign:'SuperCleber',role:'Top'},{ign:'Seize',role:'Jungle'},{ign:'envy',role:'Mid'},{ign:'Netuno',role:'ADC'},{ign:'Kabbie',role:'Support'}],
+  FUR: [{ign:'Zest',role:'Top'},{ign:'Tatu',role:'Jungle'},{ign:'Tutsz',role:'Mid'},{ign:'Ayu',role:'ADC'},{ign:'Zay',role:'Support'}],
+  PNG: [{ign:'Wizer',role:'Top'},{ign:'Cariok',role:'Jungle'},{ign:'dyNquedo',role:'Mid'},{ign:'TitaN',role:'ADC'},{ign:'Kuri',role:'Support'}],
+  FX:  [{ign:'Kiwis',role:'Top'},{ign:'Wiz',role:'Jungle'},{ign:'Fuu',role:'Mid'},{ign:'Kojian',role:'ADC'},{ign:'Scuro',role:'Support'}],
+  ITZ: [{ign:'Yampi',role:'Top'},{ign:'Envy',role:'Jungle'},{ign:'NOsFerus',role:'Mid'},{ign:'NinjaKiwi',role:'ADC'},{ign:'Damage',role:'Support'}],
+  // International seeds
+  TSW: [{ign:'Hiro02',role:'Top'},{ign:'BeanJ',role:'Jungle'},{ign:'Aress',role:'Mid'},{ign:'Eddie',role:'ADC'},{ign:'Taki',role:'Support'}],
+  CFO: [{ign:'Rest',role:'Top'},{ign:'Karsa',role:'Jungle'},{ign:'Gori',role:'Mid'},{ign:'Shunn',role:'ADC'},{ign:'SwordArt',role:'Support'}],
+  DCG: [{ign:'Taco',role:'Top'},{ign:'665',role:'Jungle'},{ign:'Cryscata',role:'Mid'},{ign:'Feng',role:'ADC'},{ign:'Woody',role:'Support'}],
 };
 
 async function fetchTournamentWithRetry(tName) {
@@ -147,7 +199,7 @@ async function fetchTournamentWithRetry(tName) {
       const games = res.cargoquery?.map(g => g.title) || [];
       console.log(`    Downloaded ${games.length} games for ${tName}`);
       fs.writeFileSync(cachePath, JSON.stringify(games, null, 2), 'utf8');
-      await delay(2500); // polite delay
+      await delay(2500);
       return games;
     } catch (err) {
       console.warn(`    Attempt ${attempts} failed: ${err.message}. Retrying...`);
@@ -168,14 +220,20 @@ function formatDuration(numMinutes) {
 }
 
 async function run() {
-  console.log('=== REAL PRO PLAY MATCH SYNCHRONIZER 2026 ===\n');
+  console.log('=== REAL PRO PLAY MATCH SYNCHRONIZER 2026 (ALL 53 TEAMS) ===\n');
 
   // Load all teams from DB
-  const { data: dbTeams } = await supabase.from('teams').select('id,short_name,name,region');
+  const { data: dbTeams, error: teamsErr } = await supabase.from('teams').select('id,short_name,name,region');
+  if (teamsErr || !dbTeams) {
+    console.error('Failed to load teams from Supabase:', teamsErr);
+    return;
+  }
   const codeToId = {};
   dbTeams.forEach(t => { codeToId[t.short_name] = t.id; });
+  console.log(`Loaded ${dbTeams.length} teams from Supabase DB.`);
 
   const allRealMatches = [];
+  let skippedMatches = 0;
 
   for (const t of TOURNAMENTS) {
     const rawGames = await fetchTournamentWithRetry(t.name);
@@ -194,8 +252,14 @@ async function run() {
       const t1Code = ALIASES[g0.Team1];
       const t2Code = ALIASES[g0.Team2];
 
-      // We only insert matches where both teams exist in our 34 teams database
       if (!t1Code || !t2Code || !codeToId[t1Code] || !codeToId[t2Code]) {
+        skippedMatches++;
+        continue;
+      }
+
+      // Avoid self-play if aliases mapped to same team
+      if (t1Code === t2Code) {
+        skippedMatches++;
         continue;
       }
 
@@ -213,7 +277,7 @@ async function run() {
         const t1Bans = gm.Team1Bans ? gm.Team1Bans.split(',').map(s=>s.trim()).filter(Boolean) : [];
         const t2Bans = gm.Team2Bans ? gm.Team2Bans.split(',').map(s=>s.trim()).filter(Boolean) : [];
 
-        // Ensure 5 picks per team
+        // Ensure exactly 5 picks per team
         while (t1Picks.length < 5) t1Picks.push(`Champ_${t1Picks.length}`);
         while (t2Picks.length < 5) t2Picks.push(`Champ_${t2Picks.length}`);
 
@@ -287,9 +351,9 @@ async function run() {
   }
 
   console.log(`\n========================================`);
-  console.log(`Total REAL matches parsed: ${allRealMatches.length}`);
+  console.log(`Total REAL matches parsed: ${allRealMatches.length} (Skipped: ${skippedMatches})`);
 
-  // Save full backup to disk
+  // Save backup to disk
   fs.writeFileSync('real_2026_matches_backup.json', JSON.stringify(allRealMatches, null, 2), 'utf8');
   console.log('Saved all real matches to real_2026_matches_backup.json');
 
@@ -300,16 +364,16 @@ async function run() {
   if (currentMatches?.length) {
     console.log(`  Deleting ${currentMatches.length} existing matches...`);
     const ids = currentMatches.map(m => m.id);
-    for (let i = 0; i < ids.length; i += 50) {
-      await supabase.from('matches').delete().in('id', ids.slice(i, i + 50));
+    for (let i = 0; i < ids.length; i += 100) {
+      await supabase.from('matches').delete().in('id', ids.slice(i, i + 100));
     }
   }
 
-  // Insert in batches of 10
+  // Insert in batches of 20
   console.log(`  Inserting ${allRealMatches.length} real matches to Supabase...`);
   let inserted = 0;
-  for (let i = 0; i < allRealMatches.length; i += 10) {
-    const batch = allRealMatches.slice(i, i + 10);
+  for (let i = 0; i < allRealMatches.length; i += 20) {
+    const batch = allRealMatches.slice(i, i + 20);
     const { data, error } = await supabase.from('matches').insert(batch).select('id');
     if (error) {
       console.error(`    Batch ${i} error:`, error.message);
