@@ -79,7 +79,7 @@ const ALIASES = {
   'Team Heretics': 'TH', 'Heretics': 'TH', 'TH': 'TH',
   'SK Gaming': 'SK', 'SK': 'SK',
   'GIANTX': 'GX', 'GiantX': 'GX', 'GX': 'GX',
-  'Team BDS': 'BDS', 'BDS': 'BDS', 'Shifters': 'BDS',
+  'Team BDS': 'SHF', 'BDS': 'SHF', 'Shifters': 'SHF',
   'Los Ratones': 'KC', 'Karmine Corp Blue': 'KC',
 
   // LCS (8)
@@ -139,7 +139,7 @@ const ROSTERS = {
   TH:   [{ign:'Tracyn',role:'Top'},{ign:'Sheo',role:'Jungle'},{ign:'Serin',role:'Mid'},{ign:'Ice',role:'ADC'},{ign:'Way',role:'Support'}],
   SK:   [{ign:'Wunder',role:'Top'},{ign:'Skeanz',role:'Jungle'},{ign:'LIDER',role:'Mid'},{ign:'Jopa',role:'ADC'},{ign:'Mikyx',role:'Support'}],
   GX:   [{ign:'Lot',role:'Top'},{ign:'ISMA',role:'Jungle'},{ign:'Jackies',role:'Mid'},{ign:'Noah',role:'ADC'},{ign:'Jun',role:'Support'}],
-  BDS:  [{ign:'Rooster',role:'Top'},{ign:'Boukada',role:'Jungle'},{ign:'nuc',role:'Mid'},{ign:'Paduck',role:'ADC'},{ign:'Trymbi',role:'Support'}],
+  SHF:  [{ign:'Rooster',role:'Top'},{ign:'Boukada',role:'Jungle'},{ign:'nuc',role:'Mid'},{ign:'Paduck',role:'ADC'},{ign:'Trymbi',role:'Support'}],
   // LCS
   TL:   [{ign:'Morgan',role:'Top'},{ign:'Josedeodo',role:'Jungle'},{ign:'Quid',role:'Mid'},{ign:'Yeon',role:'ADC'},{ign:'CoreJJ',role:'Support'}],
   LYON: [{ign:'Dhokla',role:'Top'},{ign:'Inspired',role:'Jungle'},{ign:'Saint',role:'Mid'},{ign:'Berserker',role:'ADC'},{ign:'Isles',role:'Support'}],
