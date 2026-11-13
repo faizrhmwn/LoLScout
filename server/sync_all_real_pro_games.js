@@ -1,4 +1,4 @@
-// sync_all_real_pro_games.js
+﻿// sync_all_real_pro_games.js
 import fs from 'fs';
 import path from 'path';
 import { createClient } from '@supabase/supabase-js';
@@ -91,7 +91,7 @@ const ALIASES = {
 
   // CBLOL (8)
   'LOUD': 'LLL', 'FURIA': 'FUR', 'RED Canids': 'RED', 'RED Canids Kalunga': 'RED',
-  'LOS': 'LOS', 'Los Grandes': 'LOS', 'LØS': 'LOS',
+  'LOS': 'LOS', 'Los Grandes': 'LOS', 'LÃ˜S': 'LOS',
   'Keyd Stars': 'VKS', 'Vivo Keyd Stars': 'VKS', 'paiN Gaming': 'PNG',
   'Fluxo': 'FX', 'Fluxo W7M': 'FX', 'FX': 'FX',
   'INTZ': 'LEV', 'ITZ': 'LEV', 'Leviatan': 'LEV',
@@ -301,7 +301,7 @@ async function run() {
         const rawVod = gm.VOD || '';
         const vodUrl = (rawVod.startsWith('http') && rawVod.includes('watch?v='))
           ? rawVod
-          : 'https://www.youtube.com/watch?v=kS73pMPn0xc';
+          : 'https://www.youtube.com/watch?v=IpiQSz1RLkQ';
 
         formattedGames.push({
           game_num: idx + 1,
@@ -330,7 +330,7 @@ async function run() {
 
       const matchDate = (g0['DateTime UTC'] || '2026-06-01').replace(' ', 'T') + '+00:00';
       const isBo5 = mGames.length > 3 || (t1Score === 3 || t2Score === 3);
-      const matchVod = formattedGames[0]?.vod_url || 'https://www.youtube.com/watch?v=kS73pMPn0xc';
+      const matchVod = formattedGames[0]?.vod_url || 'https://www.youtube.com/watch?v=IpiQSz1RLkQ';
       const winningRoster = t1Score > t2Score ? ROSTERS[t1Code] : ROSTERS[t2Code];
       const mvp = winningRoster ? winningRoster[Math.floor(Math.random() * winningRoster.length)].ign : 'MVP';
 
@@ -404,3 +404,4 @@ async function run() {
 }
 
 run();
+
