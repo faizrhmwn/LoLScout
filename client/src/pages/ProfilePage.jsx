@@ -1,125 +1,148 @@
 import React, { useState, useEffect } from 'react'
-import { ShieldCheck, Download, Database, Server, Smartphone, CheckCircle2 } from 'lucide-react'
+import { ShieldCheck, Download, Database, Server, Smartphone, CheckCircle2, User, Cpu } from 'lucide-react'
+import PwaInstallModal from '../components/PwaInstallModal'
 
 export default function ProfilePage() {
   const [deferredPrompt, setDeferredPrompt] = useState(null)
   const [isInstalled, setIsInstalled] = useState(false)
+  const [showModal, setShowModal] = useState(false)
 
   useEffect(() => {
-    window.addEventListener('beforeinstallprompt', (e) => {
+    const handleBeforeInstall = (e) => {
       e.preventDefault()
       setDeferredPrompt(e)
-    })
+    }
 
-    if (window.matchMedia('(display-mode: standalone)').matches) {
+    window.addEventListener('beforeinstallprompt', handleBeforeInstall)
+
+    if (window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone === true) {
       setIsInstalled(true)
+    }
+
+    return () => {
+      window.removeEventListener('beforeinstallprompt', handleBeforeInstall)
     }
   }, [])
 
-  async function handleInstall() {
-    if (!deferredPrompt) {
-      alert('PWA already installed or browser install prompt is not available. You can add to home screen via browser menu.')
-      return
+  function handleInstallClick() {
+    if (deferredPrompt) {
+      deferredPrompt.prompt()
+      deferredPrompt.userChoice.then((choice) => {
+        if (choice.outcome === 'accepted') {
+          setIsInstalled(true)
+        }
+        setDeferredPrompt(null)
+      })
+    } else {
+      setShowModal(true)
     }
-    deferredPrompt.prompt()
-    const { outcome } = await deferredPrompt.userChoice
-    if (outcome === 'accepted') {
-      setIsInstalled(true)
-    }
-    setDeferredPrompt(null)
   }
 
   return (
-    <div className="pb-24 pt-3 px-2 sm:px-4 max-w-4xl mx-auto space-y-3 font-sans text-slate-200">
-      {/* Top Header */}
-      <div className="bg-[#101722] border border-[#1b2533] p-3 rounded-sm flex items-center justify-between">
+    <div className="pb-28 pt-4 px-4 sm:px-6 max-w-4xl mx-auto space-y-5">
+      {/* Top Banner Header */}
+      <div className="p-5 rounded-2xl bg-[#111827] border border-[#1e293b] flex flex-col sm:flex-row sm:items-center justify-between gap-3 shadow-sm">
         <div>
-          <h1 className="text-sm font-mono font-bold text-white uppercase tracking-wider">
-            LoLScout Developer & System Profile
+          <span className="text-[11px] font-semibold tracking-wider text-slate-400 uppercase">
+            Identitas Mahasiswa & Sistem
+          </span>
+          <h1 className="text-xl font-bold text-white mt-1">
+            Profil Praktikan PPB 2026
           </h1>
-          <p className="text-[11px] font-mono text-slate-400">
-            Author verification & PWA client environment status
+          <p className="text-xs text-slate-400 mt-1">
+            Informasi pengembang aplikasi tugas akhir dan status lingkungan PWA
           </p>
         </div>
-        <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-[#00bcd4]/10 text-[#00bcd4] border border-[#00bcd4]/30 font-bold uppercase">
-          Client Verified
+        <span className="text-xs font-medium px-3 py-1 rounded-full bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 w-fit">
+          Terverifikasi
         </span>
       </div>
 
-      {/* Developer Identification Card */}
-      <div className="bg-[#0e151e] border border-[#1b2533] rounded-sm p-4">
-        <div className="flex items-center gap-3.5">
-          <div className="w-12 h-12 rounded bg-[#162232] border border-[#2b3d56] flex items-center justify-center font-mono font-bold text-base text-[#00bcd4] shrink-0">
+      {/* Developer Card */}
+      <div className="p-5 rounded-2xl bg-[#111827] border border-[#1e293b] shadow-sm flex items-center justify-between flex-wrap gap-4">
+        <div className="flex items-center gap-4">
+          <div className="w-14 h-14 rounded-2xl bg-blue-600/15 border border-blue-500/30 flex items-center justify-center font-bold text-lg text-blue-400 shrink-0">
             FR
           </div>
           <div>
-            <h2 className="text-base font-mono font-bold text-white">Faizal Rahmawan</h2>
-            <div className="text-xs font-mono text-[#00bcd4] font-semibold mt-0.5">
+            <h2 className="text-base font-bold text-white">Faizal Rahmawan</h2>
+            <div className="text-xs font-semibold text-blue-400 mt-0.5">
               NIM: 21120124130063
             </div>
-            <p className="text-[11px] font-mono text-slate-400">
+            <p className="text-xs text-slate-400 mt-0.5">
               Teknik Komputer • Universitas Diponegoro
             </p>
           </div>
         </div>
+
+        <button
+          onClick={handleInstallClick}
+          className="px-4 py-2 rounded-xl bg-blue-600 hover:bg-blue-500 text-white font-medium text-xs flex items-center gap-2 transition cursor-pointer shadow-sm"
+        >
+          <Smartphone className="w-4 h-4" />
+          <span>{isInstalled ? 'Aplikasi Terpasang' : 'Install PWA'}</span>
+        </button>
       </div>
 
-      {/* System Specifications (LoLScout Pro) */}
-      <div className="bg-[#0e151e] border border-[#1b2533] rounded-sm p-4 space-y-3">
-        <div className="flex items-center justify-between border-b border-[#17212f] pb-2">
-          <span className="text-xs font-mono font-bold text-white uppercase tracking-wider">
-            System Architecture
-          </span>
-          <span className="text-[10px] font-mono text-slate-400">v2.0 • Fearless Draft Engine</span>
+      {/* System Architecture */}
+      <div className="p-5 rounded-2xl bg-[#111827] border border-[#1e293b] space-y-4 shadow-sm">
+        <div className="flex items-center justify-between border-b border-[#1e293b] pb-3">
+          <h3 className="text-sm font-semibold text-white flex items-center gap-2">
+            <Cpu className="w-4 h-4 text-blue-400" />
+            Spesifikasi Arsitektur Sistem
+          </h3>
+          <span className="text-[11px] text-slate-400">PWA • Web Service</span>
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs font-mono">
-          <div className="p-2.5 rounded bg-[#0b1017] border border-[#1b2533] space-y-1">
-            <div className="flex items-center gap-1.5 text-[#00bcd4] font-bold">
-              <Smartphone className="w-3.5 h-3.5" />
-              <span>Frontend Client</span>
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs">
+          <div className="p-3.5 rounded-xl bg-[#0b0f17] border border-[#1e293b] space-y-1">
+            <div className="flex items-center gap-2 font-semibold text-white">
+              <Smartphone className="w-4 h-4 text-blue-400" />
+              <span>Frontend Platform</span>
             </div>
-            <p className="text-[11px] text-slate-400">
-              React 19, Vite, Tailwind CSS, Service Worker Offline Cache, Standalone PWA Manifest.
+            <p className="text-slate-400 text-[11px] leading-relaxed">
+              React 19 + Vite + Tailwind CSS + PWA Service Worker (Offline Support).
             </p>
           </div>
 
-          <div className="p-2.5 rounded bg-[#0b1017] border border-[#1b2533] space-y-1">
-            <div className="flex items-center gap-1.5 text-amber-400 font-bold">
-              <Database className="w-3.5 h-3.5" />
-              <span>Database & API</span>
+          <div className="p-3.5 rounded-xl bg-[#0b0f17] border border-[#1e293b] space-y-1">
+            <div className="flex items-center gap-2 font-semibold text-white">
+              <Server className="w-4 h-4 text-emerald-400" />
+              <span>Backend Web Service</span>
             </div>
-            <p className="text-[11px] text-slate-400">
-              Express.js RESTful API, PostgreSQL Supabase BaaS, Data Dragon 16.22.1 Assets CDN.
+            <p className="text-slate-400 text-[11px] leading-relaxed">
+              Node.js + Express REST API melayani modul endpoint kustom.
+            </p>
+          </div>
+
+          <div className="p-3.5 rounded-xl bg-[#0b0f17] border border-[#1e293b] space-y-1">
+            <div className="flex items-center gap-2 font-semibold text-white">
+              <Database className="w-4 h-4 text-amber-400" />
+              <span>Database Engine</span>
+            </div>
+            <p className="text-slate-400 text-[11px] leading-relaxed">
+              Supabase PostgreSQL (861 match pro real, 53 tim resmi).
+            </p>
+          </div>
+
+          <div className="p-3.5 rounded-xl bg-[#0b0f17] border border-[#1e293b] space-y-1">
+            <div className="flex items-center gap-2 font-semibold text-white">
+              <ShieldCheck className="w-4 h-4 text-cyan-400" />
+              <span>Analitik Fearless Draft</span>
+            </div>
+            <p className="text-slate-400 text-[11px] leading-relaxed">
+              Pengecekan pelanggaran 0 fearless across all multi-game series.
             </p>
           </div>
         </div>
-
-        {/* PWA Standalone Status & Install Action */}
-        <div className="pt-2 border-t border-[#17212f] flex flex-wrap items-center justify-between gap-3 font-mono text-xs">
-          <div className="flex items-center gap-2">
-            <ShieldCheck className="w-4 h-4 text-emerald-400" />
-            <div>
-              <div className="text-white font-bold text-xs">
-                {isInstalled ? 'Running as Installed Native App' : 'PWA Standalone Engine Ready'}
-              </div>
-              <div className="text-[10px] text-slate-400">
-                Install to home screen for full standalone esports tracking experience.
-              </div>
-            </div>
-          </div>
-
-          {!isInstalled && (
-            <button
-              onClick={handleInstall}
-              className="px-3 py-1.5 rounded bg-[#162232] hover:bg-[#1e2f46] text-[#00bcd4] border border-[#2b3d56] text-xs font-mono font-bold transition flex items-center gap-1.5 shrink-0"
-            >
-              <Download className="w-3.5 h-3.5" />
-              <span>Install LoLScout App</span>
-            </button>
-          )}
-        </div>
       </div>
+
+      <PwaInstallModal
+        isOpen={showModal}
+        onClose={() => setShowModal(false)}
+        onInstall={handleInstallClick}
+        hasPrompt={Boolean(deferredPrompt)}
+      />
     </div>
   )
 }

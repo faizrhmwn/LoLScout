@@ -2,11 +2,10 @@ import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { api } from '../services/api'
 import TeamLogo from '../components/TeamLogo'
-import LoadingSpinner from '../components/LoadingSpinner'
-import { Calendar, Play, ChevronRight } from 'lucide-react'
+import { Calendar, Play, ChevronRight, Filter } from 'lucide-react'
 
-const leagues = ['ALL', 'LCK', 'LPL', 'LEC', 'LCS', 'CBLOL', 'FIRST STAND', 'MSI', 'WORLDS']
-const statuses = ['ALL', 'LIVE', 'UPCOMING', 'FINISHED']
+const leagues = ['ALL', 'LCK', 'LPL', 'LEC', 'LCS', 'CBLOL', 'MSI', 'WORLDS']
+const statuses = ['ALL', 'FINISHED', 'UPCOMING', 'LIVE']
 
 export default function MatchesPage() {
   const [matches, setMatches] = useState([])
@@ -32,168 +31,125 @@ export default function MatchesPage() {
   }, [selectedStatus, selectedLeague])
 
   return (
-    <div className="pb-24 pt-3 px-2 sm:px-4 max-w-6xl mx-auto space-y-3 font-sans text-slate-200">
-      {/* Page Title & Filter Bar */}
-      <div className="bg-[#101722] border border-[#1b2533] p-3 rounded-sm space-y-2.5">
-        <div className="flex flex-wrap items-center justify-between gap-2 border-b border-[#1b2533] pb-2">
+    <div className="pb-28 pt-4 px-4 sm:px-6 max-w-6xl mx-auto space-y-4">
+      {/* Top Banner Filter */}
+      <div className="p-5 rounded-2xl bg-[#111827] border border-[#1e293b] space-y-4 shadow-sm">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
           <div>
-            <h1 className="text-sm font-mono font-bold text-white uppercase tracking-wider">
-              LoLScout Match Archive & Schedule
+            <h1 className="text-xl font-bold text-white tracking-tight">
+              Jadwal & Hasil Pertandingan
             </h1>
-            <p className="text-[11px] font-mono text-slate-400">
-              Tier-1 competitive match results, Fearless champion drafts, and VOD links
+            <p className="text-xs text-slate-400 mt-1">
+              Arsip kompetitif tier-1, data Fearless Draft picks & bans, dan tautan YouTube VOD.
             </p>
           </div>
-          <div className="text-[11px] font-mono text-[#00bcd4] font-bold">
-            Showing {matches.length} Series
-          </div>
+          <span className="text-xs font-medium px-3 py-1 rounded-full bg-blue-500/10 text-blue-400 border border-blue-500/20 w-fit">
+            {matches.length} Pertandingan
+          </span>
         </div>
 
-        {/* Filter Row 1: Status */}
-        <div className="flex items-center gap-1.5 overflow-x-auto text-[11px] font-mono font-bold">
-          <span className="text-slate-500 uppercase text-[10px] mr-1">Status:</span>
-          {statuses.map(st => (
-            <button
-              key={st}
-              onClick={() => setSelectedStatus(st)}
-              className={`px-2.5 py-1 rounded transition ${
-                selectedStatus === st
-                  ? 'bg-[#00bcd4] text-slate-950 shadow-sm'
-                  : 'bg-[#162232] text-slate-400 hover:text-white border border-[#233348]'
-              }`}
-            >
-              {st}
-            </button>
-          ))}
-        </div>
-
-        {/* Filter Row 2: League Tabs */}
-        <div className="flex items-center gap-1.5 overflow-x-auto text-[11px] font-mono font-bold pt-1">
-          <span className="text-slate-500 uppercase text-[10px] mr-1">League:</span>
+        {/* Filter Row: Region Tabs */}
+        <div className="flex items-center gap-1.5 overflow-x-auto pb-1 scrollbar-none pt-2 border-t border-[#1e293b]">
           {leagues.map(lg => (
             <button
               key={lg}
               onClick={() => setSelectedLeague(lg)}
-              className={`px-2.5 py-0.5 rounded transition uppercase ${
+              className={`px-3 py-1.5 rounded-xl text-xs font-medium transition cursor-pointer shrink-0 ${
                 selectedLeague === lg
-                  ? 'bg-[#1b2f4a] text-[#00bcd4] border border-[#00bcd4]/50'
-                  : 'bg-[#0b1017] text-slate-400 hover:text-slate-200 border border-[#1b2533]'
+                  ? 'bg-blue-600 text-white shadow-sm'
+                  : 'text-slate-400 hover:text-slate-200 hover:bg-slate-800/60'
               }`}
             >
-              {lg}
+              {lg === 'ALL' ? 'Semua Liga' : lg}
             </button>
           ))}
         </div>
       </div>
 
-      {/* Match Table / Rows */}
-      {loading ? (
-        <LoadingSpinner message="Syncing Match Database & VODs..." />
-      ) : matches.length === 0 ? (
-        <div className="py-20 text-center text-slate-500 text-xs font-mono bg-[#101722] border border-[#1b2533] rounded-sm">
-          No matches found matching the selected league/status filters.
-        </div>
-      ) : (
-        <div className="bg-[#0e151e] border border-[#1b2533] rounded-sm overflow-hidden divide-y divide-[#17212f]">
-          {matches.map(m => {
-            const dateStr = m.match_date
-              ? new Date(m.match_date).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })
-              : '2026'
-            const isFinished = m.status === 'finished'
-
+      {/* Match Table List */}
+      <div className="rounded-2xl bg-[#111827] border border-[#1e293b] overflow-hidden shadow-sm divide-y divide-[#1e293b]">
+        {loading ? (
+          <div className="py-24 text-center text-slate-500 text-xs animate-pulse">
+            Memuat arsip pertandingan...
+          </div>
+        ) : matches.length === 0 ? (
+          <div className="py-16 text-center text-slate-400 text-xs">
+            Tidak ada pertandingan yang cocok dengan filter yang dipilih.
+          </div>
+        ) : (
+          matches.map(m => {
+            const dateStr = m.match_date ? new Date(m.match_date).toLocaleDateString('id-ID', { month: 'short', day: 'numeric', year: 'numeric' }) : '2026'
             return (
               <Link
                 key={m.id}
                 to={`/matches/${m.id}`}
-                className="p-3 block hover:bg-[#121c2a] transition group"
+                className="p-4 block hover:bg-[#151e2e] transition duration-150 group"
               >
-                <div className="flex items-center justify-between text-[11px] font-mono text-slate-400 mb-2">
+                <div className="flex items-center justify-between text-xs text-slate-400 mb-2.5">
                   <div className="flex items-center gap-2">
-                    <span className="font-bold text-[#00bcd4] uppercase">
-                      {m.league} • {m.format || 'BO5'}
+                    <span className="font-semibold text-blue-400 text-[11px]">
+                      {m.league}
                     </span>
-                    <span className="text-slate-600">|</span>
-                    <span className="text-slate-400">{dateStr}</span>
+                    <span>•</span>
+                    <span className="text-slate-400 text-[11px] font-mono">{m.format || 'BO3'}</span>
                   </div>
-                  <span className={`text-[10px] font-mono uppercase px-1.5 py-0.2 rounded font-bold ${
-                    isFinished ? 'text-slate-400 bg-slate-900 border border-slate-800' : 'text-amber-400 bg-amber-950/60 border border-amber-800'
-                  }`}>
-                    {m.status}
-                  </span>
+                  <span className="text-[11px]">{dateStr}</span>
                 </div>
 
-                <div className="grid grid-cols-7 items-center gap-2">
+                <div className="flex items-center justify-between gap-4">
                   {/* Team 1 */}
-                  <div className="col-span-3 flex items-center gap-2.5 justify-end text-right">
+                  <div className="flex items-center gap-3 flex-1 justify-end text-right">
                     <div>
-                      <div className="font-bold text-sm text-white group-hover:text-[#00bcd4] transition">
+                      <span className="font-semibold text-sm text-white group-hover:text-blue-400 transition block">
                         {m.team1?.name}
-                      </div>
-                      <div className="text-[10px] font-mono text-slate-400">{m.team1?.region} • {m.team1?.short_name}</div>
+                      </span>
+                      <span className="text-[10px] text-slate-400">{m.team1?.region}</span>
                     </div>
-                    <TeamLogo
-                      src={m.team1?.logo_url}
-                      alt={m.team1?.name}
-                      shortName={m.team1?.short_name}
-                      region={m.team1?.region}
-                      className="w-9 h-9 rounded border border-slate-800 bg-[#0b1118] p-0.5 flex-shrink-0"
-                    />
+                    <div className="w-9 h-9 rounded-xl bg-[#0b0f17] border border-[#1e293b] p-1.5 flex items-center justify-center shrink-0">
+                      <TeamLogo
+                        src={m.team1?.logo_url}
+                        alt={m.team1?.name}
+                        shortName={m.team1?.short_name}
+                        region={m.team1?.region}
+                        className="w-full h-full object-contain"
+                      />
+                    </div>
                   </div>
 
-                  {/* Score */}
-                  <div className="col-span-1 flex flex-col items-center justify-center font-mono">
-                    {m.status === 'upcoming' ? (
-                      <span className="text-xs font-bold text-slate-500 uppercase px-2 py-0.5 bg-[#0b1017] border border-[#1b2533] rounded">
-                        VS
-                      </span>
-                    ) : (
-                      <div className="text-base font-extrabold text-white bg-[#0b1017] px-2.5 py-0.5 rounded border border-[#1b2533]">
-                        <span className={m.team1_score > m.team2_score ? 'text-amber-400' : 'text-slate-300'}>
-                          {m.team1_score}
-                        </span>
-                        <span className="text-slate-600 mx-1">:</span>
-                        <span className={m.team2_score > m.team1_score ? 'text-amber-400' : 'text-slate-300'}>
-                          {m.team2_score}
-                        </span>
-                      </div>
-                    )}
+                  {/* Score & Status */}
+                  <div className="flex flex-col items-center gap-1 shrink-0 px-2">
+                    <div className="px-3 py-1 rounded-xl bg-[#0b0f17] border border-[#1e293b] font-mono font-bold text-sm text-white">
+                      {m.team1_score} : {m.team2_score}
+                    </div>
+                    <span className="text-[10px] text-slate-400 font-medium uppercase tracking-wide">
+                      {m.status}
+                    </span>
                   </div>
 
                   {/* Team 2 */}
-                  <div className="col-span-3 flex items-center gap-2.5 justify-start text-left">
-                    <TeamLogo
-                      src={m.team2?.logo_url}
-                      alt={m.team2?.name}
-                      shortName={m.team2?.short_name}
-                      region={m.team2?.region}
-                      className="w-9 h-9 rounded border border-slate-800 bg-[#0b1118] p-0.5 flex-shrink-0"
-                    />
+                  <div className="flex items-center gap-3 flex-1">
+                    <div className="w-9 h-9 rounded-xl bg-[#0b0f17] border border-[#1e293b] p-1.5 flex items-center justify-center shrink-0">
+                      <TeamLogo
+                        src={m.team2?.logo_url}
+                        alt={m.team2?.name}
+                        shortName={m.team2?.short_name}
+                        region={m.team2?.region}
+                        className="w-full h-full object-contain"
+                      />
+                    </div>
                     <div>
-                      <div className="font-bold text-sm text-white group-hover:text-[#00bcd4] transition">
+                      <span className="font-semibold text-sm text-white group-hover:text-blue-400 transition block">
                         {m.team2?.name}
-                      </div>
-                      <div className="text-[10px] font-mono text-slate-400">{m.team2?.region} • {m.team2?.short_name}</div>
+                      </span>
+                      <span className="text-[10px] text-slate-400">{m.team2?.region}</span>
                     </div>
                   </div>
                 </div>
-
-                <div className="mt-2.5 pt-2 border-t border-[#17212f] flex items-center justify-between text-[11px] font-mono text-slate-400">
-                  <span>
-                    {m.mvp ? (
-                      <>MVP: <strong className="text-amber-300 font-semibold">{m.mvp}</strong></>
-                    ) : (
-                      <span className="text-slate-500">Draft data verified</span>
-                    )}
-                  </span>
-                  <span className="text-[#00bcd4] group-hover:translate-x-0.5 transition-transform flex items-center gap-1 font-bold">
-                    Inspect Draft & VOD →
-                  </span>
-                </div>
               </Link>
             )
-          })}
-        </div>
-      )}
+          })
+        )}
+      </div>
     </div>
   )
 }
