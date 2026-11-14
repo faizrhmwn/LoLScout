@@ -16,57 +16,27 @@ const roleColors = {
 
 const roleIcons = { Top:'⚔️', Jungle:'🌿', Mid:'✨', ADC:'🏹', Support:'🛡️', Coach:'📋' }
 
-// Leaguepedia Special:FilePath — browser follows 302 redirect to CDN image automatically.
-// Tries multiple year/split patterns in order; onError moves to next, then falls back to initials.
-function getPhotoPatterns(ign) {
-  const enc = encodeURIComponent(ign)
-  const base = 'https://lol.fandom.com/wiki/Special:FilePath'
-  return [
-    `${base}/${enc}_2026_Split_2.png`,
-    `${base}/${enc}_2026_Split_1.png`,
-    `${base}/${enc}_2026_Player.png`,
-    `${base}/${enc}_2025_Split_2.png`,
-    `${base}/${enc}_2025_Split_1.png`,
-    `${base}/${enc}_2025_Player.png`,
-    `${base}/${enc}_2024_Split_2.png`,
-    `${base}/${enc}_2024_Split_1.png`,
-    `${base}/${enc}_2024_Player.png`,
-    `${base}/${enc}_2023_Split_2.png`,
-    `${base}/${enc}_2023_Split_1.png`,
-  ]
-}
-
 function PlayerAvatar({ ign, photoUrl }) {
-  // photoUrl from DB takes priority; otherwise try Leaguepedia patterns
-  const patterns = photoUrl ? [photoUrl] : getPhotoPatterns(ign)
-  const [idx, setIdx] = useState(0)
-  const [loaded, setLoaded] = useState(false)
+  const [imgError, setImgError] = useState(false)
   const initials = (ign || '??').substring(0, 2).toUpperCase()
-  const failed = idx >= patterns.length
+
+  if (!photoUrl || imgError) {
+    return (
+      <div className="w-16 h-16 rounded-xl bg-gradient-to-br from-slate-700 to-slate-800 border border-slate-700 flex items-center justify-center font-bold text-sm text-slate-300 shrink-0 select-none shadow-inner">
+        {initials}
+      </div>
+    )
+  }
 
   return (
-    <div className="w-16 h-16 rounded-xl overflow-hidden border border-slate-700/60 bg-slate-800 shrink-0 relative">
-      {!failed && (
-        <img
-          key={patterns[idx]}
-          src={patterns[idx]}
-          alt={ign}
-          decoding="async"
-          onLoad={() => setLoaded(true)}
-          onError={() => setIdx(i => i + 1)}
-          className={`w-full h-full object-cover object-top transition-opacity duration-300 ${loaded ? 'opacity-100' : 'opacity-0'}`}
-        />
-      )}
-      {/* Shimmer while loading first pattern */}
-      {!loaded && !failed && (
-        <div className="absolute inset-0 bg-slate-800 animate-pulse" />
-      )}
-      {/* Initials fallback */}
-      {failed && (
-        <div className="w-full h-full flex items-center justify-center font-bold text-sm text-slate-300 bg-gradient-to-br from-slate-700 to-slate-800">
-          {initials}
-        </div>
-      )}
+    <div className="w-16 h-16 rounded-xl overflow-hidden border border-slate-700/80 bg-slate-900 shrink-0 relative shadow-sm">
+      <img
+        src={photoUrl}
+        alt={ign}
+        decoding="async"
+        onError={() => setImgError(true)}
+        className="w-full h-full object-cover object-top hover:scale-105 transition duration-200"
+      />
     </div>
   )
 }
