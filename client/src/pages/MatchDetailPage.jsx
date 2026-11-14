@@ -236,26 +236,26 @@ export default function MatchDetailPage() {
               </div>
 
               
-              {/* Objective Stats: Kills, Turrets, Dragons, Barons, Gold */}
+                                                        {/* Objective Stats: Kills, Turrets, Dragons, Barons, Gold */}
               <div className="flex flex-wrap items-center gap-1.5 text-[11px]">
-                <div className="bg-[#141e2b] px-2 py-0.5 rounded border border-[#202e42] flex items-center gap-1">
-                  <span className="text-slate-400 text-[10px] font-semibold">KILLS</span>
+                <div className="bg-[#141e2b] px-2 py-0.5 rounded border border-[#202e42] flex items-center gap-1.5" title="Kills">
+                  <span className="text-xs">⚔️</span>
                   <span className="font-bold text-white">{currentGame?.team1_kills || 18}</span>
                 </div>
-                <div className="bg-[#141e2b] px-2 py-0.5 rounded border border-[#202e42] flex items-center gap-1">
-                  <span className="text-slate-400 text-[10px] font-semibold">TURRETS</span>
+                <div className="bg-[#141e2b] px-2 py-0.5 rounded border border-[#202e42] flex items-center gap-1.5" title="Turrets Destroyed">
+                  <span className="text-xs">🏰</span>
                   <span className="font-bold text-slate-200">{currentGame?.team1_towers || 10}</span>
                 </div>
-                <div className="bg-[#141e2b] px-2 py-0.5 rounded border border-[#202e42] flex items-center gap-1">
-                  <span className="text-orange-400 text-[10px] font-semibold">DRAGONS</span>
+                <div className="bg-[#141e2b] px-2 py-0.5 rounded border border-[#202e42] flex items-center gap-1.5" title="Dragons Slain">
+                  <span className="text-xs">🐉</span>
                   <span className="font-bold text-orange-400">{currentGame?.team1_dragons || 3}</span>
                 </div>
-                <div className="bg-[#141e2b] px-2 py-0.5 rounded border border-[#202e42] flex items-center gap-1">
-                  <span className="text-purple-400 text-[10px] font-semibold">BARONS</span>
+                <div className="bg-[#141e2b] px-2 py-0.5 rounded border border-[#202e42] flex items-center gap-1.5" title="Barons Slain">
+                  <span className="text-xs">👾</span>
                   <span className="font-bold text-purple-400">{currentGame?.team1_barons || 1}</span>
                 </div>
-                <div className="bg-[#141e2b] px-2 py-0.5 rounded border border-[#202e42] flex items-center gap-1 ml-auto">
-                  <span className="text-amber-400 text-[10px] font-semibold">GOLD</span>
+                <div className="bg-[#141e2b] px-2 py-0.5 rounded border border-[#202e42] flex items-center gap-1.5 ml-auto" title="Total Gold">
+                  <span className="text-xs">💰</span>
                   <span className="font-bold text-amber-300">{currentGame?.team1_gold || '62.0k'}</span>
                 </div>
               </div>
@@ -308,26 +308,26 @@ export default function MatchDetailPage() {
               </div>
 
               
-              {/* Objective Stats: Kills, Turrets, Dragons, Barons, Gold */}
+                            {/* Objective Stats: Kills, Turrets, Dragons, Barons, Gold */}
               <div className="flex flex-wrap items-center gap-1.5 text-[11px]">
-                <div className="bg-[#141e2b] px-2 py-0.5 rounded border border-[#202e42] flex items-center gap-1">
-                  <span className="text-slate-400 text-[10px] font-semibold">KILLS</span>
+                <div className="bg-[#141e2b] px-2 py-0.5 rounded border border-[#202e42] flex items-center gap-1.5" title="Kills">
+                  <span className="text-xs">⚔️</span>
                   <span className="font-bold text-white">{currentGame?.team2_kills || 6}</span>
                 </div>
-                <div className="bg-[#141e2b] px-2 py-0.5 rounded border border-[#202e42] flex items-center gap-1">
-                  <span className="text-slate-400 text-[10px] font-semibold">TURRETS</span>
+                <div className="bg-[#141e2b] px-2 py-0.5 rounded border border-[#202e42] flex items-center gap-1.5" title="Turrets Destroyed">
+                  <span className="text-xs">🏰</span>
                   <span className="font-bold text-slate-200">{currentGame?.team2_towers || 3}</span>
                 </div>
-                <div className="bg-[#141e2b] px-2 py-0.5 rounded border border-[#202e42] flex items-center gap-1">
-                  <span className="text-orange-400 text-[10px] font-semibold">DRAGONS</span>
+                <div className="bg-[#141e2b] px-2 py-0.5 rounded border border-[#202e42] flex items-center gap-1.5" title="Dragons Slain">
+                  <span className="text-xs">🐉</span>
                   <span className="font-bold text-orange-400">{currentGame?.team2_dragons || 1}</span>
                 </div>
-                <div className="bg-[#141e2b] px-2 py-0.5 rounded border border-[#202e42] flex items-center gap-1">
-                  <span className="text-purple-400 text-[10px] font-semibold">BARONS</span>
+                <div className="bg-[#141e2b] px-2 py-0.5 rounded border border-[#202e42] flex items-center gap-1.5" title="Barons Slain">
+                  <span className="text-xs">👾</span>
                   <span className="font-bold text-purple-400">{currentGame?.team2_barons || 0}</span>
                 </div>
-                <div className="bg-[#141e2b] px-2 py-0.5 rounded border border-[#202e42] flex items-center gap-1 ml-auto">
-                  <span className="text-amber-400 text-[10px] font-semibold">GOLD</span>
+                <div className="bg-[#141e2b] px-2 py-0.5 rounded border border-[#202e42] flex items-center gap-1.5 ml-auto" title="Total Gold">
+                  <span className="text-xs">💰</span>
                   <span className="font-bold text-amber-300">{currentGame?.team2_gold || '54.2k'}</span>
                 </div>
               </div>
