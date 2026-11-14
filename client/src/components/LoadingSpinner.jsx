@@ -1,8 +1,8 @@
-import React from 'react'
+﻿import React from 'react'
 
 export default function LoadingSpinner({ message = 'Loading match intelligence...' }) {
   return (
-    <div className="py-24 flex flex-col items-center justify-center space-y-3 font-mono">
+    <div className="py-24 flex flex-col items-center justify-center space-y-3 ">
       {/* Hextech / Esports Ring Spinner */}
       <div className="relative w-12 h-12">
         <div className="absolute inset-0 rounded-full border-2 border-[#162232]"></div>
@@ -18,3 +18,4 @@ export default function LoadingSpinner({ message = 'Loading match intelligence..
     </div>
   )
 }
+

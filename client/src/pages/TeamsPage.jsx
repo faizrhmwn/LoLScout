@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+﻿import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { api } from '../services/api'
 import TeamLogo from '../components/TeamLogo'
@@ -104,7 +104,7 @@ export default function TeamsPage() {
                   <h3 className="font-semibold text-sm text-white group-hover:text-blue-400 transition">
                     {t.name}
                   </h3>
-                  <span className="text-[11px] text-slate-400 font-mono">Code: {t.short_name}</span>
+                  <span className="text-[11px] text-slate-400 ">Code: {t.short_name}</span>
                 </div>
               </div>
 
@@ -124,3 +124,4 @@ export default function TeamsPage() {
     </div>
   )
 }
+

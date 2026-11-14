@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+﻿import React, { useEffect, useState } from 'react'
 import { useParams, Link } from 'react-router-dom'
 import { api } from '../services/api'
 import TeamLogo from '../components/TeamLogo'
@@ -96,14 +96,14 @@ export default function MatchDetailPage() {
     <div className="min-h-screen bg-[#0b1118] text-[#c8d4e0] font-sans pb-24 pt-3 px-2 sm:px-4 max-w-6xl mx-auto space-y-3">
       {/* Top Breadcrumb & Metadata Header */}
       <div className="flex items-center justify-between text-xs text-slate-400 border-b border-slate-800/80 pb-2 px-1">
-        <div className="flex items-center gap-1.5 font-mono text-[11px]">
+        <div className="flex items-center gap-1.5  text-[11px]">
           <Link to="/matches" className="hover:text-amber-400 transition text-slate-400">Schedule</Link>
           <ChevronRight className="w-3 h-3 text-slate-600" />
           <span className="text-slate-300 font-bold uppercase">{match.league}</span>
           <ChevronRight className="w-3 h-3 text-slate-600" />
           <span className="text-amber-400 font-semibold">{match.team1?.short_name} vs {match.team2?.short_name}</span>
         </div>
-        <div className="flex items-center gap-1 text-[11px] font-mono text-slate-400">
+        <div className="flex items-center gap-1 text-[11px]  text-slate-400">
           <Calendar className="w-3 h-3 text-slate-500" />
           <span>{formattedDate}</span>
         </div>
@@ -121,15 +121,15 @@ export default function MatchDetailPage() {
           />
           <div>
             <div className="font-bold text-base text-white">{match.team1?.name}</div>
-            <div className="text-[11px] font-mono text-slate-400">{match.team1?.region} • {match.team1?.short_name}</div>
+            <div className="text-[11px]  text-slate-400">{match.team1?.region} â€¢ {match.team1?.short_name}</div>
           </div>
         </div>
 
         <div className="text-center">
-          <div className="text-[10px] font-mono uppercase tracking-widest text-slate-400">
-            {match.league} • {match.format || 'BO5'}
+          <div className="text-[10px]  uppercase tracking-widest text-slate-400">
+            {match.league} â€¢ {match.format || 'BO5'}
           </div>
-          <div className="text-2xl font-mono font-extrabold text-white tracking-wider my-0.5">
+          <div className="text-2xl  font-extrabold text-white tracking-wider my-0.5">
             <span className={match.team1_score > match.team2_score ? 'text-amber-400' : 'text-slate-300'}>
               {match.team1_score}
             </span>
@@ -138,7 +138,7 @@ export default function MatchDetailPage() {
               {match.team2_score}
             </span>
           </div>
-          <div className="text-[10px] font-mono uppercase text-slate-500">
+          <div className="text-[10px]  uppercase text-slate-500">
             {match.status === 'finished' ? 'FINAL' : match.status}
           </div>
         </div>
@@ -146,7 +146,7 @@ export default function MatchDetailPage() {
         <div className="flex items-center gap-3 justify-end text-right">
           <div>
             <div className="font-bold text-base text-white">{match.team2?.name}</div>
-            <div className="text-[11px] font-mono text-slate-400">{match.team2?.region} • {match.team2?.short_name}</div>
+            <div className="text-[11px]  text-slate-400">{match.team2?.region} â€¢ {match.team2?.short_name}</div>
           </div>
           <TeamLogo
             src={match.team2?.logo_url}
@@ -159,10 +159,10 @@ export default function MatchDetailPage() {
       </div>
 
       {isUpcoming || games.length === 0 ? (
-        <div className="bg-[#121922] border border-[#1e293b] rounded-sm p-12 text-center space-y-3 font-mono">
+        <div className="bg-[#121922] border border-[#1e293b] rounded-sm p-12 text-center space-y-3 ">
           <Clock className="w-8 h-8 text-amber-500 mx-auto animate-pulse" />
           <div className="text-sm font-bold text-white uppercase tracking-wider">
-            Match Scheduled • Upcoming
+            Match Scheduled â€¢ Upcoming
           </div>
           <p className="text-xs text-slate-400 max-w-md mx-auto">
             Full gol.gg scoreboard, bans, player KDAs, and YouTube VODs will update live once this match commences on {formattedDate}.
@@ -173,7 +173,7 @@ export default function MatchDetailPage() {
         <div className="bg-[#101722] border border-[#1b2533] rounded-sm overflow-hidden shadow-2xl">
           {/* Subheader Navigation Bar (PREVIEW / GAME 1 / GAME 2 / etc.) */}
           <div className="bg-[#0b1017] border-b border-[#1b2533] px-3 py-1.5 flex flex-wrap items-center justify-between gap-2">
-            <div className="flex items-center gap-1 overflow-x-auto text-xs font-mono font-bold">
+            <div className="flex items-center gap-1 overflow-x-auto text-xs  font-bold">
               <span className="px-2.5 py-1 text-slate-500 uppercase tracking-wider text-[11px]">GAMES:</span>
               {games.map((g, idx) => {
                 const active = activeGameIndex === idx
@@ -198,7 +198,7 @@ export default function MatchDetailPage() {
               href={activeVodUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-1.5 px-3 py-1 rounded bg-[#b91c1c]/20 hover:bg-[#b91c1c]/30 text-red-400 border border-red-700/50 text-[11px] font-mono font-bold transition group"
+              className="inline-flex items-center gap-1.5 px-3 py-1 rounded bg-[#b91c1c]/20 hover:bg-[#b91c1c]/30 text-red-400 border border-red-700/50 text-[11px]  font-bold transition group"
             >
               <div className="w-3.5 h-3.5 rounded-full bg-red-600 flex items-center justify-center text-white">
                 <Play className="w-2 h-2 fill-white ml-0.5" />
@@ -209,7 +209,7 @@ export default function MatchDetailPage() {
           </div>
 
           {/* Game Header (Game Time & Patch on Top) */}
-          <div className="bg-[#121a24] px-4 py-2 border-b border-[#1b2533] flex items-center justify-between font-mono text-xs">
+          <div className="bg-[#121a24] px-4 py-2 border-b border-[#1b2533] flex items-center justify-between  text-xs">
             <div className="flex items-center gap-2">
               <span className="text-slate-400 text-[11px]">Game Time</span>
               <span className="text-white font-bold text-sm">{currentGame?.duration || '30:25'}</span>
@@ -227,33 +227,33 @@ export default function MatchDetailPage() {
                 <span className="font-bold text-sm text-[#4da8da]">
                   {match.team1?.name} - {currentGame?.winner === 'team1' ? 'WIN' : 'LOSS'}
                 </span>
-                <span className="text-[10px] font-mono uppercase px-1.5 py-0.5 rounded bg-blue-950/60 text-blue-400 border border-blue-900/50">
+                <span className="text-[10px]  uppercase px-1.5 py-0.5 rounded bg-blue-950/60 text-blue-400 border border-blue-900/50">
                   Blue Side
                 </span>
               </div>
 
               {/* Stats badges (Kills, Towers, Dragons, Barons, Gold) */}
-              <div className="flex flex-wrap items-center gap-2 text-[11px] font-mono">
+              <div className="flex flex-wrap items-center gap-2 text-[11px] ">
                 <span className="bg-[#141e2b] px-2 py-0.5 rounded border border-[#202e42] flex items-center gap-1 text-slate-200">
                   <Swords className="w-3 h-3 text-amber-400" /> {currentGame?.team1_kills || 18}
                 </span>
                 <span className="bg-[#141e2b] px-2 py-0.5 rounded border border-[#202e42] flex items-center gap-1 text-slate-300">
-                  🏰 {currentGame?.team1_towers || 10}
+                  ðŸ° {currentGame?.team1_towers || 10}
                 </span>
                 <span className="bg-[#141e2b] px-2 py-0.5 rounded border border-[#202e42] flex items-center gap-1 text-orange-400">
-                  🐉 {currentGame?.team1_dragons || 3}
+                  ðŸ‰ {currentGame?.team1_dragons || 3}
                 </span>
                 <span className="bg-[#141e2b] px-2 py-0.5 rounded border border-[#202e42] flex items-center gap-1 text-purple-400">
-                  👾 {currentGame?.team1_barons || 1}
+                  ðŸ‘¾ {currentGame?.team1_barons || 1}
                 </span>
                 <span className="bg-[#141e2b] px-2 py-0.5 rounded border border-[#202e42] flex items-center gap-1 text-amber-300 ml-auto font-bold">
-                  💰 {currentGame?.team1_gold || '62.0k'}
+                  ðŸ’° {currentGame?.team1_gold || '62.0k'}
                 </span>
               </div>
 
               {/* Bans Row */}
               <div className="flex items-center gap-2 pt-1">
-                <span className="text-[10px] font-mono text-slate-400 uppercase">Bans:</span>
+                <span className="text-[10px]  text-slate-400 uppercase">Bans:</span>
                 <div className="flex items-center gap-1">
                   {t1Bans.map((champ, idx) => (
                     <div key={idx} className="relative group" title={`Banned: ${champ}`}>
@@ -272,7 +272,7 @@ export default function MatchDetailPage() {
 
               {/* Picks Row Icon Strip */}
               <div className="flex items-center gap-2">
-                <span className="text-[10px] font-mono text-slate-400 uppercase">Picks:</span>
+                <span className="text-[10px]  text-slate-400 uppercase">Picks:</span>
                 <div className="flex items-center gap-1">
                   {t1Picks.map((champ, idx) => (
                     <img
@@ -293,33 +293,33 @@ export default function MatchDetailPage() {
                 <span className="font-bold text-sm text-[#e06c75]">
                   {match.team2?.name} - {currentGame?.winner === 'team2' ? 'WIN' : 'LOSS'}
                 </span>
-                <span className="text-[10px] font-mono uppercase px-1.5 py-0.5 rounded bg-red-950/60 text-red-400 border border-red-900/50">
+                <span className="text-[10px]  uppercase px-1.5 py-0.5 rounded bg-red-950/60 text-red-400 border border-red-900/50">
                   Red Side
                 </span>
               </div>
 
               {/* Stats badges (Kills, Towers, Dragons, Barons, Gold) */}
-              <div className="flex flex-wrap items-center gap-2 text-[11px] font-mono">
+              <div className="flex flex-wrap items-center gap-2 text-[11px] ">
                 <span className="bg-[#141e2b] px-2 py-0.5 rounded border border-[#202e42] flex items-center gap-1 text-slate-200">
                   <Swords className="w-3 h-3 text-amber-400" /> {currentGame?.team2_kills || 6}
                 </span>
                 <span className="bg-[#141e2b] px-2 py-0.5 rounded border border-[#202e42] flex items-center gap-1 text-slate-300">
-                  🏰 {currentGame?.team2_towers || 3}
+                  ðŸ° {currentGame?.team2_towers || 3}
                 </span>
                 <span className="bg-[#141e2b] px-2 py-0.5 rounded border border-[#202e42] flex items-center gap-1 text-orange-400">
-                  🐉 {currentGame?.team2_dragons || 1}
+                  ðŸ‰ {currentGame?.team2_dragons || 1}
                 </span>
                 <span className="bg-[#141e2b] px-2 py-0.5 rounded border border-[#202e42] flex items-center gap-1 text-purple-400">
-                  👾 {currentGame?.team2_barons || 0}
+                  ðŸ‘¾ {currentGame?.team2_barons || 0}
                 </span>
                 <span className="bg-[#141e2b] px-2 py-0.5 rounded border border-[#202e42] flex items-center gap-1 text-amber-300 ml-auto font-bold">
-                  💰 {currentGame?.team2_gold || '54.2k'}
+                  ðŸ’° {currentGame?.team2_gold || '54.2k'}
                 </span>
               </div>
 
               {/* Bans Row */}
               <div className="flex items-center gap-2 pt-1">
-                <span className="text-[10px] font-mono text-slate-400 uppercase">Bans:</span>
+                <span className="text-[10px]  text-slate-400 uppercase">Bans:</span>
                 <div className="flex items-center gap-1">
                   {t2Bans.map((champ, idx) => (
                     <div key={idx} className="relative group" title={`Banned: ${champ}`}>
@@ -338,7 +338,7 @@ export default function MatchDetailPage() {
 
               {/* Picks Row Icon Strip */}
               <div className="flex items-center gap-2">
-                <span className="text-[10px] font-mono text-slate-400 uppercase">Picks:</span>
+                <span className="text-[10px]  text-slate-400 uppercase">Picks:</span>
                 <div className="flex items-center gap-1">
                   {t2Picks.map((champ, idx) => (
                     <img
@@ -358,7 +358,7 @@ export default function MatchDetailPage() {
           <div className="grid grid-cols-1 md:grid-cols-2 divide-y md:divide-y-0 md:divide-x divide-[#1b2533] bg-[#0c1219]">
             {/* Team 1 Players Table */}
             <div>
-              <div className="bg-[#111923] px-3 py-1.5 border-b border-[#1b2533] flex items-center justify-between text-[11px] font-mono font-bold text-slate-400">
+              <div className="bg-[#111923] px-3 py-1.5 border-b border-[#1b2533] flex items-center justify-between text-[11px]  font-bold text-slate-400">
                 <span>Player</span>
                 <div className="flex items-center gap-8">
                   <span>KDA</span>
@@ -372,7 +372,7 @@ export default function MatchDetailPage() {
                   const kda = stat.kda || '2/1/8'
                   const cs = stat.cs || 230
                   return (
-                    <div key={idx} className="px-3 py-2 flex items-center justify-between text-xs font-mono hover:bg-[#121c2a] transition">
+                    <div key={idx} className="px-3 py-2 flex items-center justify-between text-xs  hover:bg-[#121c2a] transition">
                       <div className="flex items-center gap-2.5">
                         <img
                           src={getChampIconUrl(champ)}
@@ -383,7 +383,7 @@ export default function MatchDetailPage() {
                           <div className="font-bold text-white text-xs">{playerName}</div>
                           <div className="text-[10px] text-slate-400 flex items-center gap-1">
                             <span className="text-blue-400 font-bold">{ROLES[idx]}</span>
-                            <span>• {champ}</span>
+                            <span>â€¢ {champ}</span>
                           </div>
                         </div>
                       </div>
@@ -399,7 +399,7 @@ export default function MatchDetailPage() {
 
             {/* Team 2 Players Table */}
             <div>
-              <div className="bg-[#111923] px-3 py-1.5 border-b border-[#1b2533] flex items-center justify-between text-[11px] font-mono font-bold text-slate-400">
+              <div className="bg-[#111923] px-3 py-1.5 border-b border-[#1b2533] flex items-center justify-between text-[11px]  font-bold text-slate-400">
                 <span>Player</span>
                 <div className="flex items-center gap-8">
                   <span>KDA</span>
@@ -413,7 +413,7 @@ export default function MatchDetailPage() {
                   const kda = stat.kda || '1/3/4'
                   const cs = stat.cs || 210
                   return (
-                    <div key={idx} className="px-3 py-2 flex items-center justify-between text-xs font-mono hover:bg-[#121c2a] transition">
+                    <div key={idx} className="px-3 py-2 flex items-center justify-between text-xs  hover:bg-[#121c2a] transition">
                       <div className="flex items-center gap-2.5">
                         <img
                           src={getChampIconUrl(champ)}
@@ -424,7 +424,7 @@ export default function MatchDetailPage() {
                           <div className="font-bold text-white text-xs">{playerName}</div>
                           <div className="text-[10px] text-slate-400 flex items-center gap-1">
                             <span className="text-red-400 font-bold">{ROLES[idx]}</span>
-                            <span>• {champ}</span>
+                            <span>â€¢ {champ}</span>
                           </div>
                         </div>
                       </div>
@@ -443,3 +443,4 @@ export default function MatchDetailPage() {
     </div>
   )
 }
+

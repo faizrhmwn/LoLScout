@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+﻿import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { api } from '../services/api'
 import TeamLogo from '../components/TeamLogo'
@@ -240,13 +240,13 @@ export default function FavoritesPage() {
                   <div>
                     <h3 className="font-semibold text-sm text-white group-hover:text-blue-400 transition flex items-center gap-2">
                       {fav.team?.name}
-                      <span className="text-[10px] font-mono px-1.5 py-0.5 rounded bg-slate-800 text-slate-300">
+                      <span className="text-[10px]  px-1.5 py-0.5 rounded bg-slate-800 text-slate-300">
                         {fav.team?.short_name}
                       </span>
                     </h3>
                     <div className="flex items-center gap-2 text-xs text-slate-400 mt-0.5">
                       <span className="text-blue-400 font-medium">{fav.team?.region}</span>
-                      <span>•</span>
+                      <span>â€¢</span>
                       <span>Seed #{fav.team?.standing_summer}</span>
                     </div>
                   </div>
@@ -317,8 +317,8 @@ export default function FavoritesPage() {
                     </span>
                     <div>
                       <span className="text-white font-medium">vs {fav.latestMatch.opponent}</span>
-                      <span className="text-slate-400 ml-1.5 font-mono">({fav.latestMatch.score})</span>
-                      <span className="text-slate-400 ml-2 font-mono text-[10px]">[{fav.latestMatch.league}]</span>
+                      <span className="text-slate-400 ml-1.5 ">({fav.latestMatch.score})</span>
+                      <span className="text-slate-400 ml-2  text-[10px]">[{fav.latestMatch.league}]</span>
                       <span className="text-slate-400 text-[11px] block sm:inline sm:ml-2">
                         {new Date(fav.latestMatch.match_date).toLocaleDateString('id-ID', { month: 'short', day: 'numeric', year: 'numeric' })}
                       </span>
@@ -372,7 +372,7 @@ export default function FavoritesPage() {
               ) : (
                 <div className="pt-2 border-t border-[#1e293b]/70 flex items-center justify-between text-xs text-slate-400">
                   <span className="italic text-slate-300">
-                    “{fav.notes || 'Belum ada catatan khusus'}”
+                    â€œ{fav.notes || 'Belum ada catatan khusus'}â€
                   </span>
                   <span className="text-[10px] text-slate-400">
                     Ditambahkan: {new Date(fav.created_at).toLocaleDateString('id-ID', { month: 'short', day: 'numeric' })}
@@ -394,3 +394,4 @@ export default function FavoritesPage() {
     </div>
   )
 }
+

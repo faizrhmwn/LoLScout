@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+﻿import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { api } from '../services/api'
 import TeamLogo from '../components/TeamLogo'
@@ -101,7 +101,7 @@ export default function HomePage() {
               Pertandingan Terbaru & Skor
             </h2>
             <Link to="/matches" className="text-xs text-blue-400 hover:text-blue-300 font-medium">
-              Lihat Semua →
+              Lihat Semua â†’
             </Link>
           </div>
 
@@ -120,7 +120,7 @@ export default function HomePage() {
                 >
                   <div className="flex items-center justify-between text-xs text-slate-400 mb-2">
                     <span className="font-semibold text-blue-400 text-[11px]">
-                      {m.league} • {m.format || 'BO3'}
+                      {m.league} â€¢ {m.format || 'BO3'}
                     </span>
                     <span className="text-[11px]">{dateStr}</span>
                   </div>
@@ -143,7 +143,7 @@ export default function HomePage() {
                     </div>
 
                     {/* Score */}
-                    <div className="px-3 py-1 rounded-lg bg-[#0b0f17] border border-[#1e293b] font-mono font-bold text-sm text-white shrink-0">
+                    <div className="px-3 py-1 rounded-lg bg-[#0b0f17] border border-[#1e293b]  font-bold text-sm text-white shrink-0">
                       {m.team1_score} : {m.team2_score}
                     </div>
 
@@ -177,7 +177,7 @@ export default function HomePage() {
               Unggulan #1 Regional
             </h2>
             <Link to="/teams" className="text-xs text-blue-400 hover:text-blue-300 font-medium">
-              Semua Tim →
+              Semua Tim â†’
             </Link>
           </div>
 
@@ -217,3 +217,4 @@ export default function HomePage() {
     </div>
   )
 }
+

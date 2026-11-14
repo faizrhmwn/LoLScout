@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+﻿import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { api } from '../services/api'
 import TeamLogo from '../components/TeamLogo'
@@ -90,8 +90,8 @@ export default function MatchesPage() {
                     <span className="font-semibold text-blue-400 text-[11px]">
                       {m.league}
                     </span>
-                    <span>•</span>
-                    <span className="text-slate-400 text-[11px] font-mono">{m.format || 'BO3'}</span>
+                    <span>â€¢</span>
+                    <span className="text-slate-400 text-[11px] ">{m.format || 'BO3'}</span>
                   </div>
                   <span className="text-[11px]">{dateStr}</span>
                 </div>
@@ -118,7 +118,7 @@ export default function MatchesPage() {
 
                   {/* Score & Status */}
                   <div className="flex flex-col items-center gap-1 shrink-0 px-2">
-                    <div className="px-3 py-1 rounded-xl bg-[#0b0f17] border border-[#1e293b] font-mono font-bold text-sm text-white">
+                    <div className="px-3 py-1 rounded-xl bg-[#0b0f17] border border-[#1e293b]  font-bold text-sm text-white">
                       {m.team1_score} : {m.team2_score}
                     </div>
                     <span className="text-[10px] text-slate-400 font-medium uppercase tracking-wide">
@@ -153,3 +153,4 @@ export default function MatchesPage() {
     </div>
   )
 }
+
