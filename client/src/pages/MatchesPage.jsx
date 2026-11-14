@@ -1,6 +1,6 @@
 import LoadingSpinner from '../components/LoadingSpinner'
 import React, { useEffect, useState } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useSearchParams } from 'react-router-dom'
 import { api } from '../services/api'
 import TeamLogo from '../components/TeamLogo'
 import { Calendar, Play, ChevronRight, Filter } from 'lucide-react'
@@ -9,12 +9,37 @@ const leagues = ['ALL', 'LCK', 'LPL', 'LEC', 'LCS', 'CBLOL', 'MSI', 'WORLDS']
 const statuses = ['ALL', 'FINISHED', 'UPCOMING', 'LIVE']
 
 export default function MatchesPage() {
+  const [searchParams, setSearchParams] = useSearchParams()
   const [matches, setMatches] = useState([])
-  const [selectedLeague, setSelectedLeague] = useState('ALL')
+
+  // Read initial filter from URL ?league=WORLDS etc.
+  const initLeague = (() => {
+    const param = (searchParams.get('league') || '').toUpperCase()
+    return leagues.includes(param) ? param : 'ALL'
+  })()
+
+  const [selectedLeague, setSelectedLeague] = useState(initLeague)
   const [selectedStatus, setSelectedStatus] = useState('ALL')
   const [loading, setLoading] = useState(true)
   const [currentPage, setCurrentPage] = useState(1)
   const pageSize = 25
+
+  // Sync when URL param changes (e.g. navigating from MatchDetail)
+  useEffect(() => {
+    const param = (searchParams.get('league') || '').toUpperCase()
+    if (leagues.includes(param) && param !== selectedLeague) {
+      setSelectedLeague(param)
+    }
+  }, [searchParams])
+
+  function handleLeagueSelect(lg) {
+    setSelectedLeague(lg)
+    if (lg === 'ALL') {
+      setSearchParams({})
+    } else {
+      setSearchParams({ league: lg })
+    }
+  }
 
   useEffect(() => {
     async function fetchMatches() {
@@ -33,7 +58,6 @@ export default function MatchesPage() {
     setCurrentPage(1)
     fetchMatches()
   }, [selectedStatus, selectedLeague])
-
   return (
     <div className="pb-28 pt-4 px-4 sm:px-6 max-w-6xl mx-auto space-y-4">
       {/* Top Banner Filter */}
@@ -57,7 +81,7 @@ export default function MatchesPage() {
           {leagues.map(lg => (
             <button
               key={lg}
-              onClick={() => setSelectedLeague(lg)}
+              onClick={() => handleLeagueSelect(lg)}
               className={`px-3 py-1.5 rounded-xl text-xs font-medium transition cursor-pointer shrink-0 ${
                 selectedLeague === lg
                   ? 'bg-blue-600 text-white shadow-sm'

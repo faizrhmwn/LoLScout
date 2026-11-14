@@ -1,5 +1,5 @@
 ﻿import React, { useEffect, useState } from 'react'
-import { useParams, Link } from 'react-router-dom'
+import { useParams, Link, useNavigate } from 'react-router-dom'
 import { api } from '../services/api'
 import TeamLogo from '../components/TeamLogo'
 import LoadingSpinner from '../components/LoadingSpinner'
@@ -25,6 +25,7 @@ const ROLES = ['TOP', 'JUNGLE', 'MID', 'ADC', 'SUPPORT']
 
 export default function MatchDetailPage() {
   const { id } = useParams()
+  const navigate = useNavigate()
   const [match, setMatch] = useState(null)
   const [loading, setLoading] = useState(true)
   const [activeGameIndex, setActiveGameIndex] = useState(0)
@@ -102,7 +103,12 @@ export default function MatchDetailPage() {
         <div className="flex items-center gap-1.5  text-[11px]">
           <Link to="/matches" className="hover:text-amber-400 transition text-slate-400">Schedule</Link>
           <ChevronRight className="w-3 h-3 text-slate-600" />
-          <span className="text-slate-300 font-bold uppercase">{match.league}</span>
+          <Link
+            to={`/matches?league=${encodeURIComponent(match.league)}`}
+            className="text-slate-300 font-bold uppercase hover:text-cyan-400 transition"
+          >
+            {match.league}
+          </Link>
           <ChevronRight className="w-3 h-3 text-slate-600" />
           <span className="text-amber-400 font-semibold">{match.team1?.short_name} vs {match.team2?.short_name}</span>
         </div>
@@ -114,7 +120,11 @@ export default function MatchDetailPage() {
 
       {/* Series Header Banner */}
       <div className="bg-[#121922] border border-[#1e293b] rounded-sm p-4 flex items-center justify-between">
-        <div className="flex items-center gap-3">
+        {/* Team 1 — clickable → Team Detail */}
+        <Link
+          to={match.team1?.id ? `/teams/${match.team1.id}` : '/teams'}
+          className="flex items-center gap-3 hover:opacity-80 transition group"
+        >
           <TeamLogo
             src={match.team1?.logo_url}
             alt={match.team1?.name}
@@ -123,15 +133,19 @@ export default function MatchDetailPage() {
             className="w-10 h-10 border border-[#2a3b52] bg-[#182232] p-0.5 rounded"
           />
           <div>
-            <div className="font-bold text-base text-white">{match.team1?.name}</div>
+            <div className="font-bold text-base text-white group-hover:text-cyan-400 transition">{match.team1?.name}</div>
             <div className="text-[11px]  text-slate-400">{match.team1?.region} &bull; {match.team1?.short_name}</div>
           </div>
-        </div>
+        </Link>
 
         <div className="text-center">
-          <div className="text-[10px]  uppercase tracking-widest text-slate-400">
+          {/* League badge — clickable → filtered Schedule */}
+          <Link
+            to={`/matches?league=${encodeURIComponent(match.league)}`}
+            className="text-[10px] uppercase tracking-widest text-slate-400 hover:text-cyan-400 transition font-bold"
+          >
             {match.league} &bull; {match.format || 'BO5'}
-          </div>
+          </Link>
           <div className="text-2xl  font-extrabold text-white tracking-wider my-0.5">
             <span className={match.team1_score > match.team2_score ? 'text-amber-400' : 'text-slate-300'}>
               {match.team1_score}
@@ -146,9 +160,13 @@ export default function MatchDetailPage() {
           </div>
         </div>
 
-        <div className="flex items-center gap-3 justify-end text-right">
+        {/* Team 2 — clickable → Team Detail */}
+        <Link
+          to={match.team2?.id ? `/teams/${match.team2.id}` : '/teams'}
+          className="flex items-center gap-3 justify-end text-right hover:opacity-80 transition group"
+        >
           <div>
-            <div className="font-bold text-base text-white">{match.team2?.name}</div>
+            <div className="font-bold text-base text-white group-hover:text-cyan-400 transition">{match.team2?.name}</div>
             <div className="text-[11px]  text-slate-400">{match.team2?.region} &bull; {match.team2?.short_name}</div>
           </div>
           <TeamLogo
@@ -158,7 +176,7 @@ export default function MatchDetailPage() {
             region={match.team2?.region}
             className="w-10 h-10 border border-[#2a3b52] bg-[#182232] p-0.5 rounded"
           />
-        </div>
+        </Link>
       </div>
 
       {isUpcoming || games.length === 0 ? (
