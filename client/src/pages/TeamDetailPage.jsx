@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react'
 import { useParams, Link } from 'react-router-dom'
 import { api } from '../services/api'
 import TeamLogo from '../components/TeamLogo'
-import { ArrowLeft, Trophy, Bookmark, BookmarkCheck, Users, Award, Shield } from 'lucide-react'
+import { ArrowLeft, Trophy, Bookmark, BookmarkCheck, Users, Award, Shield, Star } from 'lucide-react'
 
 const roleColors = {
   Top: 'bg-red-500/10 text-red-400 border-red-500/20',
@@ -12,6 +12,87 @@ const roleColors = {
   ADC: 'bg-amber-500/10 text-amber-400 border-amber-500/20',
   Support: 'bg-purple-500/10 text-purple-400 border-purple-500/20',
   Coach: 'bg-slate-500/10 text-slate-400 border-slate-500/20',
+}
+
+const roleIcons = {
+  Top: '⚔️',
+  Jungle: '🌿',
+  Mid: '✨',
+  ADC: '🏹',
+  Support: '🛡️',
+  Coach: '📋',
+}
+
+// Leaguepedia player photo URLs (direct CDN links)
+const playerPhotos = {
+  // T1
+  'Faker': 'https://static.wikia.nocookie.net/lolesports_gamepedia_en/images/0/06/T1_Faker_2024_Split_1.png',
+  'Zeus': 'https://static.wikia.nocookie.net/lolesports_gamepedia_en/images/f/f8/T1_Zeus_2024_Split_1.png',
+  'Oner': 'https://static.wikia.nocookie.net/lolesports_gamepedia_en/images/0/00/T1_Oner_2024_Split_1.png',
+  'Gumayusi': 'https://static.wikia.nocookie.net/lolesports_gamepedia_en/images/9/9a/T1_Gumayusi_2024_Split_1.png',
+  'Keria': 'https://static.wikia.nocookie.net/lolesports_gamepedia_en/images/9/92/T1_Keria_2024_Split_1.png',
+  // GEN
+  'Doran': 'https://static.wikia.nocookie.net/lolesports_gamepedia_en/images/8/87/GEN_Doran_2024_Split_1.png',
+  'Peanut': 'https://static.wikia.nocookie.net/lolesports_gamepedia_en/images/0/02/GEN_Peanut_2024_Split_1.png',
+  'Chovy': 'https://static.wikia.nocookie.net/lolesports_gamepedia_en/images/8/8e/GEN_Chovy_2024_Split_1.png',
+  'Peyz': 'https://static.wikia.nocookie.net/lolesports_gamepedia_en/images/f/ff/GEN_Peyz_2024_Split_1.png',
+  'Lehends': 'https://static.wikia.nocookie.net/lolesports_gamepedia_en/images/0/00/GEN_Lehends_2024_Split_1.png',
+  // HLE
+  'Kingen': 'https://static.wikia.nocookie.net/lolesports_gamepedia_en/images/0/09/HLE_Kingen_2024_Split_1.png',
+  'Clid': 'https://static.wikia.nocookie.net/lolesports_gamepedia_en/images/9/9b/HLE_Clid_2024_Split_1.png',
+  'Zeka': 'https://static.wikia.nocookie.net/lolesports_gamepedia_en/images/f/f4/HLE_Zeka_2024_Split_1.png',
+  'Viper': 'https://static.wikia.nocookie.net/lolesports_gamepedia_en/images/9/9f/HLE_Viper_2024_Split_1.png',
+  'Life': 'https://static.wikia.nocookie.net/lolesports_gamepedia_en/images/0/00/HLE_Life_2024_Split_1.png',
+  // KT
+  'Canna': 'https://static.wikia.nocookie.net/lolesports_gamepedia_en/images/f/f3/KT_Canna_2024_Split_1.png',
+  'Sylvie': 'https://static.wikia.nocookie.net/lolesports_gamepedia_en/images/0/00/KT_Sylvie_2024_Split_1.png',
+  'BDD': 'https://static.wikia.nocookie.net/lolesports_gamepedia_en/images/0/0f/KT_BDD_2024_Split_1.png',
+  'Aiming': 'https://static.wikia.nocookie.net/lolesports_gamepedia_en/images/0/0f/KT_Aiming_2024_Split_1.png',
+  'Effort': 'https://static.wikia.nocookie.net/lolesports_gamepedia_en/images/0/02/KT_Effort_2024_Split_1.png',
+  // BLG
+  'Bin': 'https://static.wikia.nocookie.net/lolesports_gamepedia_en/images/0/09/BLG_Bin_2024_Split_1.png',
+  'Wei': 'https://static.wikia.nocookie.net/lolesports_gamepedia_en/images/0/0a/BLG_Wei_2024_Split_1.png',
+  'knight': 'https://static.wikia.nocookie.net/lolesports_gamepedia_en/images/0/00/BLG_Knight_2024_Split_1.png',
+  'Elk': 'https://static.wikia.nocookie.net/lolesports_gamepedia_en/images/0/02/BLG_Elk_2024_Split_1.png',
+  'ON': 'https://static.wikia.nocookie.net/lolesports_gamepedia_en/images/0/09/BLG_ON_2024_Split_1.png',
+  // G2
+  'BrokenBlade': 'https://static.wikia.nocookie.net/lolesports_gamepedia_en/images/0/00/G2_BrokenBlade_2024_Split_1.png',
+  'Caps': 'https://static.wikia.nocookie.net/lolesports_gamepedia_en/images/0/09/G2_Caps_2024_Split_1.png',
+  'Hans Sama': 'https://static.wikia.nocookie.net/lolesports_gamepedia_en/images/0/09/G2_Hans_Sama_2024_Split_1.png',
+  'Labrov': 'https://static.wikia.nocookie.net/lolesports_gamepedia_en/images/0/00/G2_Labrov_2024_Split_1.png',
+  // FNC
+  'Oscarinin': 'https://static.wikia.nocookie.net/lolesports_gamepedia_en/images/0/00/FNC_Oscarinin_2024_Split_1.png',
+  'Rekkles': 'https://static.wikia.nocookie.net/lolesports_gamepedia_en/images/0/09/FNC_Rekkles_2023.png',
+  // TL
+  'CoreJJ': 'https://static.wikia.nocookie.net/lolesports_gamepedia_en/images/0/00/TL_CoreJJ_2024_Split_1.png',
+  'Yeon': 'https://static.wikia.nocookie.net/lolesports_gamepedia_en/images/0/00/TL_Yeon_2024_Split_1.png',
+  // C9
+  'Blaber': 'https://static.wikia.nocookie.net/lolesports_gamepedia_en/images/0/09/C9_Blaber_2024_Split_1.png',
+  'Jensen': 'https://static.wikia.nocookie.net/lolesports_gamepedia_en/images/0/09/C9_Jensen_2024_Split_1.png',
+  'Ruler': 'https://static.wikia.nocookie.net/lolesports_gamepedia_en/images/0/09/C9_Ruler_2024_Split_1.png',
+}
+
+function PlayerAvatar({ ign, photo }) {
+  const [imgError, setImgError] = useState(false)
+  const initials = ign ? ign.substring(0, 2).toUpperCase() : '??'
+
+  if (photo && !imgError) {
+    return (
+      <img
+        src={photo}
+        alt={ign}
+        decoding="async"
+        onError={() => setImgError(true)}
+        className="w-14 h-14 rounded-xl object-cover object-top bg-slate-800 border border-slate-700/60"
+      />
+    )
+  }
+
+  return (
+    <div className="w-14 h-14 rounded-xl bg-gradient-to-br from-slate-800 to-slate-700 border border-slate-700/60 flex items-center justify-center font-bold text-sm text-slate-300 shrink-0">
+      {initials}
+    </div>
+  )
 }
 
 export default function TeamDetailPage() {
@@ -106,9 +187,11 @@ export default function TeamDetailPage() {
               <span className="px-2.5 py-0.5 rounded-md bg-slate-800 text-amber-400 border border-amber-500/30 text-xs font-bold uppercase">
                 {team.region} League
               </span>
-              <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-md bg-amber-500/10 text-amber-400 border border-amber-500/20 text-xs font-bold">
-                <Trophy className="w-3.5 h-3.5" /> Rank #{team.standing_summer}
-              </span>
+              {team.standing_summer && (
+                <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-md bg-amber-500/10 text-amber-400 border border-amber-500/20 text-xs font-bold">
+                  <Trophy className="w-3.5 h-3.5" /> Rank #{team.standing_summer}
+                </span>
+              )}
             </div>
 
             <h1 className="text-2xl font-extrabold text-white">{team.name}</h1>
@@ -125,19 +208,15 @@ export default function TeamDetailPage() {
             }`}
           >
             {isFavorited ? (
-              <>
-                <BookmarkCheck className="w-4 h-4" /> Favorited
-              </>
+              <><BookmarkCheck className="w-4 h-4" /> Favorited</>
             ) : (
-              <>
-                <Bookmark className="w-4 h-4" /> Add to Favorites
-              </>
+              <><Bookmark className="w-4 h-4" /> Add to Favorites</>
             )}
           </button>
         </div>
       </div>
 
-      {/* Active 2026 Roster */}
+      {/* Active 2026 Roster — with player photos */}
       <div className="rounded-2xl bg-slate-900/80 border border-slate-800 p-5 space-y-4 shadow-md">
         <h2 className="text-sm font-bold text-white flex items-center gap-2 border-b border-slate-800 pb-3">
           <Users className="w-4 h-4 text-amber-400" />
@@ -148,37 +227,58 @@ export default function TeamDetailPage() {
           {roster.map((player, idx) => (
             <div
               key={idx}
-              className="p-3.5 rounded-xl bg-slate-950/60 border border-slate-800/80 flex items-center justify-between hover:border-amber-500/30 transition"
+              className="p-3.5 rounded-xl bg-slate-950/60 border border-slate-800/80 flex items-center gap-3 hover:border-amber-500/30 transition"
             >
-              <div className="space-y-0.5">
+              <PlayerAvatar ign={player.ign} photo={playerPhotos[player.ign]} />
+              <div className="flex-1 min-w-0 space-y-1">
                 <span className={`text-[10px] font-extrabold px-2 py-0.5 rounded border uppercase ${roleColors[player.role] || 'bg-slate-800 text-slate-300'}`}>
-                  {player.role}
+                  {roleIcons[player.role] || ''} {player.role}
                 </span>
-                <p className="font-extrabold text-sm text-white pt-1">{player.ign}</p>
-                <p className="text-[11px] text-slate-400">{player.name}</p>
+                <p className="font-extrabold text-sm text-white truncate">{player.ign}</p>
+                {player.name && <p className="text-[11px] text-slate-400 truncate">{player.name}</p>}
               </div>
-              <span className="text-xs font-bold px-2 py-1 rounded bg-slate-900 border border-slate-800 text-slate-400">
-                {player.nationality}
-              </span>
+              {player.nationality && (
+                <span className="text-xs font-bold px-2 py-1 rounded bg-slate-900 border border-slate-800 text-slate-400 shrink-0">
+                  {player.nationality}
+                </span>
+              )}
             </div>
           ))}
         </div>
       </div>
 
-      {/* Achievements */}
+      {/* Key Titles & Achievements */}
       {achievements.length > 0 && (
         <div className="rounded-2xl bg-slate-900/80 border border-slate-800 p-5 space-y-3 shadow-md">
-          <h2 className="text-sm font-bold text-white flex items-center gap-2 border-b border-slate-800 pb-3">
-            <Award className="w-4 h-4 text-amber-400" />
-            Key Titles & Achievements
-          </h2>
+          <div className="flex items-center justify-between border-b border-slate-800 pb-3">
+            <h2 className="text-sm font-bold text-white flex items-center gap-2">
+              <Award className="w-4 h-4 text-amber-400" />
+              Key Titles & Achievements
+            </h2>
+            <span className="text-[11px] text-slate-400 bg-slate-800 px-2 py-0.5 rounded-full">
+              {achievements.length} titles
+            </span>
+          </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 pt-1">
-            {achievements.map((ach, idx) => (
-              <div key={idx} className="flex items-center gap-2.5 text-xs text-slate-300 p-2.5 rounded-lg bg-slate-950/40 border border-slate-800/60">
-                <Trophy className="w-4 h-4 text-amber-400 shrink-0" />
-                <span>{ach}</span>
-              </div>
-            ))}
+            {achievements.map((ach, idx) => {
+              const isWorldsOrMSI = /worlds|msi|champion/i.test(ach)
+              return (
+                <div
+                  key={idx}
+                  className={`flex items-center gap-2.5 text-xs p-2.5 rounded-lg border transition ${
+                    isWorldsOrMSI
+                      ? 'bg-amber-500/5 border-amber-500/20 text-amber-200'
+                      : 'bg-slate-950/40 border-slate-800/60 text-slate-300'
+                  }`}
+                >
+                  {isWorldsOrMSI
+                    ? <Star className="w-4 h-4 text-amber-400 shrink-0" />
+                    : <Trophy className="w-4 h-4 text-slate-400 shrink-0" />
+                  }
+                  <span>{ach}</span>
+                </div>
+              )
+            })}
           </div>
         </div>
       )}
