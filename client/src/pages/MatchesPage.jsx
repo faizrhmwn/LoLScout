@@ -1,4 +1,5 @@
-﻿import React, { useEffect, useState } from 'react'
+import LoadingSpinner from '../components/LoadingSpinner'
+import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { api } from '../services/api'
 import TeamLogo from '../components/TeamLogo'
@@ -69,9 +70,7 @@ export default function MatchesPage() {
       {/* Match Table List */}
       <div className="rounded-2xl bg-[#111827] border border-[#1e293b] overflow-hidden shadow-sm divide-y divide-[#1e293b]">
         {loading ? (
-          <div className="py-24 text-center text-slate-500 text-xs animate-pulse">
-            Memuat arsip pertandingan...
-          </div>
+          <LoadingSpinner message="Memuat arsip pertandingan & Fearless Draft..." />
         ) : matches.length === 0 ? (
           <div className="py-16 text-center text-slate-400 text-xs">
             Tidak ada pertandingan yang cocok dengan filter yang dipilih.

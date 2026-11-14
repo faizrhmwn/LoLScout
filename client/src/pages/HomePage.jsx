@@ -1,4 +1,5 @@
-﻿import React, { useEffect, useState } from 'react'
+import LoadingSpinner from '../components/LoadingSpinner'
+import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { api } from '../services/api'
 import TeamLogo from '../components/TeamLogo'
@@ -107,9 +108,7 @@ export default function HomePage() {
 
           <div className="divide-y divide-[#1e293b]">
             {loading ? (
-              <div className="py-16 text-center text-slate-500 text-xs animate-pulse">
-                Memuat pertandingan...
-              </div>
+              <LoadingSpinner message="Memuat overview kompetitif 2026..." />
             ) : finishedMatches.map(m => {
               const dateStr = m.match_date ? new Date(m.match_date).toLocaleDateString('id-ID', { month: 'short', day: 'numeric', year: 'numeric' }) : '2026'
               return (

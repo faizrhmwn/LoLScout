@@ -1,21 +1,26 @@
-﻿import React from 'react'
+import React from 'react'
 
-export default function LoadingSpinner({ message = 'Loading match intelligence...' }) {
+export default function LoadingSpinner({ message = 'Memuat data...' }) {
   return (
-    <div className="py-24 flex flex-col items-center justify-center space-y-3 ">
-      {/* Hextech / Esports Ring Spinner */}
-      <div className="relative w-12 h-12">
-        <div className="absolute inset-0 rounded-full border-2 border-[#162232]"></div>
-        <div className="absolute inset-0 rounded-full border-2 border-t-[#00bcd4] border-r-[#00bcd4] border-b-transparent border-l-transparent animate-spin"></div>
-        <div className="absolute inset-2 rounded-full border border-dashed border-[#4da8da]/40 animate-[spin_3s_linear_infinite_reverse]"></div>
-        <div className="absolute inset-0 flex items-center justify-center">
-          <div className="w-2 h-2 rounded-full bg-[#00bcd4] animate-ping"></div>
-        </div>
+    <div className="py-20 flex flex-col items-center justify-center space-y-4">
+      {/* Sleek Modern Animated Esports Loader */}
+      <div className="relative w-12 h-12 flex items-center justify-center">
+        {/* Outer glowing pulsing halo */}
+        <div className="absolute inset-0 rounded-full border border-blue-500/30 animate-ping"></div>
+        {/* Outer spinning ring */}
+        <div className="absolute inset-0 rounded-full border-2 border-transparent border-t-blue-500 border-r-blue-400/60 animate-spin"></div>
+        {/* Middle counter-spinning ring */}
+        <div className="absolute inset-1.5 rounded-full border-2 border-transparent border-b-cyan-400 border-l-cyan-300/60 animate-[spin_1.5s_linear_infinite_reverse]"></div>
+        {/* Inner pulsing core */}
+        <div className="w-2.5 h-2.5 rounded-full bg-blue-500 shadow-[0_0_12px_rgba(59,130,246,0.9)] animate-pulse"></div>
       </div>
-      <span className="text-xs text-slate-400 tracking-wider uppercase font-semibold">
-        {message}
-      </span>
+      
+      {/* Label text */}
+      <div className="flex items-center gap-2">
+        <span className="text-xs text-slate-400 font-medium tracking-wide">
+          {message}
+        </span>
+      </div>
     </div>
   )
 }
-

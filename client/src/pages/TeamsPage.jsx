@@ -1,4 +1,5 @@
-﻿import React, { useEffect, useState } from 'react'
+import LoadingSpinner from '../components/LoadingSpinner'
+import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { api } from '../services/api'
 import TeamLogo from '../components/TeamLogo'
@@ -64,9 +65,7 @@ export default function TeamsPage() {
 
       {/* Teams Grid */}
       {loading ? (
-        <div className="py-24 text-center text-slate-500 text-xs animate-pulse">
-          Memuat data tim dan roster 2026...
-        </div>
+        <LoadingSpinner message="Memuat direktori 53 tim dan roster 2026..." />
       ) : (
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3.5">
           {teams.map(t => (

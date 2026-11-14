@@ -1,3 +1,4 @@
+import LoadingSpinner from '../components/LoadingSpinner'
 import React, { useEffect, useState } from 'react'
 import { useParams, Link } from 'react-router-dom'
 import { api } from '../services/api'
@@ -64,11 +65,7 @@ export default function TeamDetailPage() {
   }
 
   if (loading) {
-    return (
-      <div className="py-24 text-center text-slate-500 text-xs animate-pulse">
-        Loading team profile & roster...
-      </div>
-    )
+    return <LoadingSpinner message="Memuat profil tim & roster pemain..." />
   }
 
   if (!team) {

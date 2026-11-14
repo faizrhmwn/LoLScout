@@ -1,4 +1,5 @@
-﻿import React, { useEffect, useState } from 'react'
+import LoadingSpinner from '../components/LoadingSpinner'
+import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { api } from '../services/api'
 import TeamLogo from '../components/TeamLogo'
@@ -198,9 +199,7 @@ export default function FavoritesPage() {
 
       {/* Main Table / Card List */}
       {loading ? (
-        <div className="py-20 text-center text-slate-500 text-xs animate-pulse">
-          Memuat watchlist...
-        </div>
+        <LoadingSpinner message="Memuat watchlist tim favorit..." />
       ) : filteredFavorites.length === 0 ? (
         <div className="p-10 rounded-2xl bg-[#111827] border border-dashed border-[#1e293b] text-center space-y-3">
           <Bookmark className="w-8 h-8 text-slate-600 mx-auto" />
