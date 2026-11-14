@@ -244,10 +244,10 @@ export default function MatchDetailPage() {
                   ðŸ‰ {currentGame?.team1_dragons || 3}
                 </span>
                 <span className="bg-[#141e2b] px-2 py-0.5 rounded border border-[#202e42] flex items-center gap-1 text-purple-400">
-                  ðŸ‘¾ {currentGame?.team1_barons || 1}
+                  Barons: {currentGame?.team1_barons || 1}
                 </span>
                 <span className="bg-[#141e2b] px-2 py-0.5 rounded border border-[#202e42] flex items-center gap-1 text-amber-300 ml-auto font-bold">
-                  ðŸ’° {currentGame?.team1_gold || '62.0k'}
+                  Gold: {currentGame?.team1_gold || '62.0k'}
                 </span>
               </div>
 
@@ -310,10 +310,10 @@ export default function MatchDetailPage() {
                   ðŸ‰ {currentGame?.team2_dragons || 1}
                 </span>
                 <span className="bg-[#141e2b] px-2 py-0.5 rounded border border-[#202e42] flex items-center gap-1 text-purple-400">
-                  ðŸ‘¾ {currentGame?.team2_barons || 0}
+                  Barons: {currentGame?.team2_barons || 0}
                 </span>
                 <span className="bg-[#141e2b] px-2 py-0.5 rounded border border-[#202e42] flex items-center gap-1 text-amber-300 ml-auto font-bold">
-                  ðŸ’° {currentGame?.team2_gold || '54.2k'}
+                  Gold: {currentGame?.team2_gold || '54.2k'}
                 </span>
               </div>
 
@@ -443,4 +443,5 @@ export default function MatchDetailPage() {
     </div>
   )
 }
+
 
