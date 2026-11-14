@@ -5,7 +5,7 @@ export const MatchModel = {
     let query = supabase
       .from('matches')
       .select(`
-        id, league, team1_score, team2_score, status, match_date, format, vod_url, mvp, draft,
+        id, league, team1_score, team2_score, status, match_date, format, vod_url, mvp,
         team1:teams!matches_team1_id_fkey(id, name, short_name, logo_url, region),
         team2:teams!matches_team2_id_fkey(id, name, short_name, logo_url, region)
       `)

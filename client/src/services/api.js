@@ -1,4 +1,4 @@
-const API_BASE = import.meta.env.VITE_API_URL || 'http://localhost:5000/api'
+const API_BASE = import.meta.env.VITE_API_URL || '/api'
 
 export const api = {
   // TEAMS
@@ -20,7 +20,8 @@ export const api = {
     const params = new URLSearchParams()
     if (status && status !== 'All') params.append('status', status)
     if (league && league !== 'All') params.append('league', league)
-    const url = `${API_BASE}/matches?${params.toString()}`
+    const queryString = params.toString()
+    const url = queryString ? `${API_BASE}/matches?${queryString}` : `${API_BASE}/matches`
     const res = await fetch(url)
     if (!res.ok) throw new Error('Failed to fetch matches')
     return res.json()
