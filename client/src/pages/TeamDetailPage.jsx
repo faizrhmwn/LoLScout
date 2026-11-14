@@ -16,37 +16,56 @@ const roleColors = {
 
 const roleIcons = { Top:'⚔️', Jungle:'🌿', Mid:'✨', ADC:'🏹', Support:'🛡️', Coach:'📋' }
 
-function PlayerAvatar({ ign, photoUrl }) {
-  const [status, setStatus] = useState('loading') // 'loading' | 'ok' | 'err'
-  const initials = (ign || '??').substring(0, 2).toUpperCase()
+// Leaguepedia Special:FilePath — browser follows 302 redirect to CDN image automatically.
+// Tries multiple year/split patterns in order; onError moves to next, then falls back to initials.
+function getPhotoPatterns(ign) {
+  const enc = encodeURIComponent(ign)
+  const base = 'https://lol.fandom.com/wiki/Special:FilePath'
+  return [
+    `${base}/${enc}_2026_Split_2.png`,
+    `${base}/${enc}_2026_Split_1.png`,
+    `${base}/${enc}_2026_Player.png`,
+    `${base}/${enc}_2025_Split_2.png`,
+    `${base}/${enc}_2025_Split_1.png`,
+    `${base}/${enc}_2025_Player.png`,
+    `${base}/${enc}_2024_Split_2.png`,
+    `${base}/${enc}_2024_Split_1.png`,
+    `${base}/${enc}_2024_Player.png`,
+    `${base}/${enc}_2023_Split_2.png`,
+    `${base}/${enc}_2023_Split_1.png`,
+  ]
+}
 
-  if (!photoUrl) {
-    return (
-      <div className="w-16 h-16 rounded-xl bg-gradient-to-br from-slate-700 to-slate-800 border border-slate-700 flex items-center justify-center font-bold text-sm text-slate-300 shrink-0">
-        {initials}
-      </div>
-    )
-  }
+function PlayerAvatar({ ign, photoUrl }) {
+  // photoUrl from DB takes priority; otherwise try Leaguepedia patterns
+  const patterns = photoUrl ? [photoUrl] : getPhotoPatterns(ign)
+  const [idx, setIdx] = useState(0)
+  const [loaded, setLoaded] = useState(false)
+  const initials = (ign || '??').substring(0, 2).toUpperCase()
+  const failed = idx >= patterns.length
 
   return (
     <div className="w-16 h-16 rounded-xl overflow-hidden border border-slate-700/60 bg-slate-800 shrink-0 relative">
-      {status !== 'err' && (
+      {!failed && (
         <img
-          src={photoUrl}
+          key={patterns[idx]}
+          src={patterns[idx]}
           alt={ign}
           decoding="async"
-          onLoad={() => setStatus('ok')}
-          onError={() => setStatus('err')}
-          className="w-full h-full object-cover object-top"
+          onLoad={() => setLoaded(true)}
+          onError={() => setIdx(i => i + 1)}
+          className={`w-full h-full object-cover object-top transition-opacity duration-300 ${loaded ? 'opacity-100' : 'opacity-0'}`}
         />
       )}
-      {status === 'err' && (
+      {/* Shimmer while loading first pattern */}
+      {!loaded && !failed && (
+        <div className="absolute inset-0 bg-slate-800 animate-pulse" />
+      )}
+      {/* Initials fallback */}
+      {failed && (
         <div className="w-full h-full flex items-center justify-center font-bold text-sm text-slate-300 bg-gradient-to-br from-slate-700 to-slate-800">
           {initials}
         </div>
-      )}
-      {status === 'loading' && (
-        <div className="absolute inset-0 bg-slate-800 animate-pulse" />
       )}
     </div>
   )
@@ -153,8 +172,7 @@ export default function TeamDetailPage() {
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
           {roster.map((player, idx) => (
             <div key={idx} className="p-3.5 rounded-xl bg-slate-950/60 border border-slate-800/80 flex items-center gap-3 hover:border-amber-500/30 transition group">
-              <PlayerAvatar ign={player.ign} photoUrl={player.photo_url} />
-              <div className="flex-1 min-w-0 space-y-1">
+              <PlayerAvatar ign={player.ign} photoUrl={player.photo_url} />              <div className="flex-1 min-w-0 space-y-1">
                 <span className={`inline-block text-[10px] font-extrabold px-2 py-0.5 rounded border uppercase ${roleColors[player.role] || 'bg-slate-800 text-slate-300 border-slate-700'}`}>
                   {roleIcons[player.role] || ''} {player.role}
                 </span>
