@@ -13,7 +13,7 @@ import ProfilePage from './pages/ProfilePage'
 export default function App() {
   return (
     <BrowserRouter>
-      <div className="min-h-screen bg-[#030712] text-slate-100 flex flex-col font-sans selection:bg-amber-400 selection:text-slate-950">
+      <div className="min-h-screen bg-[#0b0f17] text-slate-100 flex flex-col font-sans selection:bg-amber-400 selection:text-slate-950">
         <Navbar />
         <main className="flex-1">
           <Routes>

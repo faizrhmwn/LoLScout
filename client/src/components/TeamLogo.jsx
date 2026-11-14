@@ -14,7 +14,7 @@ export default function TeamLogo({ shortName, alt, className = "w-12 h-12" }) {
         if (!useFallback) setUseFallback(true)
       }}
       className={`${className} object-contain shrink-0`}
-      loading="lazy"
+      decoding="async"
     />
   )
 }

@@ -13,6 +13,8 @@ export default function MatchesPage() {
   const [selectedLeague, setSelectedLeague] = useState('ALL')
   const [selectedStatus, setSelectedStatus] = useState('ALL')
   const [loading, setLoading] = useState(true)
+  const [currentPage, setCurrentPage] = useState(1)
+  const pageSize = 25
 
   useEffect(() => {
     async function fetchMatches() {
@@ -28,6 +30,7 @@ export default function MatchesPage() {
         setLoading(false)
       }
     }
+    setCurrentPage(1)
     fetchMatches()
   }, [selectedStatus, selectedLeague])
 
@@ -76,13 +79,13 @@ export default function MatchesPage() {
             Tidak ada pertandingan yang cocok dengan filter yang dipilih.
           </div>
         ) : (
-          matches.map(m => {
+          matches.slice((currentPage - 1) * pageSize, currentPage * pageSize).map(m => {
             const dateStr = m.match_date ? new Date(m.match_date).toLocaleDateString('id-ID', { month: 'short', day: 'numeric', year: 'numeric' }) : '2026'
             return (
               <Link
                 key={m.id}
                 to={`/matches/${m.id}`}
-                className="p-4 block hover:bg-[#151e2e] transition duration-150 group"
+                className="match-card-item p-4 block hover:bg-[#151e2e] transition duration-150 group"
               >
                 <div className="flex items-center justify-between text-xs text-slate-400 mb-2.5">
                   <div className="flex items-center gap-2">
@@ -148,8 +151,35 @@ export default function MatchesPage() {
             )
           })
         )}
+      
+        {/* Pagination Controls like Paham.ID */}
+        {!loading && matches.length > pageSize && (
+          <div className="p-4 bg-[#0d131f] border-t border-[#1e293b] flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-slate-400">
+            <div>
+              Menampilkan {(currentPage - 1) * pageSize + 1} - {Math.min(currentPage * pageSize, matches.length)} dari {matches.length} pertandingan
+            </div>
+            <div className="flex items-center gap-1.5">
+              <button
+                disabled={currentPage === 1}
+                onClick={() => { setCurrentPage(p => Math.max(1, p - 1)); window.scrollTo({ top: 0, behavior: 'smooth' }); }}
+                className="px-3 py-1.5 rounded-lg bg-[#151e2e] border border-[#1e293b] text-slate-300 disabled:opacity-30 disabled:cursor-not-allowed hover:bg-slate-800 transition cursor-pointer"
+              >
+                &larr; Prev
+              </button>
+              <span className="px-3 py-1.5 rounded-lg bg-blue-600/20 border border-blue-500/30 text-blue-400 font-semibold">
+                Hal {currentPage} / {Math.ceil(matches.length / pageSize)}
+              </span>
+              <button
+                disabled={currentPage === Math.ceil(matches.length / pageSize)}
+                onClick={() => { setCurrentPage(p => Math.min(Math.ceil(matches.length / pageSize), p + 1)); window.scrollTo({ top: 0, behavior: 'smooth' }); }}
+                className="px-3 py-1.5 rounded-lg bg-[#151e2e] border border-[#1e293b] text-slate-300 disabled:opacity-30 disabled:cursor-not-allowed hover:bg-slate-800 transition cursor-pointer"
+              >
+                Next &rarr;
+              </button>
+            </div>
+          </div>
+        )}
       </div>
     </div>
   )
 }
-

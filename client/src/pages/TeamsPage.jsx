@@ -72,7 +72,7 @@ export default function TeamsPage() {
             <Link
               key={t.id}
               to={`/teams/${t.id}`}
-              className="p-4 rounded-2xl bg-[#111827] border border-[#1e293b] hover:border-slate-700 hover:bg-[#151e2e] transition duration-150 block group shadow-sm"
+              className="team-card-item p-4 rounded-2xl bg-[#111827] border border-[#1e293b] hover:border-slate-700 hover:bg-[#151e2e] transition duration-150 block group shadow-sm"
             >
               <div className="flex items-center justify-between mb-3">
                 <span className="text-[11px] font-semibold text-blue-400">
