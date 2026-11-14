@@ -165,7 +165,7 @@ export default function FavoritesPage() {
       <div className="p-3 rounded-2xl bg-[#111827] border border-[#1e293b] flex flex-wrap items-center justify-between gap-3 shadow-sm">
         {/* Region Filter Pills */}
         <div className="flex items-center gap-1.5 overflow-x-auto pb-1 sm:pb-0 scrollbar-none">
-          {['ALL', 'LCK', 'LPL', 'LEC', 'LCS', 'CBLOL'].map(tab => (
+          {['ALL', 'LCK', 'LPL', 'LEC', 'LCS', 'CBLOL', 'LCP'].map(tab => (
             <button
               key={tab}
               onClick={() => setActiveTab(tab)}

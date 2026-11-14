@@ -5,7 +5,7 @@ import { api } from '../services/api'
 import TeamLogo from '../components/TeamLogo'
 import { Shield, ChevronRight, Users2 } from 'lucide-react'
 
-const REGIONS = ['ALL', 'LCK', 'LPL', 'LEC', 'LCS', 'CBLOL']
+const REGIONS = ['ALL', 'LCK', 'LPL', 'LEC', 'LCS', 'CBLOL', 'LCP']
 
 export default function TeamsPage() {
   const [teams, setTeams] = useState([])

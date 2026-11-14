@@ -87,7 +87,7 @@ export default function HomePage() {
           </div>
           <div>
             <span className="text-2xl font-bold text-emerald-400">{teams.length}</span>
-            <span className="text-xs text-slate-400 block mt-0.5">5 Region Tier-1</span>
+            <span className="text-xs text-slate-400 block mt-0.5">Major & LCP Region</span>
           </div>
         </div>
       </div>
