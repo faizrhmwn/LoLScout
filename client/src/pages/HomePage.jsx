@@ -130,7 +130,7 @@ export default function HomePage() {
                       <span className="font-semibold text-sm text-white group-hover:text-blue-400 transition">
                         {m.team1?.name}
                       </span>
-                      <div className="w-8 h-8 rounded-lg bg-[#0b0f17] border border-[#1e293b] p-1 flex items-center justify-center shrink-0">
+                      <div className="w-8 h-8 rounded-lg bg-[#182232] border border-[#2a3b52] p-1 flex items-center justify-center shrink-0">
                         <TeamLogo
                           src={m.team1?.logo_url}
                           alt={m.team1?.name}
@@ -142,13 +142,13 @@ export default function HomePage() {
                     </div>
 
                     {/* Score */}
-                    <div className="px-3 py-1 rounded-lg bg-[#0b0f17] border border-[#1e293b]  font-bold text-sm text-white shrink-0">
+                    <div className="px-3 py-1 rounded-lg bg-[#182232] border border-[#2a3b52]  font-bold text-sm text-white shrink-0">
                       {m.team1_score} : {m.team2_score}
                     </div>
 
                     {/* Team 2 */}
                     <div className="flex items-center gap-2.5 flex-1">
-                      <div className="w-8 h-8 rounded-lg bg-[#0b0f17] border border-[#1e293b] p-1 flex items-center justify-center shrink-0">
+                      <div className="w-8 h-8 rounded-lg bg-[#182232] border border-[#2a3b52] p-1 flex items-center justify-center shrink-0">
                         <TeamLogo
                           src={m.team2?.logo_url}
                           alt={m.team2?.name}
@@ -188,7 +188,7 @@ export default function HomePage() {
                 className="p-3.5 flex items-center justify-between hover:bg-[#151e2e] transition group"
               >
                 <div className="flex items-center gap-3">
-                  <div className="w-9 h-9 rounded-lg bg-[#0b0f17] border border-[#1e293b] p-1 flex items-center justify-center shrink-0 group-hover:border-blue-500/50 transition">
+                  <div className="w-9 h-9 rounded-lg bg-[#182232] border border-[#2a3b52] p-1 flex items-center justify-center shrink-0 group-hover:border-blue-500/50 transition">
                     <TeamLogo
                       src={t.logo_url}
                       alt={t.name}

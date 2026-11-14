@@ -107,7 +107,7 @@ export default function MatchesPage() {
                       </span>
                       <span className="text-[10px] text-slate-400">{m.team1?.region}</span>
                     </div>
-                    <div className="w-9 h-9 rounded-xl bg-[#0b0f17] border border-[#1e293b] p-1.5 flex items-center justify-center shrink-0">
+                    <div className="w-9 h-9 rounded-xl bg-[#182232] border border-[#2a3b52] p-1.5 flex items-center justify-center shrink-0">
                       <TeamLogo
                         src={m.team1?.logo_url}
                         alt={m.team1?.name}
@@ -120,7 +120,7 @@ export default function MatchesPage() {
 
                   {/* Score & Status */}
                   <div className="flex flex-col items-center gap-1 shrink-0 px-2">
-                    <div className="px-3 py-1 rounded-xl bg-[#0b0f17] border border-[#1e293b]  font-bold text-sm text-white">
+                    <div className="px-3 py-1 rounded-xl bg-[#182232] border border-[#2a3b52]  font-bold text-sm text-white">
                       {m.team1_score} : {m.team2_score}
                     </div>
                     <span className="text-[10px] text-slate-400 font-medium uppercase tracking-wide">
@@ -130,7 +130,7 @@ export default function MatchesPage() {
 
                   {/* Team 2 */}
                   <div className="flex items-center gap-3 flex-1">
-                    <div className="w-9 h-9 rounded-xl bg-[#0b0f17] border border-[#1e293b] p-1.5 flex items-center justify-center shrink-0">
+                    <div className="w-9 h-9 rounded-xl bg-[#182232] border border-[#2a3b52] p-1.5 flex items-center justify-center shrink-0">
                       <TeamLogo
                         src={m.team2?.logo_url}
                         alt={m.team2?.name}

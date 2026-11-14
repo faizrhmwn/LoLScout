@@ -90,7 +90,7 @@ export default function TeamsPage() {
               </div>
 
               <div className="flex items-center gap-3 mb-3">
-                <div className="w-12 h-12 rounded-xl bg-[#0b0f17] border border-[#1e293b] p-1.5 flex items-center justify-center shrink-0 group-hover:border-blue-500/40 transition">
+                <div className="w-12 h-12 rounded-xl bg-[#182232] border border-[#2a3b52] p-1.5 flex items-center justify-center shrink-0 group-hover:border-blue-500/40 transition">
                   <TeamLogo
                     src={t.logo_url}
                     alt={t.name}

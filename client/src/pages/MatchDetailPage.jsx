@@ -120,7 +120,7 @@ export default function MatchDetailPage() {
             alt={match.team1?.name}
             shortName={match.team1?.short_name}
             region={match.team1?.region}
-            className="w-10 h-10 border border-slate-800 bg-[#0b1118] p-0.5 rounded"
+            className="w-10 h-10 border border-[#2a3b52] bg-[#182232] p-0.5 rounded"
           />
           <div>
             <div className="font-bold text-base text-white">{match.team1?.name}</div>
@@ -156,7 +156,7 @@ export default function MatchDetailPage() {
             alt={match.team2?.name}
             shortName={match.team2?.short_name}
             region={match.team2?.region}
-            className="w-10 h-10 border border-slate-800 bg-[#0b1118] p-0.5 rounded"
+            className="w-10 h-10 border border-[#2a3b52] bg-[#182232] p-0.5 rounded"
           />
         </div>
       </div>

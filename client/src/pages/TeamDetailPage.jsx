@@ -91,7 +91,7 @@ export default function TeamDetailPage() {
       {/* Header Banner */}
       <div className="relative overflow-hidden rounded-2xl bg-gradient-to-b from-slate-900 to-slate-950 border border-slate-800 p-6 shadow-xl">
         <div className="flex flex-col sm:flex-row items-center sm:items-start gap-5">
-          <div className="w-24 h-24 p-2 rounded-2xl bg-slate-950/80 border border-slate-800 flex items-center justify-center shrink-0 shadow-lg">
+          <div className="w-24 h-24 p-2 rounded-2xl bg-[#182232] border border-[#2a3b52] flex items-center justify-center shrink-0 shadow-lg">
             <TeamLogo
               src={team.logo_url}
               alt={team.name}

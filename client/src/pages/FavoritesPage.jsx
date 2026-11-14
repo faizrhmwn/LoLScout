@@ -188,7 +188,7 @@ export default function FavoritesPage() {
           <select
             value={sortBy}
             onChange={(e) => setSortBy(e.target.value)}
-            className="bg-[#0b0f17] border border-[#1e293b] text-slate-300 rounded-lg px-2.5 py-1 text-xs focus:outline-none focus:border-blue-500 cursor-pointer"
+            className="bg-[#182232] border border-[#2a3b52] text-slate-300 rounded-lg px-2.5 py-1 text-xs focus:outline-none focus:border-blue-500 cursor-pointer"
           >
             <option value="RECENT">Terbaru Ditambahkan</option>
             <option value="WINRATE">Win Rate Tertinggi</option>
@@ -227,7 +227,7 @@ export default function FavoritesPage() {
               {/* Row Header */}
               <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
                 <Link to={`/teams/${fav.team?.id}`} className="flex items-center gap-3 group">
-                  <div className="w-11 h-11 rounded-xl bg-[#0b0f17] border border-[#1e293b] p-1.5 flex items-center justify-center shrink-0 group-hover:border-blue-500/50 transition">
+                  <div className="w-11 h-11 rounded-xl bg-[#182232] border border-[#2a3b52] p-1.5 flex items-center justify-center shrink-0 group-hover:border-blue-500/50 transition">
                     <TeamLogo
                       src={fav.team?.logo_url}
                       alt={fav.team?.name}
@@ -255,7 +255,7 @@ export default function FavoritesPage() {
                 <div className="flex items-center justify-between sm:justify-end gap-3">
                   {fav.stats && (
                     <div className="flex items-center gap-2 text-xs">
-                      <div className="px-2.5 py-1 rounded-lg bg-[#0b0f17] border border-[#1e293b]">
+                      <div className="px-2.5 py-1 rounded-lg bg-[#182232] border border-[#2a3b52]">
                         <span className="text-slate-400 text-[11px] mr-1.5">WR:</span>
                         <span className={`font-semibold ${fav.stats.winRate >= 50 ? 'text-emerald-400' : 'text-amber-400'}`}>
                           {fav.stats.winRate}%
@@ -305,7 +305,7 @@ export default function FavoritesPage() {
 
               {/* Match Detail Sub-Row */}
               {fav.latestMatch && (
-                <div className="p-3 rounded-xl bg-[#0b0f17] border border-[#1e293b] flex flex-col sm:flex-row sm:items-center justify-between gap-2.5 text-xs">
+                <div className="p-3 rounded-xl bg-[#182232] border border-[#2a3b52] flex flex-col sm:flex-row sm:items-center justify-between gap-2.5 text-xs">
                   <div className="flex items-center gap-2.5">
                     <span className={`px-2 py-0.5 rounded text-[10px] font-bold ${
                       fav.latestMatch.won 
@@ -353,7 +353,7 @@ export default function FavoritesPage() {
                     value={editNotes}
                     onChange={(e) => setEditNotes(e.target.value)}
                     placeholder="Tulis catatan tim..."
-                    className="flex-1 px-3 py-1.5 rounded-lg bg-[#0b0f17] border border-[#1e293b] text-xs text-white focus:outline-none focus:border-blue-500"
+                    className="flex-1 px-3 py-1.5 rounded-lg bg-[#182232] border border-[#2a3b52] text-xs text-white focus:outline-none focus:border-blue-500"
                   />
                   <button
                     onClick={() => handleSaveNotes(fav.id)}

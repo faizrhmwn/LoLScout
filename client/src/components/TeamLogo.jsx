@@ -13,7 +13,7 @@ export default function TeamLogo({ shortName, alt, className = "w-12 h-12" }) {
       onError={() => {
         if (!useFallback) setUseFallback(true)
       }}
-      className={`${className} object-contain shrink-0`}
+      className={`${className} object-contain shrink-0 [filter:drop-shadow(0_0_1.5px_rgba(255,255,255,0.45))]`}
       decoding="async"
     />
   )
