@@ -9,28 +9,25 @@ export default defineConfig({
     tailwindcss(),
     VitePWA({
       registerType: 'autoUpdate',
-      includeAssets: ['favicon.ico', 'apple-touch-icon.png', 'masked-icon.svg'],
+      includeAssets: ['favicon.svg', 'pwa-192x192.png', 'pwa-512x512.png'],
       manifest: {
-        name: 'RiftDraft - LoL Esports Tracker',
-        short_name: 'RiftDraft',
-        description: 'Track League of Legends Esports Matches, Teams, Rosters and Drafts',
-        theme_color: '#0f172a',
-        background_color: '#020617',
+        name: 'LoLScout - Esports Pro Tracker',
+        short_name: 'LoLScout',
+        description: 'Track League of Legends Competitive Esports, Fearless Drafts, and Teams',
+        theme_color: '#0d1117',
+        background_color: '#0d1117',
         display: 'standalone',
+        start_url: '/',
         orientation: 'portrait',
         icons: [
           {
-            src: 'pwa-192x192.png',
+            src: '/pwa-192x192.png',
             sizes: '192x192',
-            type: 'image/png'
+            type: 'image/png',
+            purpose: 'any'
           },
           {
-            src: 'pwa-512x512.png',
-            sizes: '512x512',
-            type: 'image/png'
-          },
-          {
-            src: 'pwa-512x512.png',
+            src: '/pwa-512x512.png',
             sizes: '512x512',
             type: 'image/png',
             purpose: 'any maskable'

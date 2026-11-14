@@ -4,8 +4,8 @@ import { api } from '../services/api'
 import TeamLogo from '../components/TeamLogo'
 import PwaInstallModal from '../components/PwaInstallModal'
 import { 
-  Bookmark, Trash2, Edit3, Shield, ArrowRight, Check, X, 
-  Tv, Smartphone, ExternalLink, Calendar, Flame
+  Bookmark, Trash2, Edit3, ArrowRight, Check, X, 
+  Tv, Smartphone, ExternalLink, SlidersHorizontal, ArrowUpDown
 } from 'lucide-react'
 
 export default function FavoritesPage() {
@@ -16,6 +16,10 @@ export default function FavoritesPage() {
   const [deferredPrompt, setDeferredPrompt] = useState(null)
   const [isInstalled, setIsInstalled] = useState(false)
   const [showInstallModal, setShowInstallModal] = useState(false)
+  
+  // Clean Filter tabs like admin dashboard
+  const [activeTab, setActiveTab] = useState('ALL') // 'ALL', 'LCK', 'LPL', 'LEC', 'LCS', 'CBLOL'
+  const [sortBy, setSortBy] = useState('RECENT') // 'RECENT', 'WINRATE', 'NAME'
 
   useEffect(() => {
     const handleBeforeInstall = (e) => {
@@ -65,7 +69,7 @@ export default function FavoritesPage() {
   }, [])
 
   async function handleDelete(id) {
-    if (!confirm('Hapus tim dari daftar favorit Anda?')) return
+    if (!confirm('Hapus tim dari daftar favorit?')) return
     try {
       await api.removeFavorite(id)
       setFavorites(favorites.filter(f => f.id !== id))
@@ -84,75 +88,147 @@ export default function FavoritesPage() {
     }
   }
 
+  // Filter & Sort
+  const filteredFavorites = favorites.filter(fav => {
+    if (activeTab === 'ALL') return true
+    return fav.team?.region === activeTab
+  }).sort((a, b) => {
+    if (sortBy === 'WINRATE') {
+      return (b.stats?.winRate || 0) - (a.stats?.winRate || 0)
+    }
+    if (sortBy === 'NAME') {
+      return (a.team?.name || '').localeCompare(b.team?.name || '')
+    }
+    return new Date(b.created_at) - new Date(a.created_at)
+  })
+
+  // Summary Metrics
+  const totalTracked = favorites.length
+  const avgWinRate = totalTracked > 0
+    ? Math.round(favorites.reduce((acc, curr) => acc + (curr.stats?.winRate || 0), 0) / totalTracked)
+    : 0
+
   return (
-    <div className="pb-24 pt-3 px-3 sm:px-4 max-w-5xl mx-auto space-y-4">
-      {/* Top Banner / Breadcrumb Header */}
-      <div className="bg-[#0e1622] border border-[#1b2533] p-3 sm:p-4 rounded-xl flex flex-col sm:flex-row sm:items-center justify-between gap-3 shadow-sm">
-        <div>
-          <div className="flex items-center gap-2">
-            <span className="p-1.5 rounded-lg bg-amber-400/10 text-amber-400 border border-amber-400/20">
-              <Bookmark className="w-4 h-4" />
+    <div className="pb-28 pt-4 px-4 sm:px-6 max-w-5xl mx-auto space-y-5">
+      {/* Top Banner / Summary Card (Clean Dashboard Admin Style) */}
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
+        <div className="md:col-span-2 p-5 rounded-2xl bg-[#111827] border border-[#1e293b] flex flex-col justify-between shadow-sm">
+          <div>
+            <span className="text-[11px] font-semibold tracking-wider text-slate-400 uppercase">
+              Dashboard Favorit
             </span>
-            <h1 className="text-base sm:text-lg font-bold text-white tracking-tight">
-              Watchlist & Tim Favorit
+            <h1 className="text-xl font-bold text-white mt-1">
+              Watchlist Tim Kompetitif
             </h1>
+            <p className="text-xs text-slate-400 mt-1">
+              Pantau jadwal, hasil pertandingan, VOD resmi, dan catatan performa tim pilihan Anda.
+            </p>
           </div>
-          <p className="text-[11px] text-slate-400 mt-1">
-            Tracking rekor 2026, hasil pertandingan terakhir, VOD YouTube resmi, dan catatan pribadi
-          </p>
+
+          <div className="flex items-center gap-6 mt-4 pt-4 border-t border-[#1e293b]">
+            <div>
+              <span className="text-[11px] text-slate-400 block">Total Tim</span>
+              <span className="text-lg font-bold text-white">{totalTracked} Tim</span>
+            </div>
+            <div className="w-px h-8 bg-[#1e293b]"></div>
+            <div>
+              <span className="text-[11px] text-slate-400 block">Avg. Win Rate</span>
+              <span className="text-lg font-bold text-emerald-400">{avgWinRate}%</span>
+            </div>
+          </div>
         </div>
 
-        <div className="flex items-center gap-2 self-start sm:self-center">
-          <span className="text-[11px] font-mono px-2.5 py-1 rounded-lg bg-[#141e2c] text-amber-400 border border-amber-400/30 font-semibold">
-            {favorites.length} Tim Tersimpan
-          </span>
+        {/* PWA Action Card */}
+        <div className="p-5 rounded-2xl bg-[#111827] border border-[#1e293b] flex flex-col justify-between shadow-sm">
+          <div>
+            <div className="w-8 h-8 rounded-lg bg-cyan-500/10 text-cyan-400 flex items-center justify-center mb-3">
+              <Smartphone className="w-4 h-4" />
+            </div>
+            <h3 className="font-semibold text-sm text-white">LoLScout Mobile PWA</h3>
+            <p className="text-xs text-slate-400 mt-1 leading-relaxed">
+              Pasang di layar utama HP untuk akses offline dan notifikasi jadwal langsung.
+            </p>
+          </div>
 
-          {!isInstalled && (
-            <button
-              onClick={handleInstallTrigger}
-              className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-[#142334] hover:bg-[#1a2f46] text-[#4da8da] border border-[#2b4462] text-xs font-medium transition cursor-pointer"
-            >
-              <Smartphone className="w-3.5 h-3.5" />
-              <span>Install App</span>
-            </button>
-          )}
+          <button
+            onClick={handleInstallTrigger}
+            className="mt-4 w-full py-2 px-3 rounded-xl bg-blue-600 hover:bg-blue-500 text-white font-medium text-xs flex items-center justify-center gap-2 transition cursor-pointer shadow-sm"
+          >
+            <Smartphone className="w-3.5 h-3.5" />
+            <span>{isInstalled ? 'Aplikasi Terpasang' : 'Pasang Aplikasi'}</span>
+          </button>
         </div>
       </div>
 
-      {/* Main Content */}
-      {loading ? (
-        <div className="py-20 text-center text-slate-500 text-xs animate-pulse font-mono">
-          MEMUAT DATA FAVORIT & STATISTIK 2026...
+      {/* Filter Tabs & Sort Controls */}
+      <div className="p-3 rounded-2xl bg-[#111827] border border-[#1e293b] flex flex-wrap items-center justify-between gap-3 shadow-sm">
+        {/* Region Filter Pills */}
+        <div className="flex items-center gap-1.5 overflow-x-auto pb-1 sm:pb-0 scrollbar-none">
+          {['ALL', 'LCK', 'LPL', 'LEC', 'LCS', 'CBLOL'].map(tab => (
+            <button
+              key={tab}
+              onClick={() => setActiveTab(tab)}
+              className={`px-3 py-1.5 rounded-xl text-xs font-medium transition cursor-pointer shrink-0 ${
+                activeTab === tab
+                  ? 'bg-blue-600 text-white shadow-sm'
+                  : 'text-slate-400 hover:text-slate-200 hover:bg-slate-800/60'
+              }`}
+            >
+              {tab === 'ALL' ? 'Semua Region' : tab}
+            </button>
+          ))}
         </div>
-      ) : favorites.length === 0 ? (
-        <div className="p-10 rounded-2xl bg-[#0c1219] border border-dashed border-[#1b2533] text-center space-y-3">
-          <div className="w-12 h-12 rounded-2xl bg-[#141e2b] flex items-center justify-center mx-auto text-slate-600">
-            <Shield className="w-6 h-6" />
-          </div>
+
+        {/* Sort Select */}
+        <div className="flex items-center gap-2 text-xs">
+          <span className="text-slate-400 flex items-center gap-1">
+            <ArrowUpDown className="w-3.5 h-3.5" /> Urutkan:
+          </span>
+          <select
+            value={sortBy}
+            onChange={(e) => setSortBy(e.target.value)}
+            className="bg-[#0b0f17] border border-[#1e293b] text-slate-300 rounded-lg px-2.5 py-1 text-xs focus:outline-none focus:border-blue-500 cursor-pointer"
+          >
+            <option value="RECENT">Terbaru Ditambahkan</option>
+            <option value="WINRATE">Win Rate Tertinggi</option>
+            <option value="NAME">Nama Tim (A-Z)</option>
+          </select>
+        </div>
+      </div>
+
+      {/* Main Table / Card List */}
+      {loading ? (
+        <div className="py-20 text-center text-slate-500 text-xs animate-pulse">
+          Memuat watchlist...
+        </div>
+      ) : filteredFavorites.length === 0 ? (
+        <div className="p-10 rounded-2xl bg-[#111827] border border-dashed border-[#1e293b] text-center space-y-3">
+          <Bookmark className="w-8 h-8 text-slate-600 mx-auto" />
           <div className="space-y-1">
-            <h3 className="font-bold text-sm text-white">Belum Ada Tim di Watchlist</h3>
-            <p className="text-xs text-slate-400 max-w-xs mx-auto">
-              Buka menu Teams dan tandai tim favoritmu untuk memantau performa serta VOD pertandingannya secara praktis di sini.
+            <h3 className="font-semibold text-sm text-white">Tidak ada tim dalam filter ini</h3>
+            <p className="text-xs text-slate-400 max-w-sm mx-auto">
+              {favorites.length === 0 
+                ? 'Jelajahi halaman tim dan bookmark tim favoritmu untuk memantau performa dan VOD di sini.'
+                : 'Coba ubah tab kategori region di atas untuk melihat tim lainnya.'}
             </p>
           </div>
-          <Link
-            to="/teams"
-            className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-[#00bcd4] hover:bg-[#00acc1] text-slate-950 font-bold text-xs transition shadow-sm"
-          >
-            Lihat Daftar Tim <ArrowRight className="w-4 h-4" />
-          </Link>
+          {favorites.length === 0 && (
+            <Link
+              to="/teams"
+              className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-blue-600 hover:bg-blue-500 text-white font-medium text-xs transition"
+            >
+              Jelajahi Teams <ArrowRight className="w-4 h-4" />
+            </Link>
+          )}
         </div>
       ) : (
-        <div className="space-y-3">
-          {favorites.map(fav => (
-            <div
-              key={fav.id}
-              className="p-4 rounded-xl bg-[#0b1118] border border-[#1b2533] hover:border-[#28384d] space-y-3 transition shadow-sm"
-            >
-              {/* Header: Team Identity & Actions */}
-              <div className="flex items-center justify-between">
+        <div className="rounded-2xl bg-[#111827] border border-[#1e293b] overflow-hidden shadow-sm divide-y divide-[#1e293b]">
+          {filteredFavorites.map(fav => (
+            <div key={fav.id} className="p-4 hover:bg-[#151e2e] transition duration-150 space-y-3">
+              {/* Row Header */}
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
                 <Link to={`/teams/${fav.team?.id}`} className="flex items-center gap-3 group">
-                  <div className="w-11 h-11 rounded-lg bg-[#111923] border border-[#202d3d] flex items-center justify-center p-1.5 shrink-0 group-hover:border-[#00bcd4]/50 transition">
+                  <div className="w-11 h-11 rounded-xl bg-[#0b0f17] border border-[#1e293b] p-1.5 flex items-center justify-center shrink-0 group-hover:border-blue-500/50 transition">
                     <TeamLogo
                       src={fav.team?.logo_url}
                       alt={fav.team?.name}
@@ -162,99 +238,88 @@ export default function FavoritesPage() {
                     />
                   </div>
                   <div>
-                    <h3 className="font-bold text-sm sm:text-base text-white group-hover:text-[#00bcd4] transition flex items-center gap-2">
+                    <h3 className="font-semibold text-sm text-white group-hover:text-blue-400 transition flex items-center gap-2">
                       {fav.team?.name}
-                      <span className="text-[10px] font-mono px-1.5 py-0.2 rounded bg-[#16202c] text-slate-300 border border-[#223143]">
+                      <span className="text-[10px] font-mono px-1.5 py-0.5 rounded bg-slate-800 text-slate-300">
                         {fav.team?.short_name}
                       </span>
                     </h3>
-                    <div className="flex items-center gap-2 text-[11px] text-slate-400 mt-0.5">
-                      <span className="text-amber-400 font-semibold">{fav.team?.region}</span>
+                    <div className="flex items-center gap-2 text-xs text-slate-400 mt-0.5">
+                      <span className="text-blue-400 font-medium">{fav.team?.region}</span>
                       <span>•</span>
                       <span>Seed #{fav.team?.standing_summer}</span>
                     </div>
                   </div>
                 </Link>
 
-                <div className="flex items-center gap-1">
-                  <button
-                    onClick={() => {
-                      setEditingId(fav.id)
-                      setEditNotes(fav.notes || '')
-                    }}
-                    className="p-1.5 rounded-lg text-slate-400 hover:text-white hover:bg-[#16212d] transition"
-                    title="Edit Catatan"
-                  >
-                    <Edit3 className="w-4 h-4" />
-                  </button>
-                  <button
-                    onClick={() => handleDelete(fav.id)}
-                    className="p-1.5 rounded-lg text-slate-400 hover:text-red-400 hover:bg-red-500/10 transition"
-                    title="Hapus"
-                  >
-                    <Trash2 className="w-4 h-4" />
-                  </button>
+                {/* Performance Chips & Action Buttons */}
+                <div className="flex items-center justify-between sm:justify-end gap-3">
+                  {fav.stats && (
+                    <div className="flex items-center gap-2 text-xs">
+                      <div className="px-2.5 py-1 rounded-lg bg-[#0b0f17] border border-[#1e293b]">
+                        <span className="text-slate-400 text-[11px] mr-1.5">WR:</span>
+                        <span className={`font-semibold ${fav.stats.winRate >= 50 ? 'text-emerald-400' : 'text-amber-400'}`}>
+                          {fav.stats.winRate}%
+                        </span>
+                        <span className="text-slate-400 text-[10px] ml-1">({fav.stats.wins}W-{fav.stats.losses}L)</span>
+                      </div>
+
+                      {/* 5 Form Dots */}
+                      <div className="hidden sm:flex items-center gap-1">
+                        {fav.stats.form?.map((r, i) => (
+                          <span
+                            key={i}
+                            className={`w-4 h-4 rounded text-[9px] font-bold flex items-center justify-center ${
+                              r === 'W' 
+                                ? 'bg-emerald-500/20 text-emerald-400' 
+                                : 'bg-red-500/20 text-red-400'
+                            }`}
+                          >
+                            {r}
+                          </span>
+                        ))}
+                      </div>
+                    </div>
+                  )}
+
+                  <div className="flex items-center gap-1">
+                    <button
+                      onClick={() => {
+                        setEditingId(fav.id)
+                        setEditNotes(fav.notes || '')
+                      }}
+                      className="p-1.5 rounded-lg text-slate-400 hover:text-white hover:bg-slate-800 transition"
+                      title="Edit Catatan"
+                    >
+                      <Edit3 className="w-4 h-4" />
+                    </button>
+                    <button
+                      onClick={() => handleDelete(fav.id)}
+                      className="p-1.5 rounded-lg text-slate-400 hover:text-red-400 hover:bg-red-500/10 transition"
+                      title="Hapus"
+                    >
+                      <Trash2 className="w-4 h-4" />
+                    </button>
+                  </div>
                 </div>
               </div>
 
-              {/* Stats Bar */}
-              {fav.stats && (
-                <div className="grid grid-cols-2 sm:grid-cols-3 gap-2 p-2.5 rounded-lg bg-[#080d14] border border-[#16212e] text-xs">
-                  <div>
-                    <span className="text-[10px] text-slate-400 block font-mono">SEASON 2026</span>
-                    <span className="font-bold text-white">
-                      {fav.stats.wins}W - {fav.stats.losses}L
-                    </span>
-                    <span className="text-[10px] text-slate-400 ml-1">({fav.stats.total} Series)</span>
-                  </div>
-
-                  <div>
-                    <span className="text-[10px] text-slate-400 block font-mono">WIN RATE</span>
-                    <span className={`font-bold ${fav.stats.winRate >= 50 ? 'text-emerald-400' : 'text-amber-400'}`}>
-                      {fav.stats.winRate}%
-                    </span>
-                  </div>
-
-                  <div className="col-span-2 sm:col-span-1">
-                    <span className="text-[10px] text-slate-400 block font-mono">RECENT FORM (5 G)</span>
-                    <div className="flex items-center gap-1 mt-1">
-                      {fav.stats.form?.map((res, i) => (
-                        <span
-                          key={i}
-                          className={`w-4 h-4 rounded text-[9px] font-bold flex items-center justify-center ${
-                            res === 'W' 
-                              ? 'bg-emerald-500/15 text-emerald-400 border border-emerald-500/30' 
-                              : 'bg-red-500/15 text-red-400 border border-red-500/30'
-                          }`}
-                        >
-                          {res}
-                        </span>
-                      ))}
-                    </div>
-                  </div>
-                </div>
-              )}
-
-              {/* Latest Match Bar */}
+              {/* Match Detail Sub-Row */}
               {fav.latestMatch && (
-                <div className="p-3 rounded-lg bg-[#0e1622] border border-[#1b2533] flex flex-col sm:flex-row sm:items-center justify-between gap-2.5">
+                <div className="p-3 rounded-xl bg-[#0b0f17] border border-[#1e293b] flex flex-col sm:flex-row sm:items-center justify-between gap-2.5 text-xs">
                   <div className="flex items-center gap-2.5">
-                    <span className={`px-2 py-1 rounded text-[10px] font-bold font-mono ${
+                    <span className={`px-2 py-0.5 rounded text-[10px] font-bold ${
                       fav.latestMatch.won 
-                        ? 'bg-emerald-500/15 text-emerald-400 border border-emerald-500/30' 
-                        : 'bg-red-500/15 text-red-400 border border-red-500/30'
+                        ? 'bg-emerald-500/15 text-emerald-400' 
+                        : 'bg-red-500/15 text-red-400'
                     }`}>
-                      {fav.latestMatch.won ? 'VICTORY' : 'DEFEAT'}
+                      {fav.latestMatch.won ? 'WIN' : 'LOSS'}
                     </span>
                     <div>
-                      <div className="text-xs font-bold text-white flex items-center gap-1.5">
-                        <span>vs {fav.latestMatch.opponent}</span>
-                        <span className="text-slate-400 font-mono">({fav.latestMatch.score})</span>
-                        <span className="text-[10px] font-mono px-1.5 py-0.2 rounded bg-[#16202c] text-slate-400 border border-[#223143]">
-                          {fav.latestMatch.league}
-                        </span>
-                      </div>
-                      <span className="text-[10px] text-slate-400">
+                      <span className="text-white font-medium">vs {fav.latestMatch.opponent}</span>
+                      <span className="text-slate-400 ml-1.5 font-mono">({fav.latestMatch.score})</span>
+                      <span className="text-slate-400 ml-2 font-mono text-[10px]">[{fav.latestMatch.league}]</span>
+                      <span className="text-slate-400 text-[11px] block sm:inline sm:ml-2">
                         {new Date(fav.latestMatch.match_date).toLocaleDateString('id-ID', { month: 'short', day: 'numeric', year: 'numeric' })}
                       </span>
                     </div>
@@ -266,14 +331,14 @@ export default function FavoritesPage() {
                         href={fav.latestMatch.vod_url}
                         target="_blank"
                         rel="noreferrer"
-                        className="flex-1 sm:flex-none inline-flex items-center justify-center gap-1.5 px-3 py-1.5 rounded-lg bg-red-600 hover:bg-red-500 text-white font-bold text-xs transition"
+                        className="px-3 py-1.5 rounded-lg bg-red-600/90 hover:bg-red-600 text-white font-medium text-xs flex items-center gap-1.5 transition"
                       >
-                        <Tv className="w-3.5 h-3.5" /> Watch VOD
+                        <Tv className="w-3.5 h-3.5" /> Tonton VOD
                       </a>
                     )}
                     <Link
                       to={`/matches/${fav.latestMatch.id}`}
-                      className="flex-1 sm:flex-none inline-flex items-center justify-center gap-1 px-3 py-1.5 rounded-lg bg-[#162231] hover:bg-[#1e2f44] text-slate-200 text-xs border border-[#25364b] transition"
+                      className="px-3 py-1.5 rounded-lg bg-[#1e293b] hover:bg-slate-700 text-slate-300 text-xs flex items-center gap-1 transition"
                     >
                       Draft <ExternalLink className="w-3 h-3" />
                     </Link>
@@ -281,38 +346,36 @@ export default function FavoritesPage() {
                 </div>
               )}
 
-              {/* Notes Section (CRUD) */}
+              {/* Notes Input / Display */}
               {editingId === fav.id ? (
-                <div className="flex gap-2 pt-2 border-t border-[#182330]">
+                <div className="flex gap-2 pt-2 border-t border-[#1e293b]">
                   <input
                     type="text"
                     value={editNotes}
                     onChange={(e) => setEditNotes(e.target.value)}
-                    placeholder="Tulis catatan (misal: Jangan lupa tonton final Worlds 2026!)..."
-                    className="flex-1 px-3 py-1.5 rounded-lg bg-[#080d14] border border-[#233144] text-xs text-white focus:outline-none focus:border-[#00bcd4]"
+                    placeholder="Tulis catatan tim..."
+                    className="flex-1 px-3 py-1.5 rounded-lg bg-[#0b0f17] border border-[#1e293b] text-xs text-white focus:outline-none focus:border-blue-500"
                   />
                   <button
                     onClick={() => handleSaveNotes(fav.id)}
-                    className="px-3 py-1.5 rounded-lg bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-bold text-xs flex items-center gap-1 transition"
+                    className="px-3 py-1.5 rounded-lg bg-blue-600 hover:bg-blue-500 text-white font-medium text-xs flex items-center gap-1 transition"
                   >
                     <Check className="w-3.5 h-3.5" /> Simpan
                   </button>
                   <button
                     onClick={() => setEditingId(null)}
-                    className="px-2.5 py-1.5 rounded-lg bg-[#162231] hover:bg-[#1e2f44] text-slate-300 text-xs"
+                    className="px-2.5 py-1.5 rounded-lg bg-slate-800 text-slate-300 text-xs"
                   >
                     <X className="w-3.5 h-3.5" />
                   </button>
                 </div>
               ) : (
-                <div className="pt-2 border-t border-[#182330] flex items-center justify-between text-xs text-slate-400">
-                  <span className="italic flex items-center gap-1 text-slate-300">
-                    <span className="text-amber-400">“</span>
-                    {fav.notes || 'Belum ada catatan khusus'}
-                    <span className="text-amber-400">”</span>
+                <div className="pt-2 border-t border-[#1e293b]/70 flex items-center justify-between text-xs text-slate-400">
+                  <span className="italic text-slate-300">
+                    “{fav.notes || 'Belum ada catatan khusus'}”
                   </span>
-                  <span className="text-[10px] text-slate-400 font-mono">
-                    {new Date(fav.created_at).toLocaleDateString('id-ID', { month: 'short', day: 'numeric' })}
+                  <span className="text-[10px] text-slate-400">
+                    Ditambahkan: {new Date(fav.created_at).toLocaleDateString('id-ID', { month: 'short', day: 'numeric' })}
                   </span>
                 </div>
               )}
@@ -321,7 +384,7 @@ export default function FavoritesPage() {
         </div>
       )}
 
-      {/* Clean PWA Install Modal */}
+      {/* Clean PWA Modal */}
       <PwaInstallModal
         isOpen={showInstallModal}
         onClose={() => setShowInstallModal(false)}
