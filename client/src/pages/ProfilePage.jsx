@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { ShieldCheck, Download, Database, Server, Smartphone, CheckCircle2, User, Cpu } from 'lucide-react'
+import { Download, Database, Server, Smartphone, User, Cpu } from 'lucide-react'
 import PwaInstallModal from '../components/PwaInstallModal'
 
 export default function ProfilePage() {
@@ -62,10 +62,10 @@ export default function ProfilePage() {
       <div className="p-5 rounded-2xl bg-[#111827] border border-[#1e293b] shadow-sm flex items-center justify-between flex-wrap gap-4">
         <div className="flex items-center gap-4">
           <div className="w-14 h-14 rounded-2xl bg-blue-600/15 border border-blue-500/30 flex items-center justify-center font-bold text-lg text-blue-400 shrink-0">
-            FR
+            FAR
           </div>
           <div>
-            <h2 className="text-base font-bold text-white">Faizal Rahmawan</h2>
+            <h2 className="text-base font-bold text-white">Faiz Alif Rahmawan</h2>
             <div className="text-xs font-semibold text-blue-400 mt-0.5">
               NIM: 21120124130063
             </div>
@@ -94,7 +94,7 @@ export default function ProfilePage() {
           <span className="text-[11px] text-slate-400">PWA &bull; Web Service</span>
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs">
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 text-xs">
           <div className="p-3.5 rounded-xl bg-[#0b0f17] border border-[#1e293b] space-y-1">
             <div className="flex items-center gap-2 font-semibold text-white">
               <Smartphone className="w-4 h-4 text-blue-400" />
@@ -122,16 +122,6 @@ export default function ProfilePage() {
             </div>
             <p className="text-slate-400 text-[11px] leading-relaxed">
               Supabase PostgreSQL (861 match pro real, 53 tim resmi).
-            </p>
-          </div>
-
-          <div className="p-3.5 rounded-xl bg-[#0b0f17] border border-[#1e293b] space-y-1">
-            <div className="flex items-center gap-2 font-semibold text-white">
-              <ShieldCheck className="w-4 h-4 text-cyan-400" />
-              <span>Analitik Fearless Draft</span>
-            </div>
-            <p className="text-slate-400 text-[11px] leading-relaxed">
-              Pengecekan pelanggaran 0 fearless across all multi-game series.
             </p>
           </div>
         </div>

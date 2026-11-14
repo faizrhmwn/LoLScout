@@ -44,7 +44,7 @@ export default function MatchesPage() {
               Jadwal & Hasil Pertandingan
             </h1>
             <p className="text-xs text-slate-400 mt-1">
-              Arsip kompetitif tier-1, data Fearless Draft picks & bans, dan tautan YouTube VOD.
+              Arsip kompetitif tier-1, data picks & bans pertandingan, dan tautan YouTube VOD.
             </p>
           </div>
           <span className="text-xs font-medium px-3 py-1 rounded-full bg-blue-500/10 text-blue-400 border border-blue-500/20 w-fit">
@@ -73,7 +73,7 @@ export default function MatchesPage() {
       {/* Match Table List */}
       <div className="rounded-2xl bg-[#111827] border border-[#1e293b] overflow-hidden shadow-sm divide-y divide-[#1e293b]">
         {loading ? (
-          <LoadingSpinner message="Memuat arsip pertandingan & Fearless Draft..." />
+          <LoadingSpinner message="Memuat arsip pertandingan pro play..." />
         ) : matches.length === 0 ? (
           <div className="py-16 text-center text-slate-400 text-xs">
             Tidak ada pertandingan yang cocok dengan filter yang dipilih.

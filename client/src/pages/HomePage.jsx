@@ -44,7 +44,7 @@ export default function HomePage() {
               LoLScout Competitive Hub
             </h1>
             <p className="text-xs text-slate-400 mt-1">
-              Platform analitik resmi Fearless Draft, rekaman VOD pertandingan, dan direktori tim Tier-1.
+              Platform pelacak pertandingan resmi, rekaman VOD, skor, dan direktori tim Tier-1.
             </p>
           </div>
 

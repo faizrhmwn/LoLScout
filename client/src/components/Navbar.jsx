@@ -23,16 +23,10 @@ export default function Navbar() {
           </div>
         </Link>
 
-        <div className="flex items-center gap-4">
-          <div className="hidden sm:flex items-center gap-5 text-xs text-slate-400">
-            <Link to="/matches" className="hover:text-white transition">Schedule</Link>
-            <Link to="/teams" className="hover:text-white transition">Teams</Link>
-            <Link to="/favorites" className="hover:text-white transition">Watchlist</Link>
-          </div>
-          <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[11px] font-medium bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">
-            <span className="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
-            Live
-          </span>
+        <div className="hidden sm:flex items-center gap-5 text-xs text-slate-400">
+          <Link to="/matches" className="hover:text-white transition">Schedule</Link>
+          <Link to="/teams" className="hover:text-white transition">Teams</Link>
+          <Link to="/favorites" className="hover:text-white transition">Watchlist</Link>
         </div>
       </div>
     </header>
