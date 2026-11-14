@@ -29,8 +29,9 @@ function PlayerAvatar({ ign, photoUrl }) {
     )
   }
 
-  // Fallback to our backend proxy if direct CDN request is blocked by browser referer rules
-  const currentSrc = useProxy
+  // Local assets (e.g. /players/G2_Caps.png) load directly. External http URLs can fallback to backend proxy.
+  const isExternal = typeof photoUrl === 'string' && photoUrl.startsWith('http')
+  const currentSrc = useProxy && isExternal
     ? `/api/proxy-image?url=${encodeURIComponent(photoUrl)}`
     : photoUrl
 
@@ -42,7 +43,7 @@ function PlayerAvatar({ ign, photoUrl }) {
         decoding="async"
         referrerPolicy="no-referrer"
         onError={() => {
-          if (!useProxy) {
+          if (isExternal && !useProxy) {
             setUseProxy(true)
           } else {
             setHasError(true)
