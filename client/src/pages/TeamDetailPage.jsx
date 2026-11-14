@@ -81,7 +81,7 @@ export default function TeamDetailPage() {
   const achievements = team.achievements || []
 
   return (
-    <div className="pb-24 pt-4 px-4 max-w-4xl mx-auto space-y-6">
+    <div className="pb-24 pt-4 px-4 sm:px-6 max-w-6xl mx-auto space-y-6">
       {/* Back button */}
       <Link to="/teams" className="inline-flex items-center gap-1.5 text-xs text-slate-400 hover:text-amber-400 transition">
         <ArrowLeft className="w-4 h-4" />

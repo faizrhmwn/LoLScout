@@ -110,7 +110,7 @@ export default function FavoritesPage() {
     : 0
 
   return (
-    <div className="pb-28 pt-4 px-4 sm:px-6 max-w-5xl mx-auto space-y-5">
+    <div className="pb-28 pt-4 px-4 sm:px-6 max-w-6xl mx-auto space-y-5">
       {/* Top Banner / Summary Card (Clean Dashboard Admin Style) */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
         <div className="md:col-span-2 p-5 rounded-2xl bg-[#111827] border border-[#1e293b] flex flex-col justify-between shadow-sm">

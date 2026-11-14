@@ -39,7 +39,7 @@ export default function ProfilePage() {
   }
 
   return (
-    <div className="pb-28 pt-4 px-4 sm:px-6 max-w-4xl mx-auto space-y-5">
+    <div className="pb-28 pt-4 px-4 sm:px-6 max-w-6xl mx-auto space-y-5">
       {/* Top Banner Header */}
       <div className="p-5 rounded-2xl bg-[#111827] border border-[#1e293b] flex flex-col sm:flex-row sm:items-center justify-between gap-3 shadow-sm">
         <div>

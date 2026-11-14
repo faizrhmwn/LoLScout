@@ -96,7 +96,7 @@ export default function MatchDetailPage() {
   const activeVodUrl = currentGame?.vod_url || 'https://www.youtube.com'
 
   return (
-    <div className="min-h-screen bg-[#0b1118] text-[#c8d4e0] font-sans pb-24 pt-3 px-2 sm:px-4 max-w-6xl mx-auto space-y-3">
+    <div className="min-h-screen bg-[#0b1118] text-[#c8d4e0] font-sans pb-24 pt-3 px-4 sm:px-6 max-w-6xl mx-auto space-y-3">
       {/* Top Breadcrumb & Metadata Header */}
       <div className="flex items-center justify-between text-xs text-slate-400 border-b border-slate-800/80 pb-2 px-1">
         <div className="flex items-center gap-1.5  text-[11px]">
