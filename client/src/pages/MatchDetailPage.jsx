@@ -15,7 +15,10 @@ import {
   ChevronRight,
   Tv,
   Coins,
-  ShieldAlert
+  ShieldAlert,
+  Castle,
+  Flame,
+  Crown
 } from 'lucide-react'
 
 const ROLES = ['TOP', 'JUNGLE', 'MID', 'ADC', 'SUPPORT']
@@ -237,14 +240,10 @@ export default function MatchDetailPage() {
                 <span className="bg-[#141e2b] px-2 py-0.5 rounded border border-[#202e42] flex items-center gap-1 text-slate-200">
                   <Swords className="w-3 h-3 text-amber-400" /> {currentGame?.team1_kills || 18}
                 </span>
-                <span className="bg-[#141e2b] px-2 py-0.5 rounded border border-[#202e42] flex items-center gap-1 text-slate-300">Towers: {currentGame?.team1_towers || 10}</span>
-                <span className="bg-[#141e2b] px-2 py-0.5 rounded border border-[#202e42] flex items-center gap-1 text-orange-400">Dragons: {currentGame?.team1_dragons || 3}</span>
-                <span className="bg-[#141e2b] px-2 py-0.5 rounded border border-[#202e42] flex items-center gap-1 text-purple-400">
-                  Barons: {currentGame?.team1_barons || 1}
-                </span>
-                <span className="bg-[#141e2b] px-2 py-0.5 rounded border border-[#202e42] flex items-center gap-1 text-amber-300 ml-auto font-bold">
-                  Gold: {currentGame?.team1_gold || '62.0k'}
-                </span>
+                <span className="bg-[#141e2b] px-2 py-0.5 rounded border border-[#202e42] flex items-center gap-1.5 text-slate-300" title="Towers Destroyed"><Castle className="w-3 h-3 text-slate-400" /> {currentGame?.team1_towers || 10}</span>
+                <span className="bg-[#141e2b] px-2 py-0.5 rounded border border-[#202e42] flex items-center gap-1.5 text-orange-400" title="Dragons Slain"><Flame className="w-3 h-3 text-orange-400" /> {currentGame?.team1_dragons || 3}</span>
+                <span className="bg-[#141e2b] px-2 py-0.5 rounded border border-[#202e42] flex items-center gap-1.5 text-purple-400" title="Barons Slain"><Crown className="w-3 h-3 text-purple-400" /> {currentGame?.team1_barons || 1}</span>
+                <span className="bg-[#141e2b] px-2 py-0.5 rounded border border-[#202e42] flex items-center gap-1.5 text-amber-300 ml-auto font-bold" title="Total Team Gold"><Coins className="w-3 h-3 text-amber-300" /> {currentGame?.team1_gold || '62.0k'}</span>
               </div>
 
               {/* Bans Row */}
@@ -299,14 +298,10 @@ export default function MatchDetailPage() {
                 <span className="bg-[#141e2b] px-2 py-0.5 rounded border border-[#202e42] flex items-center gap-1 text-slate-200">
                   <Swords className="w-3 h-3 text-amber-400" /> {currentGame?.team2_kills || 6}
                 </span>
-                <span className="bg-[#141e2b] px-2 py-0.5 rounded border border-[#202e42] flex items-center gap-1 text-slate-300">Towers: {currentGame?.team2_towers || 3}</span>
-                <span className="bg-[#141e2b] px-2 py-0.5 rounded border border-[#202e42] flex items-center gap-1 text-orange-400">Dragons: {currentGame?.team2_dragons || 1}</span>
-                <span className="bg-[#141e2b] px-2 py-0.5 rounded border border-[#202e42] flex items-center gap-1 text-purple-400">
-                  Barons: {currentGame?.team2_barons || 0}
-                </span>
-                <span className="bg-[#141e2b] px-2 py-0.5 rounded border border-[#202e42] flex items-center gap-1 text-amber-300 ml-auto font-bold">
-                  Gold: {currentGame?.team2_gold || '54.2k'}
-                </span>
+                <span className="bg-[#141e2b] px-2 py-0.5 rounded border border-[#202e42] flex items-center gap-1.5 text-slate-300" title="Towers Destroyed"><Castle className="w-3 h-3 text-slate-400" /> {currentGame?.team2_towers || 3}</span>
+                <span className="bg-[#141e2b] px-2 py-0.5 rounded border border-[#202e42] flex items-center gap-1.5 text-orange-400" title="Dragons Slain"><Flame className="w-3 h-3 text-orange-400" /> {currentGame?.team2_dragons || 1}</span>
+                <span className="bg-[#141e2b] px-2 py-0.5 rounded border border-[#202e42] flex items-center gap-1.5 text-purple-400" title="Barons Slain"><Crown className="w-3 h-3 text-purple-400" /> {currentGame?.team2_barons || 0}</span>
+                <span className="bg-[#141e2b] px-2 py-0.5 rounded border border-[#202e42] flex items-center gap-1.5 text-amber-300 ml-auto font-bold" title="Total Team Gold"><Coins className="w-3 h-3 text-amber-300" /> {currentGame?.team2_gold || '54.2k'}</span>
               </div>
 
               {/* Bans Row */}
