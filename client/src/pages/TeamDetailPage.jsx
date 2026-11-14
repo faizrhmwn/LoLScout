@@ -17,10 +17,11 @@ const roleColors = {
 const roleIcons = { Top:'⚔️', Jungle:'🌿', Mid:'✨', ADC:'🏹', Support:'🛡️', Coach:'📋' }
 
 function PlayerAvatar({ ign, photoUrl }) {
-  const [imgError, setImgError] = useState(false)
+  const [useProxy, setUseProxy] = useState(false)
+  const [hasError, setHasError] = useState(false)
   const initials = (ign || '??').substring(0, 2).toUpperCase()
 
-  if (!photoUrl || imgError) {
+  if (!photoUrl || hasError) {
     return (
       <div className="w-16 h-16 rounded-xl bg-gradient-to-br from-slate-700 to-slate-800 border border-slate-700 flex items-center justify-center font-bold text-sm text-slate-300 shrink-0 select-none shadow-inner">
         {initials}
@@ -28,13 +29,25 @@ function PlayerAvatar({ ign, photoUrl }) {
     )
   }
 
+  // Fallback to our backend proxy if direct CDN request is blocked by browser referer rules
+  const currentSrc = useProxy
+    ? `/api/proxy-image?url=${encodeURIComponent(photoUrl)}`
+    : photoUrl
+
   return (
     <div className="w-16 h-16 rounded-xl overflow-hidden border border-slate-700/80 bg-slate-900 shrink-0 relative shadow-sm">
       <img
-        src={photoUrl}
+        src={currentSrc}
         alt={ign}
         decoding="async"
-        onError={() => setImgError(true)}
+        referrerPolicy="no-referrer"
+        onError={() => {
+          if (!useProxy) {
+            setUseProxy(true)
+          } else {
+            setHasError(true)
+          }
+        }}
         className="w-full h-full object-cover object-top hover:scale-105 transition duration-200"
       />
     </div>

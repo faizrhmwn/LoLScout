@@ -25,6 +25,28 @@ app.get('/', (req, res) => {
   })
 })
 
+// Proxy image endpoint to bypass Wikia/Fandom hotlink referrer restrictions
+app.get('/api/proxy-image', async (req, res) => {
+  const imageUrl = req.query.url
+  if (!imageUrl) return res.status(400).send('Missing url')
+  try {
+    const upstream = await fetch(imageUrl, {
+      headers: { 'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64)' },
+      signal: AbortSignal.timeout(10000)
+    })
+    if (!upstream.ok) {
+      return res.status(upstream.status).send('Upstream error')
+    }
+    const contentType = upstream.headers.get('content-type') || 'image/png'
+    res.setHeader('Content-Type', contentType)
+    res.setHeader('Cache-Control', 'public, max-age=604800, immutable')
+    const buffer = await upstream.arrayBuffer()
+    res.send(Buffer.from(buffer))
+  } catch (err) {
+    res.status(500).send('Proxy error: ' + err.message)
+  }
+})
+
 app.use('/api/teams', teamRoutes)
 app.use('/api/matches', matchRoutes)
 app.use('/api/favorites', favoriteRoutes)
