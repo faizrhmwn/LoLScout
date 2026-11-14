@@ -237,12 +237,8 @@ export default function MatchDetailPage() {
                 <span className="bg-[#141e2b] px-2 py-0.5 rounded border border-[#202e42] flex items-center gap-1 text-slate-200">
                   <Swords className="w-3 h-3 text-amber-400" /> {currentGame?.team1_kills || 18}
                 </span>
-                <span className="bg-[#141e2b] px-2 py-0.5 rounded border border-[#202e42] flex items-center gap-1 text-slate-300">
-                  ðŸ° {currentGame?.team1_towers || 10}
-                </span>
-                <span className="bg-[#141e2b] px-2 py-0.5 rounded border border-[#202e42] flex items-center gap-1 text-orange-400">
-                  ðŸ‰ {currentGame?.team1_dragons || 3}
-                </span>
+                <span className="bg-[#141e2b] px-2 py-0.5 rounded border border-[#202e42] flex items-center gap-1 text-slate-300">Towers: {currentGame?.team1_towers || 10}</span>
+                <span className="bg-[#141e2b] px-2 py-0.5 rounded border border-[#202e42] flex items-center gap-1 text-orange-400">Dragons: {currentGame?.team1_dragons || 3}</span>
                 <span className="bg-[#141e2b] px-2 py-0.5 rounded border border-[#202e42] flex items-center gap-1 text-purple-400">
                   Barons: {currentGame?.team1_barons || 1}
                 </span>
@@ -303,12 +299,8 @@ export default function MatchDetailPage() {
                 <span className="bg-[#141e2b] px-2 py-0.5 rounded border border-[#202e42] flex items-center gap-1 text-slate-200">
                   <Swords className="w-3 h-3 text-amber-400" /> {currentGame?.team2_kills || 6}
                 </span>
-                <span className="bg-[#141e2b] px-2 py-0.5 rounded border border-[#202e42] flex items-center gap-1 text-slate-300">
-                  ðŸ° {currentGame?.team2_towers || 3}
-                </span>
-                <span className="bg-[#141e2b] px-2 py-0.5 rounded border border-[#202e42] flex items-center gap-1 text-orange-400">
-                  ðŸ‰ {currentGame?.team2_dragons || 1}
-                </span>
+                <span className="bg-[#141e2b] px-2 py-0.5 rounded border border-[#202e42] flex items-center gap-1 text-slate-300">Towers: {currentGame?.team2_towers || 3}</span>
+                <span className="bg-[#141e2b] px-2 py-0.5 rounded border border-[#202e42] flex items-center gap-1 text-orange-400">Dragons: {currentGame?.team2_dragons || 1}</span>
                 <span className="bg-[#141e2b] px-2 py-0.5 rounded border border-[#202e42] flex items-center gap-1 text-purple-400">
                   Barons: {currentGame?.team2_barons || 0}
                 </span>
