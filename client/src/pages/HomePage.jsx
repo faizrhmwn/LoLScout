@@ -101,7 +101,7 @@ export default function HomePage() {
               Pertandingan Terbaru & Skor
             </h2>
             <Link to="/matches" className="text-xs text-blue-400 hover:text-blue-300 font-medium">
-              Lihat Semua â†’
+              Lihat Semua &rarr;
             </Link>
           </div>
 
@@ -120,7 +120,7 @@ export default function HomePage() {
                 >
                   <div className="flex items-center justify-between text-xs text-slate-400 mb-2">
                     <span className="font-semibold text-blue-400 text-[11px]">
-                      {m.league} â€¢ {m.format || 'BO3'}
+                      {m.league} &bull; {m.format || 'BO3'}
                     </span>
                     <span className="text-[11px]">{dateStr}</span>
                   </div>
@@ -177,7 +177,7 @@ export default function HomePage() {
               Unggulan #1 Regional
             </h2>
             <Link to="/teams" className="text-xs text-blue-400 hover:text-blue-300 font-medium">
-              Semua Tim â†’
+              Semua Tim &rarr;
             </Link>
           </div>
 

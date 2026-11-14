@@ -90,7 +90,7 @@ export default function MatchesPage() {
                     <span className="font-semibold text-blue-400 text-[11px]">
                       {m.league}
                     </span>
-                    <span>â€¢</span>
+                    <span>&bull;</span>
                     <span className="text-slate-400 text-[11px] ">{m.format || 'BO3'}</span>
                   </div>
                   <span className="text-[11px]">{dateStr}</span>

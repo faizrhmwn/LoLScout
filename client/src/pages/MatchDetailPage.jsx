@@ -121,13 +121,13 @@ export default function MatchDetailPage() {
           />
           <div>
             <div className="font-bold text-base text-white">{match.team1?.name}</div>
-            <div className="text-[11px]  text-slate-400">{match.team1?.region} â€¢ {match.team1?.short_name}</div>
+            <div className="text-[11px]  text-slate-400">{match.team1?.region} &bull; {match.team1?.short_name}</div>
           </div>
         </div>
 
         <div className="text-center">
           <div className="text-[10px]  uppercase tracking-widest text-slate-400">
-            {match.league} â€¢ {match.format || 'BO5'}
+            {match.league} &bull; {match.format || 'BO5'}
           </div>
           <div className="text-2xl  font-extrabold text-white tracking-wider my-0.5">
             <span className={match.team1_score > match.team2_score ? 'text-amber-400' : 'text-slate-300'}>
@@ -146,7 +146,7 @@ export default function MatchDetailPage() {
         <div className="flex items-center gap-3 justify-end text-right">
           <div>
             <div className="font-bold text-base text-white">{match.team2?.name}</div>
-            <div className="text-[11px]  text-slate-400">{match.team2?.region} â€¢ {match.team2?.short_name}</div>
+            <div className="text-[11px]  text-slate-400">{match.team2?.region} &bull; {match.team2?.short_name}</div>
           </div>
           <TeamLogo
             src={match.team2?.logo_url}
@@ -162,7 +162,7 @@ export default function MatchDetailPage() {
         <div className="bg-[#121922] border border-[#1e293b] rounded-sm p-12 text-center space-y-3 ">
           <Clock className="w-8 h-8 text-amber-500 mx-auto animate-pulse" />
           <div className="text-sm font-bold text-white uppercase tracking-wider">
-            Match Scheduled â€¢ Upcoming
+            Match Scheduled &bull; Upcoming
           </div>
           <p className="text-xs text-slate-400 max-w-md mx-auto">
             Full gol.gg scoreboard, bans, player KDAs, and YouTube VODs will update live once this match commences on {formattedDate}.
@@ -383,7 +383,7 @@ export default function MatchDetailPage() {
                           <div className="font-bold text-white text-xs">{playerName}</div>
                           <div className="text-[10px] text-slate-400 flex items-center gap-1">
                             <span className="text-blue-400 font-bold">{ROLES[idx]}</span>
-                            <span>â€¢ {champ}</span>
+                            <span>&bull; {champ}</span>
                           </div>
                         </div>
                       </div>
@@ -424,7 +424,7 @@ export default function MatchDetailPage() {
                           <div className="font-bold text-white text-xs">{playerName}</div>
                           <div className="text-[10px] text-slate-400 flex items-center gap-1">
                             <span className="text-red-400 font-bold">{ROLES[idx]}</span>
-                            <span>â€¢ {champ}</span>
+                            <span>&bull; {champ}</span>
                           </div>
                         </div>
                       </div>

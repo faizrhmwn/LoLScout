@@ -246,7 +246,7 @@ export default function FavoritesPage() {
                     </h3>
                     <div className="flex items-center gap-2 text-xs text-slate-400 mt-0.5">
                       <span className="text-blue-400 font-medium">{fav.team?.region}</span>
-                      <span>â€¢</span>
+                      <span>&bull;</span>
                       <span>Seed #{fav.team?.standing_summer}</span>
                     </div>
                   </div>
@@ -372,7 +372,7 @@ export default function FavoritesPage() {
               ) : (
                 <div className="pt-2 border-t border-[#1e293b]/70 flex items-center justify-between text-xs text-slate-400">
                   <span className="italic text-slate-300">
-                    â€œ{fav.notes || 'Belum ada catatan khusus'}â€
+                    &ldquo;{fav.notes || 'Belum ada catatan khusus'}&rdquo;
                   </span>
                   <span className="text-[10px] text-slate-400">
                     Ditambahkan: {new Date(fav.created_at).toLocaleDateString('id-ID', { month: 'short', day: 'numeric' })}

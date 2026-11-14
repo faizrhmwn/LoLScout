@@ -70,7 +70,7 @@ export default function ProfilePage() {
               NIM: 21120124130063
             </div>
             <p className="text-xs text-slate-400 mt-0.5">
-              Teknik Komputer • Universitas Diponegoro
+              Teknik Komputer &bull; Universitas Diponegoro
             </p>
           </div>
         </div>
@@ -91,7 +91,7 @@ export default function ProfilePage() {
             <Cpu className="w-4 h-4 text-blue-400" />
             Spesifikasi Arsitektur Sistem
           </h3>
-          <span className="text-[11px] text-slate-400">PWA • Web Service</span>
+          <span className="text-[11px] text-slate-400">PWA &bull; Web Service</span>
         </div>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs">
