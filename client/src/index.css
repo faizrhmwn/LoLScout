@@ -236,6 +236,13 @@ html.light .bg-red-950\/30 {
   border-color: #fecaca !important;
 }
 
+/* Worlds Champion Banner light theme */
+html.light .champion-banner {
+  background: linear-gradient(to right, #eff6ff, #fffbeb) !important;
+  border-color: #f59e0b !important;
+  box-shadow: 0 4px 15px -3px rgba(245, 158, 11, 0.15) !important;
+}
+
 /* Prevent Chromium tile-drop blanking on fast scroll */
 .team-card-item {
   content-visibility: auto;

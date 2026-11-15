@@ -33,6 +33,53 @@ export default function HomePage() {
 
   return (
     <div className="pb-28 pt-4 px-4 sm:px-6 max-w-6xl mx-auto space-y-5">
+      {/* Worlds 2026 Champion Celebration Banner */}
+      <div className="champion-banner relative overflow-hidden rounded-2xl bg-gradient-to-r from-blue-950/70 via-indigo-950/40 to-amber-950/30 border border-amber-500/30 p-5 shadow-lg">
+        {/* Glow Effects */}
+        <div className="absolute -top-10 -right-10 w-44 h-44 bg-blue-500/15 rounded-full blur-2xl pointer-events-none" />
+        <div className="absolute -bottom-10 -left-10 w-44 h-44 bg-amber-500/15 rounded-full blur-2xl pointer-events-none" />
+
+        <div className="relative z-10 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+          <div className="flex items-center gap-4">
+            <div className="relative shrink-0">
+              <div className="w-14 h-14 sm:w-16 sm:h-16 rounded-2xl bg-[#0b0f17] border-2 border-amber-400/60 flex items-center justify-center p-2 shadow-md shadow-amber-500/10">
+                <TeamLogo logoUrl="/logos/BLG.png" teamName="Bilibili Gaming" className="w-11 h-11 object-contain" />
+              </div>
+              <div className="absolute -top-1.5 -right-1.5 bg-gradient-to-br from-amber-400 to-amber-600 text-slate-950 p-1 rounded-full shadow-md">
+                <Trophy className="w-3.5 h-3.5" />
+              </div>
+            </div>
+
+            <div>
+              <div className="flex items-center gap-2 flex-wrap">
+                <span className="text-[10px] font-bold tracking-wider px-2 py-0.5 rounded-full bg-amber-400/15 text-amber-400 border border-amber-400/30 uppercase flex items-center gap-1">
+                  <Trophy className="w-3 h-3 text-amber-400" />
+                  Worlds 2026 World Champion
+                </span>
+                <span className="text-[11px] text-slate-400">14 November 2026</span>
+              </div>
+              <h2 className="text-base sm:text-lg font-bold text-white mt-1">
+                Selamat kepada <span className="text-blue-400">Bilibili Gaming</span> atas Gelar Juara Dunia! 🏆
+              </h2>
+              <p className="text-xs text-slate-400 mt-0.5 max-w-xl">
+                BLG resmi dinobatkan sebagai Juara Dunia LoL 2026 setelah menaklukkan Gen.G dengan skor 3-1 di partai Grand Final.
+              </p>
+            </div>
+          </div>
+
+          <div className="shrink-0 self-start sm:self-center">
+            <Link
+              to="/matches/a337a293-eb21-48b6-9bf5-039ccc373e82"
+              className="px-3.5 py-2 rounded-xl bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold text-xs flex items-center gap-1.5 transition shadow-sm cursor-pointer"
+            >
+              <Trophy className="w-3.5 h-3.5" />
+              <span>Detail Final</span>
+              <ChevronRight className="w-3.5 h-3.5" />
+            </Link>
+          </div>
+        </div>
+      </div>
+
       {/* Overview Top Metric Cards */}
       <div className="grid grid-cols-1 md:grid-cols-4 gap-3">
         <div className="p-5 rounded-2xl bg-[#111827] border border-[#1e293b] md:col-span-2 flex flex-col justify-between shadow-sm">
