@@ -97,7 +97,7 @@ export default function TeamDetailPage() {
     finally { setFavLoading(false) }
   }
 
-  if (loading) return <LoadingSpinner message="Memuat profil tim & roster pemain..." />
+  if (loading) return <LoadingSpinner message="Loading team profile & player roster..." />
 
   if (!team) return (
     <div className="py-24 text-center text-slate-400 space-y-3">

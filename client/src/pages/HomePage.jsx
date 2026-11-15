@@ -42,8 +42,12 @@ export default function HomePage() {
         <div className="relative z-10 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
           <div className="flex items-center gap-4">
             <div className="relative shrink-0">
-              <div className="w-14 h-14 sm:w-16 sm:h-16 rounded-2xl bg-[#0b0f17] border-2 border-amber-400/60 flex items-center justify-center p-2 shadow-md shadow-amber-500/10">
-                <TeamLogo logoUrl="/logos/BLG.png" teamName="Bilibili Gaming" className="w-11 h-11 object-contain" />
+              <div className="w-16 h-16 sm:w-20 sm:h-20 rounded-2xl bg-[#0b0f17] border-2 border-amber-400/60 flex items-center justify-center p-2.5 shadow-md shadow-amber-500/10">
+                <img
+                  src="/logos/BLG.png"
+                  alt="Bilibili Gaming"
+                  className="w-full h-full object-contain"
+                />
               </div>
               <div className="absolute -top-1.5 -right-1.5 bg-gradient-to-br from-amber-400 to-amber-600 text-slate-950 p-1 rounded-full shadow-md">
                 <Trophy className="w-3.5 h-3.5" />
@@ -56,13 +60,13 @@ export default function HomePage() {
                   <Trophy className="w-3 h-3 text-amber-400" />
                   Worlds 2026 World Champion
                 </span>
-                <span className="text-[11px] text-slate-400">14 November 2026</span>
+                <span className="text-[11px] text-slate-400">November 14, 2026</span>
               </div>
               <h2 className="text-base sm:text-lg font-bold text-white mt-1">
-                Selamat kepada <span className="text-blue-400">Bilibili Gaming</span> atas Gelar Juara Dunia! 🏆
+                Congratulations to <span className="text-blue-400">Bilibili Gaming</span> on Winning Worlds 2026! 🏆
               </h2>
               <p className="text-xs text-slate-400 mt-0.5 max-w-xl">
-                BLG resmi dinobatkan sebagai Juara Dunia LoL 2026 setelah menaklukkan Gen.G dengan skor 3-1 di partai Grand Final.
+                BLG have been crowned the League of Legends 2026 World Champions after defeating Gen.G 3-1 in the Grand Finals!
               </p>
             </div>
           </div>
@@ -73,7 +77,7 @@ export default function HomePage() {
               className="px-3.5 py-2 rounded-xl bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold text-xs flex items-center gap-1.5 transition shadow-sm cursor-pointer"
             >
               <Trophy className="w-3.5 h-3.5" />
-              <span>Detail Final</span>
+              <span>Final Details</span>
               <ChevronRight className="w-3.5 h-3.5" />
             </Link>
           </div>
@@ -91,7 +95,7 @@ export default function HomePage() {
               LoLScout Competitive Hub
             </h1>
             <p className="text-xs text-slate-400 mt-1">
-              Platform pelacak pertandingan resmi, rekaman VOD, skor, dan direktori tim Tier-1.
+              Official pro match tracker, VODs, scores, and Tier-1 team directory.
             </p>
           </div>
 
@@ -100,41 +104,41 @@ export default function HomePage() {
               to="/matches"
               className="px-3.5 py-2 rounded-xl bg-blue-600 hover:bg-blue-500 text-white font-medium text-xs flex items-center gap-1.5 transition shadow-sm"
             >
-              <span>Jadwal & Hasil</span>
+              <span>Schedule & Results</span>
               <ChevronRight className="w-3.5 h-3.5" />
             </Link>
             <Link
               to="/teams"
               className="px-3.5 py-2 rounded-xl bg-[#0b0f17] hover:bg-slate-800 text-slate-300 border border-[#1e293b] text-xs font-medium transition"
             >
-              Semua {teams.length > 0 ? teams.length : 53} Tim
+              All {teams.length > 0 ? teams.length : 53} Teams
             </Link>
           </div>
         </div>
 
         <div className="p-5 rounded-2xl bg-[#111827] border border-[#1e293b] flex flex-col justify-between shadow-sm">
           <div className="flex items-center justify-between">
-            <span className="text-[11px] font-semibold text-slate-400 uppercase">Database Match</span>
+            <span className="text-[11px] font-semibold text-slate-400 uppercase">Match Database</span>
             <div className="w-7 h-7 rounded-lg bg-blue-500/10 text-blue-400 flex items-center justify-center">
               <Calendar className="w-4 h-4" />
             </div>
           </div>
           <div>
             <span className="text-2xl font-bold text-white">{matches.length}</span>
-            <span className="text-xs text-slate-400 block mt-0.5">Pertandingan Real Pro</span>
+            <span className="text-xs text-slate-400 block mt-0.5">Real Pro Matches</span>
           </div>
         </div>
 
         <div className="p-5 rounded-2xl bg-[#111827] border border-[#1e293b] flex flex-col justify-between shadow-sm">
           <div className="flex items-center justify-between">
-            <span className="text-[11px] font-semibold text-slate-400 uppercase">Tim Terdaftar</span>
+            <span className="text-[11px] font-semibold text-slate-400 uppercase">Registered Teams</span>
             <div className="w-7 h-7 rounded-lg bg-emerald-500/10 text-emerald-400 flex items-center justify-center">
               <Users className="w-4 h-4" />
             </div>
           </div>
           <div>
             <span className="text-2xl font-bold text-emerald-400">{teams.length}</span>
-            <span className="text-xs text-slate-400 block mt-0.5">Major & LCP Region</span>
+            <span className="text-xs text-slate-400 block mt-0.5">Major & LCP Regions</span>
           </div>
         </div>
       </div>
@@ -146,18 +150,18 @@ export default function HomePage() {
           <div className="p-4 border-b border-[#1e293b] flex items-center justify-between">
             <h2 className="text-sm font-semibold text-white flex items-center gap-2">
               <Activity className="w-4 h-4 text-blue-400" />
-              Pertandingan Terbaru & Skor
+              Recent Matches & Scores
             </h2>
             <Link to="/matches" className="text-xs text-blue-400 hover:text-blue-300 font-medium">
-              Lihat Semua &rarr;
+              View All &rarr;
             </Link>
           </div>
 
           <div className="divide-y divide-[#1e293b]">
             {loading ? (
-              <LoadingSpinner message="Memuat overview kompetitif 2026..." />
+              <LoadingSpinner message="Loading 2026 competitive overview..." />
             ) : finishedMatches.map(m => {
-              const dateStr = m.match_date ? new Date(m.match_date).toLocaleDateString('id-ID', { month: 'short', day: 'numeric', year: 'numeric' }) : '2026'
+              const dateStr = m.match_date ? new Date(m.match_date).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }) : '2026'
               return (
                 <Link
                   key={m.id}
@@ -220,10 +224,10 @@ export default function HomePage() {
           <div className="p-4 border-b border-[#1e293b] flex items-center justify-between">
             <h2 className="text-sm font-semibold text-white flex items-center gap-2">
               <Trophy className="w-4 h-4 text-amber-400" />
-              Unggulan #1 Regional
+              Regional #1 Seeds
             </h2>
             <Link to="/teams" className="text-xs text-blue-400 hover:text-blue-300 font-medium">
-              Semua Tim &rarr;
+              All Teams &rarr;
             </Link>
           </div>
 

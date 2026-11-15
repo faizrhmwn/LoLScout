@@ -33,7 +33,7 @@ export default function PwaInstallModal({ isOpen, onClose, onInstall, hasPrompt 
         {hasPrompt ? (
           <div className="space-y-3">
             <p className="text-xs text-slate-300 leading-relaxed">
-              Pasang LoLScout langsung di layar utama smartphone atau desktop Anda untuk akses instan dan dukungan offline.
+              Install LoLScout directly on your home screen or desktop for instant access and full offline support.
             </p>
             <button
               onClick={() => {
@@ -42,27 +42,27 @@ export default function PwaInstallModal({ isOpen, onClose, onInstall, hasPrompt 
               }}
               className="w-full py-2.5 px-4 rounded-xl bg-cyan-500 hover:bg-cyan-400 text-slate-950 font-bold text-xs flex items-center justify-center gap-2 transition shadow-lg shadow-cyan-500/20"
             >
-              <Smartphone className="w-4 h-4" /> Pasang Sekarang
+              <Smartphone className="w-4 h-4" /> Install Now
             </button>
           </div>
         ) : (
           <div className="space-y-3 text-xs text-slate-300">
             <p className="leading-relaxed">
-              Browser Anda saat ini membutuhkan instalasi manual via menu navigasi browser:
+              Your browser requires manual installation from the browser navigation menu:
             </p>
             
             <div className="p-3 rounded-xl bg-slate-900/90 border border-slate-800 space-y-2 text-[11px]">
               <div className="flex items-start gap-2">
                 <span className="font-bold text-cyan-400 shrink-0">Android / Chrome:</span>
-                <span className="text-slate-300">Ketuk ikon titik tiga (⋮) di pojok kanan atas, lalu pilih <b>"Install app"</b> atau <b>"Add to Home screen"</b>.</span>
+                <span className="text-slate-300">Tap the three dots (⋮) in the top right, then choose <b>"Install app"</b> or <b>"Add to Home screen"</b>.</span>
               </div>
               <div className="flex items-start gap-2 pt-1.5 border-t border-slate-800/80">
                 <span className="font-bold text-amber-400 shrink-0">iOS / Safari:</span>
-                <span className="text-slate-300">Ketuk ikon Share (kotak panah atas), lalu pilih <b>"Add to Home Screen"</b>.</span>
+                <span className="text-slate-300">Tap the Share icon (box with arrow up), then choose <b>"Add to Home Screen"</b>.</span>
               </div>
               <div className="flex items-start gap-2 pt-1.5 border-t border-slate-800/80">
                 <span className="font-bold text-emerald-400 shrink-0">Desktop (Chrome/Edge):</span>
-                <span className="text-slate-300">Klik ikon install (layar komputer + panah) di sebelah kanan address bar.</span>
+                <span className="text-slate-300">Click the install icon on the right side of the address bar.</span>
               </div>
             </div>
 
@@ -70,7 +70,7 @@ export default function PwaInstallModal({ isOpen, onClose, onInstall, hasPrompt 
               onClick={onClose}
               className="w-full py-2 px-4 rounded-xl bg-slate-800 hover:bg-slate-700 text-white font-medium text-xs transition"
             >
-              Mengerti
+              Got it
             </button>
           </div>
         )}

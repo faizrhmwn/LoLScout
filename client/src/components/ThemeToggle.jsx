@@ -10,8 +10,8 @@ export default function ThemeToggle({ className = '', showLabel = false }) {
     <button
       onClick={toggleTheme}
       type="button"
-      aria-label={isDark ? 'Ganti ke Mode Terang' : 'Ganti ke Mode Gelap'}
-      title={isDark ? 'Mode Terang' : 'Mode Gelap'}
+      aria-label={isDark ? 'Switch to Light Mode' : 'Switch to Dark Mode'}
+      title={isDark ? 'Light Mode' : 'Dark Mode'}
       className={`
         relative inline-flex items-center gap-2 p-2 rounded-xl transition-all duration-200 cursor-pointer select-none shadow-sm
         ${isDark
@@ -31,7 +31,7 @@ export default function ThemeToggle({ className = '', showLabel = false }) {
 
       {showLabel && (
         <span className="text-xs font-medium">
-          {isDark ? 'Mode Gelap' : 'Mode Terang'}
+          {isDark ? 'Dark Mode' : 'Light Mode'}
         </span>
       )}
     </button>

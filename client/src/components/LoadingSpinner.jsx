@@ -1,6 +1,6 @@
 import React from 'react'
 
-export default function LoadingSpinner({ message = 'Memuat data...' }) {
+export default function LoadingSpinner({ message = 'Loading data...' }) {
   return (
     <div className="py-20 flex flex-col items-center justify-center space-y-4">
       {/* Sleek Modern Animated Esports Loader */}

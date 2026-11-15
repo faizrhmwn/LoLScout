@@ -70,7 +70,7 @@ export default function FavoritesPage() {
   }, [])
 
   async function handleDelete(id) {
-    if (!confirm('Hapus tim dari daftar favorit?')) return
+    if (!confirm('Remove team from favorites?')) return
     try {
       await api.removeFavorite(id)
       setFavorites(favorites.filter(f => f.id !== id))
@@ -116,20 +116,20 @@ export default function FavoritesPage() {
         <div className="md:col-span-2 p-5 rounded-2xl bg-[#111827] border border-[#1e293b] flex flex-col justify-between shadow-sm">
           <div>
             <span className="text-[11px] font-semibold tracking-wider text-slate-400 uppercase">
-              Dashboard Favorit
+              Favorites Dashboard
             </span>
             <h1 className="text-xl font-bold text-white mt-1">
-              Watchlist Tim Kompetitif
+              Competitive Team Watchlist
             </h1>
             <p className="text-xs text-slate-400 mt-1">
-              Pantau jadwal, hasil pertandingan, VOD resmi, dan catatan performa tim pilihan Anda.
+              Track schedules, match results, official VODs, and custom notes for your favorite teams.
             </p>
           </div>
 
           <div className="flex items-center gap-6 mt-4 pt-4 border-t border-[#1e293b]">
             <div>
-              <span className="text-[11px] text-slate-400 block">Total Tim</span>
-              <span className="text-lg font-bold text-white">{totalTracked} Tim</span>
+              <span className="text-[11px] text-slate-400 block">Total Teams</span>
+              <span className="text-lg font-bold text-white">{totalTracked} Teams</span>
             </div>
             <div className="w-px h-8 bg-[#1e293b]"></div>
             <div>
@@ -147,7 +147,7 @@ export default function FavoritesPage() {
             </div>
             <h3 className="font-semibold text-sm text-white">LoLScout Mobile PWA</h3>
             <p className="text-xs text-slate-400 mt-1 leading-relaxed">
-              Pasang di layar utama HP untuk akses offline dan notifikasi jadwal langsung.
+              Install on your home screen for quick offline access and direct match tracking.
             </p>
           </div>
 
@@ -156,7 +156,7 @@ export default function FavoritesPage() {
             className="mt-4 w-full py-2 px-3 rounded-xl bg-blue-600 hover:bg-blue-500 text-white font-medium text-xs flex items-center justify-center gap-2 transition cursor-pointer shadow-sm"
           >
             <Smartphone className="w-3.5 h-3.5" />
-            <span>{isInstalled ? 'Aplikasi Terpasang' : 'Pasang Aplikasi'}</span>
+            <span>{isInstalled ? 'App Installed' : 'Install PWA'}</span>
           </button>
         </div>
       </div>
@@ -175,7 +175,7 @@ export default function FavoritesPage() {
                   : 'text-slate-400 hover:text-slate-200 hover:bg-slate-800/60'
               }`}
             >
-              {tab === 'ALL' ? 'Semua Region' : tab}
+              {tab === 'ALL' ? 'All Regions' : tab}
             </button>
           ))}
         </div>
@@ -183,32 +183,32 @@ export default function FavoritesPage() {
         {/* Sort Select */}
         <div className="flex items-center gap-2 text-xs">
           <span className="text-slate-400 flex items-center gap-1">
-            <ArrowUpDown className="w-3.5 h-3.5" /> Urutkan:
+            <ArrowUpDown className="w-3.5 h-3.5" /> Sort by:
           </span>
           <select
             value={sortBy}
             onChange={(e) => setSortBy(e.target.value)}
             className="bg-[#182232] border border-[#2a3b52] text-slate-300 rounded-lg px-2.5 py-1 text-xs focus:outline-none focus:border-blue-500 cursor-pointer"
           >
-            <option value="RECENT">Terbaru Ditambahkan</option>
-            <option value="WINRATE">Win Rate Tertinggi</option>
-            <option value="NAME">Nama Tim (A-Z)</option>
+            <option value="RECENT">Recently Added</option>
+            <option value="WINRATE">Highest Win Rate</option>
+            <option value="NAME">Team Name (A-Z)</option>
           </select>
         </div>
       </div>
 
       {/* Main Table / Card List */}
       {loading ? (
-        <LoadingSpinner message="Memuat watchlist tim favorit..." />
+        <LoadingSpinner message="Loading favorites watchlist..." />
       ) : filteredFavorites.length === 0 ? (
         <div className="p-10 rounded-2xl bg-[#111827] border border-dashed border-[#1e293b] text-center space-y-3">
           <Bookmark className="w-8 h-8 text-slate-600 mx-auto" />
           <div className="space-y-1">
-            <h3 className="font-semibold text-sm text-white">Tidak ada tim dalam filter ini</h3>
+            <h3 className="font-semibold text-sm text-white">No teams in this filter</h3>
             <p className="text-xs text-slate-400 max-w-sm mx-auto">
               {favorites.length === 0 
-                ? 'Jelajahi halaman tim dan bookmark tim favoritmu untuk memantau performa dan VOD di sini.'
-                : 'Coba ubah tab kategori region di atas untuk melihat tim lainnya.'}
+                ? 'Explore teams and bookmark your favorites to track their performance and VODs here.'
+                : 'Try changing the region filter tab above to see other teams.'}
             </p>
           </div>
           {favorites.length === 0 && (
@@ -216,7 +216,7 @@ export default function FavoritesPage() {
               to="/teams"
               className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-blue-600 hover:bg-blue-500 text-white font-medium text-xs transition"
             >
-              Jelajahi Teams <ArrowRight className="w-4 h-4" />
+              Explore Teams <ArrowRight className="w-4 h-4" />
             </Link>
           )}
         </div>
@@ -288,14 +288,14 @@ export default function FavoritesPage() {
                         setEditNotes(fav.notes || '')
                       }}
                       className="p-1.5 rounded-lg text-slate-400 hover:text-white hover:bg-slate-800 transition"
-                      title="Edit Catatan"
+                      title="Edit Notes"
                     >
                       <Edit3 className="w-4 h-4" />
                     </button>
                     <button
                       onClick={() => handleDelete(fav.id)}
                       className="p-1.5 rounded-lg text-slate-400 hover:text-red-400 hover:bg-red-500/10 transition"
-                      title="Hapus"
+                      title="Remove"
                     >
                       <Trash2 className="w-4 h-4" />
                     </button>
@@ -319,7 +319,7 @@ export default function FavoritesPage() {
                       <span className="text-slate-400 ml-1.5 ">({fav.latestMatch.score})</span>
                       <span className="text-slate-400 ml-2  text-[10px]">[{fav.latestMatch.league}]</span>
                       <span className="text-slate-400 text-[11px] block sm:inline sm:ml-2">
-                        {new Date(fav.latestMatch.match_date).toLocaleDateString('id-ID', { month: 'short', day: 'numeric', year: 'numeric' })}
+                        {new Date(fav.latestMatch.match_date).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}
                       </span>
                     </div>
                   </div>
@@ -332,7 +332,7 @@ export default function FavoritesPage() {
                         rel="noreferrer"
                         className="px-3 py-1.5 rounded-lg bg-red-600/90 hover:bg-red-600 text-white font-medium text-xs flex items-center gap-1.5 transition"
                       >
-                        <Tv className="w-3.5 h-3.5" /> Tonton VOD
+                        <Tv className="w-3.5 h-3.5" /> Watch VOD
                       </a>
                     )}
                     <Link
@@ -352,14 +352,14 @@ export default function FavoritesPage() {
                     type="text"
                     value={editNotes}
                     onChange={(e) => setEditNotes(e.target.value)}
-                    placeholder="Tulis catatan tim..."
+                    placeholder="Add team notes..."
                     className="flex-1 px-3 py-1.5 rounded-lg bg-[#182232] border border-[#2a3b52] text-xs text-white focus:outline-none focus:border-blue-500"
                   />
                   <button
                     onClick={() => handleSaveNotes(fav.id)}
                     className="px-3 py-1.5 rounded-lg bg-blue-600 hover:bg-blue-500 text-white font-medium text-xs flex items-center gap-1 transition"
                   >
-                    <Check className="w-3.5 h-3.5" /> Simpan
+                    <Check className="w-3.5 h-3.5" /> Save
                   </button>
                   <button
                     onClick={() => setEditingId(null)}
@@ -371,10 +371,10 @@ export default function FavoritesPage() {
               ) : (
                 <div className="pt-2 border-t border-[#1e293b]/70 flex items-center justify-between text-xs text-slate-400">
                   <span className="italic text-slate-300">
-                    &ldquo;{fav.notes || 'Belum ada catatan khusus'}&rdquo;
+                    &ldquo;{fav.notes || 'No notes added yet'}&rdquo;
                   </span>
                   <span className="text-[10px] text-slate-400">
-                    Ditambahkan: {new Date(fav.created_at).toLocaleDateString('id-ID', { month: 'short', day: 'numeric' })}
+                    Added: {new Date(fav.created_at).toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}
                   </span>
                 </div>
               )}

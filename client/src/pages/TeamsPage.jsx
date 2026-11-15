@@ -34,14 +34,14 @@ export default function TeamsPage() {
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
           <div>
             <h1 className="text-xl font-bold text-white tracking-tight">
-              Direktori Tim Pro 2026
+              Pro Teams Directory 2026
             </h1>
             <p className="text-xs text-slate-400 mt-1">
-              Daftar roster 5 role aktif pro play di 5 region Tier-1 dan turnamen internasional.
+              Active 5-role starting rosters across Tier-1 major regions and international circuits.
             </p>
           </div>
           <span className="text-xs font-medium px-3 py-1 rounded-full bg-blue-500/10 text-blue-400 border border-blue-500/20 w-fit">
-            {teams.length} Tim Terdata
+            {teams.length} Teams Registered
           </span>
         </div>
 
@@ -57,7 +57,7 @@ export default function TeamsPage() {
                   : 'text-slate-400 hover:text-slate-200 hover:bg-slate-800/60'
               }`}
             >
-              {reg === 'ALL' ? 'Semua Region' : reg}
+              {reg === 'ALL' ? 'All Regions' : reg}
             </button>
           ))}
         </div>
@@ -65,7 +65,7 @@ export default function TeamsPage() {
 
       {/* Teams Grid */}
       {loading ? (
-        <LoadingSpinner message="Memuat direktori 53 tim dan roster 2026..." />
+        <LoadingSpinner message="Loading team directory and 2026 rosters..." />
       ) : (
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3.5">
           {teams.map(t => (

@@ -46,17 +46,17 @@ export default function ProfilePage() {
       <div className="p-5 rounded-2xl bg-[#111827] border border-[#1e293b] flex flex-col sm:flex-row sm:items-center justify-between gap-3 shadow-sm">
         <div>
           <span className="text-[11px] font-semibold tracking-wider text-slate-400 uppercase">
-            Identitas Mahasiswa & Sistem
+            Student & System Identity
           </span>
           <h1 className="text-xl font-bold text-white mt-1">
-            Profil Praktikan PPB 2026
+            Developer Profile PPB 2026
           </h1>
           <p className="text-xs text-slate-400 mt-1">
-            Informasi pengembang aplikasi tugas akhir dan status lingkungan PWA
+            Final project developer information and PWA environment status
           </p>
         </div>
         <span className="text-xs font-medium px-3 py-1 rounded-full bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 w-fit">
-          Terverifikasi
+          Verified
         </span>
       </div>
 
@@ -72,7 +72,7 @@ export default function ProfilePage() {
               NIM: 21120124130063
             </div>
             <p className="text-xs text-slate-400 mt-0.5">
-              Teknik Komputer &bull; Universitas Diponegoro
+              Computer Engineering &bull; Diponegoro University
             </p>
           </div>
         </div>
@@ -82,7 +82,7 @@ export default function ProfilePage() {
           className="px-4 py-2 rounded-xl bg-blue-600 hover:bg-blue-500 text-white font-medium text-xs flex items-center gap-2 transition cursor-pointer shadow-sm"
         >
           <Smartphone className="w-4 h-4" />
-          <span>{isInstalled ? 'Aplikasi Terpasang' : 'Install PWA'}</span>
+          <span>{isInstalled ? 'App Installed' : 'Install PWA'}</span>
         </button>
       </div>
 
@@ -90,9 +90,9 @@ export default function ProfilePage() {
       <div className="p-5 rounded-2xl bg-[#111827] border border-[#1e293b] space-y-3 shadow-sm">
         <div className="flex items-center gap-2 border-b border-[#1e293b] pb-3">
           <Palette className="w-4 h-4 text-cyan-400" />
-          <h3 className="text-sm font-semibold text-white">Tema Tampilan</h3>
+          <h3 className="text-sm font-semibold text-white">Display Theme</h3>
         </div>
-        <p className="text-xs text-slate-400">Pilih tema tampilan sesuai preferensi.</p>
+        <p className="text-xs text-slate-400">Choose your interface theme preference.</p>
         <div className="flex gap-3">
           <button
             onClick={() => setTheme('dark')}
@@ -103,7 +103,7 @@ export default function ProfilePage() {
             }`}
           >
             <Moon className="w-4 h-4" />
-            Mode Gelap
+            Dark Mode
           </button>
           <button
             onClick={() => setTheme('light')}
@@ -114,7 +114,7 @@ export default function ProfilePage() {
             }`}
           >
             <Sun className="w-4 h-4" />
-            Mode Terang
+            Light Mode
           </button>
         </div>
       </div>
@@ -124,7 +124,7 @@ export default function ProfilePage() {
         <div className="flex items-center justify-between border-b border-[#1e293b] pb-3">
           <h3 className="text-sm font-semibold text-white flex items-center gap-2">
             <Cpu className="w-4 h-4 text-blue-400" />
-            Spesifikasi Arsitektur Sistem
+            System Architecture Specifications
           </h3>
           <span className="text-[11px] text-slate-400">PWA &bull; Web Service</span>
         </div>
@@ -146,7 +146,7 @@ export default function ProfilePage() {
               <span>Backend Web Service</span>
             </div>
             <p className="text-slate-400 text-[11px] leading-relaxed">
-              Node.js + Express REST API melayani modul endpoint kustom.
+              Node.js + Express REST API serving custom esports data endpoints.
             </p>
           </div>
 
@@ -156,7 +156,7 @@ export default function ProfilePage() {
               <span>Database Engine</span>
             </div>
             <p className="text-slate-400 text-[11px] leading-relaxed">
-              Supabase PostgreSQL (861 match pro real, 53 tim resmi).
+              Supabase PostgreSQL (861+ real pro matches, 53 official teams).
             </p>
           </div>
         </div>

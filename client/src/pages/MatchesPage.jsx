@@ -65,14 +65,14 @@ export default function MatchesPage() {
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
           <div>
             <h1 className="text-xl font-bold text-white tracking-tight">
-              Jadwal & Hasil Pertandingan
+              Match Schedule & Results
             </h1>
             <p className="text-xs text-slate-400 mt-1">
-              Arsip kompetitif tier-1, data picks & bans pertandingan, dan tautan YouTube VOD.
+              Tier-1 competitive archive, match picks & bans data, and official YouTube VOD links.
             </p>
           </div>
           <span className="text-xs font-medium px-3 py-1 rounded-full bg-blue-500/10 text-blue-400 border border-blue-500/20 w-fit">
-            {matches.length} Pertandingan
+            {matches.length} Matches
           </span>
         </div>
 
@@ -88,7 +88,7 @@ export default function MatchesPage() {
                   : 'text-slate-400 hover:text-slate-200 hover:bg-slate-800/60'
               }`}
             >
-              {lg === 'ALL' ? 'Semua Liga' : lg}
+              {lg === 'ALL' ? 'All Leagues' : lg}
             </button>
           ))}
         </div>
@@ -97,14 +97,14 @@ export default function MatchesPage() {
       {/* Match Table List */}
       <div className="rounded-2xl bg-[#111827] border border-[#1e293b] overflow-hidden shadow-sm divide-y divide-[#1e293b]">
         {loading ? (
-          <LoadingSpinner message="Memuat arsip pertandingan pro play..." />
+          <LoadingSpinner message="Loading pro match archive..." />
         ) : matches.length === 0 ? (
           <div className="py-16 text-center text-slate-400 text-xs">
-            Tidak ada pertandingan yang cocok dengan filter yang dipilih.
+            No matches found matching the selected filter.
           </div>
         ) : (
           matches.slice((currentPage - 1) * pageSize, currentPage * pageSize).map(m => {
-            const dateStr = m.match_date ? new Date(m.match_date).toLocaleDateString('id-ID', { month: 'short', day: 'numeric', year: 'numeric' }) : '2026'
+            const dateStr = m.match_date ? new Date(m.match_date).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }) : '2026'
             return (
               <Link
                 key={m.id}
@@ -180,7 +180,7 @@ export default function MatchesPage() {
         {!loading && matches.length > pageSize && (
           <div className="p-4 bg-[#0d131f] border-t border-[#1e293b] flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-slate-400">
             <div>
-              Menampilkan {(currentPage - 1) * pageSize + 1} - {Math.min(currentPage * pageSize, matches.length)} dari {matches.length} pertandingan
+              Showing {(currentPage - 1) * pageSize + 1} - {Math.min(currentPage * pageSize, matches.length)} of {matches.length} matches
             </div>
             <div className="flex items-center gap-1.5">
               <button
@@ -191,7 +191,7 @@ export default function MatchesPage() {
                 &larr; Prev
               </button>
               <span className="px-3 py-1.5 rounded-lg bg-blue-600/20 border border-blue-500/30 text-blue-400 font-semibold">
-                Hal {currentPage} / {Math.ceil(matches.length / pageSize)}
+                Page {currentPage} of {Math.ceil(matches.length / pageSize)}
               </span>
               <button
                 disabled={currentPage === Math.ceil(matches.length / pageSize)}
