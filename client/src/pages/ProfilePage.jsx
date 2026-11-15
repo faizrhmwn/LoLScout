@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from 'react'
-import { Download, Database, Server, Smartphone, User, Cpu } from 'lucide-react'
+import { Download, Database, Server, Smartphone, User, Cpu, Sun, Moon, Palette } from 'lucide-react'
 import PwaInstallModal from '../components/PwaInstallModal'
+import { useTheme } from '../context/ThemeContext'
 
 export default function ProfilePage() {
+  const { theme, setTheme } = useTheme()
   const [deferredPrompt, setDeferredPrompt] = useState(null)
   const [isInstalled, setIsInstalled] = useState(false)
   const [showModal, setShowModal] = useState(false)
@@ -82,6 +84,39 @@ export default function ProfilePage() {
           <Smartphone className="w-4 h-4" />
           <span>{isInstalled ? 'Aplikasi Terpasang' : 'Install PWA'}</span>
         </button>
+      </div>
+
+      {/* Tema Tampilan */}
+      <div className="p-5 rounded-2xl bg-[#111827] border border-[#1e293b] space-y-3 shadow-sm">
+        <div className="flex items-center gap-2 border-b border-[#1e293b] pb-3">
+          <Palette className="w-4 h-4 text-cyan-400" />
+          <h3 className="text-sm font-semibold text-white">Tema Tampilan</h3>
+        </div>
+        <p className="text-xs text-slate-400">Pilih tema tampilan sesuai preferensi.</p>
+        <div className="flex gap-3">
+          <button
+            onClick={() => setTheme('dark')}
+            className={`flex items-center gap-2 px-4 py-2.5 rounded-xl text-xs font-medium border transition cursor-pointer ${
+              theme === 'dark'
+                ? 'bg-cyan-500/10 border-cyan-500/40 text-cyan-400'
+                : 'bg-[#0b0f17] border-[#1e293b] text-slate-400 hover:text-slate-200'
+            }`}
+          >
+            <Moon className="w-4 h-4" />
+            Mode Gelap
+          </button>
+          <button
+            onClick={() => setTheme('light')}
+            className={`flex items-center gap-2 px-4 py-2.5 rounded-xl text-xs font-medium border transition cursor-pointer ${
+              theme === 'light'
+                ? 'bg-amber-500/10 border-amber-500/40 text-amber-400'
+                : 'bg-[#0b0f17] border-[#1e293b] text-slate-400 hover:text-slate-200'
+            }`}
+          >
+            <Sun className="w-4 h-4" />
+            Mode Terang
+          </button>
+        </div>
       </div>
 
       {/* System Architecture */}
