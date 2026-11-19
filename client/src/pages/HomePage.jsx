@@ -29,7 +29,14 @@ export default function HomePage() {
   }, [])
 
   const finishedMatches = matches.filter(m => m.status === 'finished').slice(0, 5)
-  const summerChampions = teams.filter(t => t.standing_summer === 1).slice(0, 5)
+  const regionOrder = ['LCK', 'LPL', 'LEC', 'LCS', 'LCP', 'CBLOL']
+  const summerChampions = teams
+    .filter(t => t.standing_summer === 1)
+    .sort((a, b) => {
+      const idxA = regionOrder.indexOf(a.region)
+      const idxB = regionOrder.indexOf(b.region)
+      return (idxA !== -1 ? idxA : 99) - (idxB !== -1 ? idxB : 99)
+    })
 
   return (
     <div className="pb-28 pt-4 px-4 sm:px-6 max-w-6xl mx-auto space-y-5">
