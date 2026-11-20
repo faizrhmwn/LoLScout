@@ -3,7 +3,9 @@ import React, { useEffect, useState } from 'react'
 import { useParams, Link } from 'react-router-dom'
 import { api } from '../services/api'
 import TeamLogo from '../components/TeamLogo'
-import { ArrowLeft, Trophy, Bookmark, BookmarkCheck, Users, Shield } from 'lucide-react'
+import { ArrowLeft, Trophy, Bookmark, BookmarkCheck, Users, Shield, LogIn } from 'lucide-react'
+import { useAuth } from '../context/AuthContext'
+import AuthModal from '../components/AuthModal'
 
 const roleColors = {
   Top:     'bg-red-500/10 text-red-400 border-red-500/20',
@@ -57,6 +59,8 @@ function PlayerAvatar({ ign, photoUrl }) {
 
 export default function TeamDetailPage() {
   const { id } = useParams()
+  const { user } = useAuth()
+  const [showAuthModal, setShowAuthModal] = useState(false)
   const [team, setTeam] = useState(null)
   const [loading, setLoading] = useState(true)
   const [isFavorited, setIsFavorited] = useState(false)
@@ -68,7 +72,7 @@ export default function TeamDetailPage() {
       try {
         const [tData, favs] = await Promise.all([
           api.getTeamDetail(id),
-          api.getFavorites('guest')
+          api.getFavorites(user?.id || 'guest')
         ])
         setTeam(tData)
         const matchFav = (favs || []).find(f => f.team?.id === id)
@@ -90,7 +94,7 @@ export default function TeamDetailPage() {
         await api.removeFavorite(favoriteId)
         setIsFavorited(false); setFavoriteId(null)
       } else {
-        const created = await api.addFavorite(team.id, 'Cheering for 2026 Worlds!', 'guest')
+        const created = await api.addFavorite(team.id, 'Cheering for 2026 Worlds!', user?.id || 'guest')
         setIsFavorited(true); setFavoriteId(created.id)
       }
     } catch (e) { alert(e.message) }
@@ -136,13 +140,19 @@ export default function TeamDetailPage() {
             <p className="text-xs text-slate-300 leading-relaxed max-w-2xl">{team.description}</p>
           </div>
           <button
-            onClick={toggleFavorite} disabled={favLoading}
+            onClick={user ? toggleFavorite : () => setShowAuthModal(true)}
+            disabled={favLoading}
             className={`px-4 py-2 rounded-xl text-xs font-bold flex items-center gap-1.5 transition shadow-md shrink-0 ${
               isFavorited ? 'bg-amber-400 text-slate-950 hover:bg-amber-300' : 'bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700'
             }`}
           >
-            {isFavorited ? <><BookmarkCheck className="w-4 h-4" /> Favorited</> : <><Bookmark className="w-4 h-4" /> Add to Favorites</>}
+            {user ? (
+              isFavorited ? <><BookmarkCheck className="w-4 h-4" /> Favorited</> : <><Bookmark className="w-4 h-4" /> Add to Favorites</>
+            ) : (
+              <><LogIn className="w-4 h-4" /> Sign In to Favorite</>
+            )}
           </button>
+          {showAuthModal && <AuthModal onClose={() => setShowAuthModal(false)} />}
         </div>
       </div>
 

@@ -4,12 +4,16 @@ import { Link } from 'react-router-dom'
 import { api } from '../services/api'
 import TeamLogo from '../components/TeamLogo'
 import PwaInstallModal from '../components/PwaInstallModal'
+import AuthModal from '../components/AuthModal'
+import { useAuth } from '../context/AuthContext'
 import { 
   Bookmark, Trash2, Edit3, ArrowRight, Check, X, 
-  Tv, Smartphone, ExternalLink, SlidersHorizontal, ArrowUpDown
+  Tv, Smartphone, ExternalLink, SlidersHorizontal, ArrowUpDown, LogIn, Shield
 } from 'lucide-react'
 
 export default function FavoritesPage() {
+  const { user } = useAuth()
+  const [showAuthModal, setShowAuthModal] = useState(false)
   const [favorites, setFavorites] = useState([])
   const [loading, setLoading] = useState(true)
   const [editingId, setEditingId] = useState(null)
@@ -56,7 +60,7 @@ export default function FavoritesPage() {
   async function loadFavorites() {
     setLoading(true)
     try {
-      const data = await api.getFavorites('guest')
+      const data = await api.getFavorites(user?.id || 'guest')
       setFavorites(data || [])
     } catch (e) {
       console.error('Error fetching favorites:', e)
@@ -108,6 +112,34 @@ export default function FavoritesPage() {
   const avgWinRate = totalTracked > 0
     ? Math.round(favorites.reduce((acc, curr) => acc + (curr.stats?.winRate || 0), 0) / totalTracked)
     : 0
+
+  // Guest wall — tampil kalau belum login
+  if (!user) {
+    return (
+      <div className="pb-28 pt-16 px-4 flex flex-col items-center justify-center text-center max-w-sm mx-auto">
+        <div className="w-16 h-16 rounded-2xl bg-amber-500/10 border border-amber-500/20 flex items-center justify-center mb-5">
+          <Shield className="w-8 h-8 text-amber-400" />
+        </div>
+        <h2 className="text-xl font-bold text-white mb-2">Your Watchlist Awaits</h2>
+        <p className="text-sm text-slate-400 mb-6 leading-relaxed">
+          Sign in to save your favorite teams and track their performance across the season. Your personal watchlist is just one sign-in away!
+        </p>
+        <button
+          onClick={() => setShowAuthModal(true)}
+          className="flex items-center gap-2 bg-amber-400 hover:bg-amber-300 text-slate-900 font-semibold px-6 py-3 rounded-xl text-sm transition-colors"
+        >
+          <LogIn className="w-4 h-4" />
+          Sign In / Register
+        </button>
+        <p className="text-xs text-slate-500 mt-4">
+          Guests can still browse all{' '}
+          <Link to="/matches" className="text-amber-400 hover:underline">matches</Link> and{' '}
+          <Link to="/teams" className="text-amber-400 hover:underline">teams</Link>.
+        </p>
+        {showAuthModal && <AuthModal onClose={() => setShowAuthModal(false)} />}
+      </div>
+    )
+  }
 
   return (
     <div className="pb-28 pt-4 px-4 sm:px-6 max-w-6xl mx-auto space-y-5">

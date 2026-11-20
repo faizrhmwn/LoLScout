@@ -1,6 +1,7 @@
 import React from 'react'
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom'
 import { ThemeProvider } from './context/ThemeContext'
+import { AuthProvider } from './context/AuthContext'
 import Navbar from './components/Navbar'
 import BottomNav from './components/BottomNav'
 import HomePage from './pages/HomePage'
@@ -13,6 +14,7 @@ import ProfilePage from './pages/ProfilePage'
 
 export default function App() {
   return (
+    <AuthProvider>
     <ThemeProvider>
       <BrowserRouter>
         <div className="min-h-screen bg-[#0b0f17] text-slate-100 flex flex-col font-sans selection:bg-amber-400 selection:text-slate-950 transition-colors duration-200">
@@ -33,5 +35,6 @@ export default function App() {
         </div>
       </BrowserRouter>
     </ThemeProvider>
+    </AuthProvider>
   )
 }

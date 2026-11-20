@@ -1,10 +1,14 @@
 import React, { useState, useEffect } from 'react'
-import { Download, Database, Server, Smartphone, User, Cpu, Sun, Moon, Palette } from 'lucide-react'
+import { Download, Database, Server, Smartphone, User, Cpu, Sun, Moon, Palette, LogIn, LogOut, Mail, KeyRound } from 'lucide-react'
 import PwaInstallModal from '../components/PwaInstallModal'
+import AuthModal from '../components/AuthModal'
 import { useTheme } from '../context/ThemeContext'
+import { useAuth } from '../context/AuthContext'
 
 export default function ProfilePage() {
   const { theme, setTheme } = useTheme()
+  const { user, logout } = useAuth()
+  const [showAuthModal, setShowAuthModal] = useState(false)
   const [deferredPrompt, setDeferredPrompt] = useState(null)
   const [isInstalled, setIsInstalled] = useState(false)
   const [showModal, setShowModal] = useState(false)
@@ -58,6 +62,43 @@ export default function ProfilePage() {
         <span className="text-xs font-medium px-3 py-1 rounded-full bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 w-fit">
           Verified
         </span>
+      </div>
+
+      {/* Account Card */}
+      <div className="p-5 rounded-2xl bg-[#111827] border border-[#1e293b] shadow-sm">
+        <p className="text-[11px] font-semibold tracking-wider text-slate-400 uppercase mb-3">Account</p>
+        {user ? (
+          <div className="flex items-center justify-between flex-wrap gap-3">
+            <div className="flex items-center gap-3">
+              <div className="w-11 h-11 rounded-xl bg-amber-500/10 border border-amber-500/20 flex items-center justify-center font-bold text-amber-400 text-sm shrink-0">
+                {user.email?.[0]?.toUpperCase() || 'U'}
+              </div>
+              <div>
+                <p className="text-sm font-semibold text-white">{user.email}</p>
+                <p className="text-xs text-slate-400 mt-0.5">Signed in · Personal Watchlist Active</p>
+              </div>
+            </div>
+            <button
+              onClick={logout}
+              className="flex items-center gap-1.5 text-xs font-medium text-red-400 hover:text-red-300 bg-red-500/10 hover:bg-red-500/20 border border-red-500/20 px-3 py-2 rounded-xl transition-colors"
+            >
+              <LogOut className="w-3.5 h-3.5" /> Sign Out
+            </button>
+          </div>
+        ) : (
+          <div className="flex items-center justify-between flex-wrap gap-3">
+            <div>
+              <p className="text-sm font-semibold text-white">Browsing as Guest</p>
+              <p className="text-xs text-slate-400 mt-0.5">Sign in to unlock your personal watchlist</p>
+            </div>
+            <button
+              onClick={() => setShowAuthModal(true)}
+              className="flex items-center gap-1.5 text-xs font-semibold text-slate-900 bg-amber-400 hover:bg-amber-300 px-4 py-2 rounded-xl transition-colors"
+            >
+              <LogIn className="w-3.5 h-3.5" /> Sign In
+            </button>
+          </div>
+        )}
       </div>
 
       {/* Developer Card */}
@@ -168,6 +209,7 @@ export default function ProfilePage() {
         onInstall={handleInstallClick}
         hasPrompt={Boolean(deferredPrompt)}
       />
+      {showAuthModal && <AuthModal onClose={() => setShowAuthModal(false)} />}
     </div>
   )
 }
