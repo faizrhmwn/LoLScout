@@ -70,7 +70,7 @@ export default function HomePage() {
                 <span className="text-[11px] text-slate-400">November 14, 2026</span>
               </div>
               <h2 className="text-base sm:text-lg font-bold text-white mt-1">
-                Congratulations to <span className="text-blue-400">Bilibili Gaming</span> on Winning Worlds 2026! 🏆
+                Congratulations to <Link to="/teams/12530003-9489-4d52-81dc-23bccbbfec75" className="text-blue-400 hover:text-blue-300 hover:underline transition-colors">Bilibili Gaming</Link> on Winning Worlds 2026! 🏆
               </h2>
               <p className="text-xs text-slate-400 mt-0.5 max-w-xl">
                 BLG have been crowned the League of Legends 2026 World Champions after defeating Gen.G 3-1 in the Grand Finals!
