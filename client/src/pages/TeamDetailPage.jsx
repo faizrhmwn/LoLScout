@@ -59,7 +59,7 @@ function PlayerAvatar({ ign, photoUrl }) {
 
 export default function TeamDetailPage() {
   const { id } = useParams()
-  const { user } = useAuth()
+  const { user, loading: authLoading } = useAuth()
   const [showAuthModal, setShowAuthModal] = useState(false)
   const [team, setTeam] = useState(null)
   const [loading, setLoading] = useState(true)
@@ -70,31 +70,48 @@ export default function TeamDetailPage() {
   useEffect(() => {
     async function loadData() {
       try {
-        const [tData, favs] = await Promise.all([
-          api.getTeamDetail(id),
-          api.getFavorites(user?.id || 'guest')
-        ])
+        const fetchPromises = [api.getTeamDetail(id)]
+        if (user?.id) {
+          fetchPromises.push(api.getFavorites(user.id))
+        }
+
+        const [tData, favs] = await Promise.all(fetchPromises)
         setTeam(tData)
-        const matchFav = (favs || []).find(f => f.team?.id === id)
-        if (matchFav) { setIsFavorited(true); setFavoriteId(matchFav.id) }
+
+        if (favs && Array.isArray(favs)) {
+          const matchFav = favs.find(f => f.team?.id === id)
+          if (matchFav) {
+            setIsFavorited(true)
+            setFavoriteId(matchFav.id)
+          } else {
+            setIsFavorited(false)
+            setFavoriteId(null)
+          }
+        } else {
+          setIsFavorited(false)
+          setFavoriteId(null)
+        }
       } catch (e) {
         console.error('Error loading team detail:', e)
       } finally {
         setLoading(false)
       }
     }
-    loadData()
-  }, [id])
+
+    if (!authLoading) {
+      loadData()
+    }
+  }, [id, user?.id, authLoading])
 
   async function toggleFavorite() {
-    if (favLoading) return
+    if (favLoading || !user) return
     setFavLoading(true)
     try {
       if (isFavorited && favoriteId) {
         await api.removeFavorite(favoriteId)
         setIsFavorited(false); setFavoriteId(null)
       } else {
-        const created = await api.addFavorite(team.id, 'Cheering for 2026 Worlds!', user?.id || 'guest')
+        const created = await api.addFavorite(team.id, 'Cheering for 2026 Worlds!', user.id)
         setIsFavorited(true); setFavoriteId(created.id)
       }
     } catch (e) { alert(e.message) }

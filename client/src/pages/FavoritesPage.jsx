@@ -12,7 +12,7 @@ import {
 } from 'lucide-react'
 
 export default function FavoritesPage() {
-  const { user } = useAuth()
+  const { user, loading: authLoading } = useAuth()
   const [showAuthModal, setShowAuthModal] = useState(false)
   const [favorites, setFavorites] = useState([])
   const [loading, setLoading] = useState(true)
@@ -57,10 +57,15 @@ export default function FavoritesPage() {
     }
   }
 
-  async function loadFavorites() {
+  async function loadFavorites(userId) {
+    if (!userId) {
+      setFavorites([])
+      setLoading(false)
+      return
+    }
     setLoading(true)
     try {
-      const data = await api.getFavorites(user?.id || 'guest')
+      const data = await api.getFavorites(userId)
       setFavorites(data || [])
     } catch (e) {
       console.error('Error fetching favorites:', e)
@@ -70,8 +75,14 @@ export default function FavoritesPage() {
   }
 
   useEffect(() => {
-    loadFavorites()
-  }, [])
+    if (authLoading) return
+    if (user?.id) {
+      loadFavorites(user.id)
+    } else {
+      setFavorites([])
+      setLoading(false)
+    }
+  }, [user?.id, authLoading])
 
   async function handleDelete(id) {
     if (!confirm('Remove team from favorites?')) return
@@ -112,6 +123,14 @@ export default function FavoritesPage() {
   const avgWinRate = totalTracked > 0
     ? Math.round(favorites.reduce((acc, curr) => acc + (curr.stats?.winRate || 0), 0) / totalTracked)
     : 0
+
+  if (authLoading) {
+    return (
+      <div className="min-h-[50vh] flex items-center justify-center">
+        <LoadingSpinner text="Loading your watchlist..." />
+      </div>
+    )
+  }
 
   // Guest wall — tampil kalau belum login
   if (!user) {
