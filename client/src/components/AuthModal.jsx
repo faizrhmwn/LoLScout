@@ -9,22 +9,18 @@ export default function AuthModal({ onClose }) {
   const [password, setPassword] = useState('')
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState('')
-  const [success, setSuccess] = useState('')
 
   const handleSubmit = async (e) => {
     e.preventDefault()
     setError('')
-    setSuccess('')
     setLoading(true)
     try {
       if (mode === 'login') {
         await login(email, password)
-        onClose()
       } else {
         await register(email, password)
-        setSuccess('Registration successful! Please check your email to confirm your account, then log in.')
-        setMode('login')
       }
+      onClose()
     } catch (err) {
       setError(err.message || 'Something went wrong')
     } finally {
@@ -33,7 +29,7 @@ export default function AuthModal({ onClose }) {
   }
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/70 backdrop-blur-sm">
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/75 backdrop-blur-sm animate-in fade-in duration-150">
       <div className="relative w-full max-w-sm bg-[#0d1117] border border-slate-700 rounded-2xl shadow-2xl p-6">
         {/* Close Button */}
         <button
@@ -53,20 +49,15 @@ export default function AuthModal({ onClose }) {
               {mode === 'login' ? 'Sign In' : 'Create Account'}
             </h2>
             <p className="text-xs text-slate-400">
-              {mode === 'login' ? 'Access your personal watchlist' : 'Start tracking your favorite teams'}
+              {mode === 'login' ? 'Access your personal watchlist' : 'Instant access to your personal watchlist'}
             </p>
           </div>
         </div>
 
-        {/* Error / Success */}
+        {/* Error */}
         {error && (
-          <div className="mb-4 p-3 rounded-lg bg-red-500/10 border border-red-500/20 text-red-400 text-sm">
+          <div className="mb-4 p-3 rounded-lg bg-red-500/10 border border-red-500/20 text-red-400 text-xs">
             {error}
-          </div>
-        )}
-        {success && (
-          <div className="mb-4 p-3 rounded-lg bg-green-500/10 border border-green-500/20 text-green-400 text-sm">
-            {success}
           </div>
         )}
 
@@ -106,7 +97,7 @@ export default function AuthModal({ onClose }) {
           <button
             type="submit"
             disabled={loading}
-            className="w-full flex items-center justify-center gap-2 bg-amber-500 hover:bg-amber-400 disabled:bg-amber-500/50 text-slate-900 font-semibold rounded-xl py-2.5 text-sm transition-colors"
+            className="w-full flex items-center justify-center gap-2 bg-amber-500 hover:bg-amber-400 disabled:bg-amber-500/50 text-slate-900 font-semibold rounded-xl py-2.5 text-sm transition-colors cursor-pointer"
           >
             {loading ? (
               <Loader2 className="w-4 h-4 animate-spin" />
@@ -122,13 +113,21 @@ export default function AuthModal({ onClose }) {
         <p className="text-center text-xs text-slate-500 mt-5">
           {mode === 'login' ? (
             <>Don't have an account?{' '}
-              <button onClick={() => { setMode('register'); setError(''); setSuccess('') }} className="text-amber-400 hover:text-amber-300 font-medium transition-colors">
+              <button
+                type="button"
+                onClick={() => { setMode('register'); setError('') }}
+                className="text-amber-400 hover:text-amber-300 font-medium transition-colors"
+              >
                 Register
               </button>
             </>
           ) : (
             <>Already have an account?{' '}
-              <button onClick={() => { setMode('login'); setError(''); setSuccess('') }} className="text-amber-400 hover:text-amber-300 font-medium transition-colors">
+              <button
+                type="button"
+                onClick={() => { setMode('login'); setError('') }}
+                className="text-amber-400 hover:text-amber-300 font-medium transition-colors"
+              >
                 Sign In
               </button>
             </>

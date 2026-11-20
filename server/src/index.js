@@ -4,6 +4,7 @@ import cors from 'cors'
 import teamRoutes from './routes/teamRoutes.js'
 import matchRoutes from './routes/matchRoutes.js'
 import favoriteRoutes from './routes/favoriteRoutes.js'
+import authRoutes from './routes/authRoutes.js'
 
 dotenv.config()
 
@@ -50,6 +51,7 @@ app.get('/api/proxy-image', async (req, res) => {
 app.use('/api/teams', teamRoutes)
 app.use('/api/matches', matchRoutes)
 app.use('/api/favorites', favoriteRoutes)
+app.use('/api/auth', authRoutes)
 
 const port = process.env.PORT || 5000
 

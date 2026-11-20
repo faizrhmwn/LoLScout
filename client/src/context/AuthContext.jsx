@@ -8,13 +8,11 @@ export function AuthProvider({ children }) {
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
-    // Get current session on mount
     supabase.auth.getSession().then(({ data: { session } }) => {
       setUser(session?.user ?? null)
       setLoading(false)
     })
 
-    // Listen for auth changes (login, logout, token refresh)
     const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
       setUser(session?.user ?? null)
     })
@@ -23,9 +21,18 @@ export function AuthProvider({ children }) {
   }, [])
 
   const register = async (email, password) => {
-    const { data, error } = await supabase.auth.signUp({ email, password })
-    if (error) throw error
-    return data
+    const apiBase = import.meta.env.VITE_API_URL || '/api'
+    const res = await fetch(`${apiBase}/auth/register`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ email, password })
+    })
+    const result = await res.json()
+    if (!res.ok) {
+      throw new Error(result.error || 'Registration failed')
+    }
+    // Auto login immediately after registration
+    return await login(email, password)
   }
 
   const login = async (email, password) => {
